@@ -1,0 +1,52 @@
+html {
+	cursor: url('../../assets/cursor_art/c.png'), default;
+}
+
+h1 {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+    font-size: 3em;
+}
+
+h3 {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+    font-size: 3em;
+}
+
+h2 {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+    font-size: 3em;
+}
+
+#choices {
+    position: fixed;
+    bottom: 1em;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    cursor: url('c.png'), default;
+}
+
+.buttonsRow {
+    height: 50%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+button {
+    height: 3em;
+    width: 100%;
+    margin: 1em;
+    font-size: 3em;
+    cursor: url('../../assets/cursor_art/cclick.png'), default;
+}
