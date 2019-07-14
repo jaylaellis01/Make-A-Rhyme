@@ -2,6 +2,8 @@ var consecutive_correct = 0;
 var sight_word = "mouse";
 var category = 1;
 
+let result = document.getElementById("result");
+
 var instructions_audio = new Audio('../../assets/quiz_audio/instructions/00_Three_Times_in_a_row.mp3');
 
 var sight_word_audio_url = '../../assets/word_assets/word_audio/' + sight_word + '.mp3'
@@ -26,8 +28,9 @@ function updateStars() {
 
 
 function shuffle_btns() {
-    
-    
+    sight_word_audio.pause();
+    setTimeout(function(){ sight_word_audio.play(); },2000);
+        
     category_words =  words[category].slice();
     category_words.sort(() => Math.random() - 0.5);
     
@@ -50,16 +53,18 @@ function myFunction(clicked_id) {
     if (clicked_word == sight_word) {
         correct_audio.play();
         consecutive_correct++;
-        document.getElementById("result").innerHTML = "Correct!";
+        result.innerHTML = "Correct!";
+        result.style.color = "green";
     } else {
         instructions_audio.play();
         consecutive_correct = 0;
-        document.getElementById("result").innerHTML = "Wrong!";
+        result.innerHTML = "Wrong!";
+        result.style.color = "red";
     }
     
 
     if (consecutive_correct >= 3) {
-        document.getElementById("result").innerHTML = "Quiz Complete!";
+        result.innerHTML = "Quiz Complete!";
         document.getElementById("choices").style.display = 'none';
     } else {
         shuffle_btns();
