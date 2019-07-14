@@ -1,12 +1,33 @@
 var consecutive_correct = 0;
-var sight_word = "Rat";
+var sight_word = "mouse";
 var category = 1;
 
-document.getElementById('cc').innerHTML = consecutive_correct;
+var instructions_audio = new Audio('../../assets/quiz_audio/instructions/00_Three_Times_in_a_row.mp3');
 
+var sight_word_audio_url = '../../assets/word_assets/word_audio/' + sight_word + '.mp3'
+var sight_word_audio = new Audio(sight_word_audio_url);
+
+var correct_audio = new Audio('../../assets/quiz_audio/praise_phrases/aa1_excellent_4b.mp3');
+                                
 shuffle_btns();
 
+function updateStars() {
+    let stars = document.getElementsByClassName('star');
+    var full_stars = 0;
+    
+    for (let star of stars) {
+        if (full_stars++ < consecutive_correct) {
+                star.src = "../../assets/star_full.png";
+            } else {
+                star.src = "../../assets/star_empty.png";
+            }
+    }
+}
+
+
 function shuffle_btns() {
+    
+    
     category_words =  words[category].slice();
     category_words.sort(() => Math.random() - 0.5);
     
@@ -27,21 +48,22 @@ function myFunction(clicked_id) {
     var clicked_word = document.getElementById(clicked_id).innerHTML;
     
     if (clicked_word == sight_word) {
+        correct_audio.play();
+        consecutive_correct++;
         document.getElementById("result").innerHTML = "Correct!";
-        document.getElementById('cc').innerHTML = ++consecutive_correct;
-        document.body.style.backgroundColor = "green";
     } else {
-        document.getElementById("result").innerHTML = "Wrong!";
+        instructions_audio.play();
         consecutive_correct = 0;
-        document.getElementById('cc').innerHTML = consecutive_correct;
-        document.body.style.backgroundColor = "red";
+        document.getElementById("result").innerHTML = "Wrong!";
     }
     
+
     if (consecutive_correct >= 3) {
         document.getElementById("result").innerHTML = "Quiz Complete!";
-        document.body.style.backgroundColor = "green";
         document.getElementById("choices").style.display = 'none';
     } else {
         shuffle_btns();
     }
+    updateStars();
+    
 }
