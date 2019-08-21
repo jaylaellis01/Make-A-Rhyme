@@ -1,0 +1,101 @@
+html {
+	cursor: url('../../assets/cursor_art/c.png'), default;
+}
+
+body {
+    font-family: "Comic Sans MS";
+    background-color: #33ACFF;
+}
+
+h1 {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+    font-size: 3em;
+}
+
+h3 {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+    font-size: 3em;
+}
+
+h2 {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+    font-size: 3em;
+}
+
+#result {
+    margin-top: 0;
+}
+
+#word_art {
+    display: block;
+    width: 20em;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 1em;
+    margin-top: 2em;
+}
+
+/* STARS */
+#stars {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+}
+
+.star {
+    display: inline-block;
+    width: 6em;
+    margin-right: 1em;
+}
+
+    .star:last-child {
+        display: inline-block;
+        width: 6em;
+        margin-right: 0;
+    }
+
+/* CHOICES */
+#choices {
+    position: fixed;
+    bottom: 1em;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    left: 10%;
+}
+
+.buttonsRow {
+    height: 50%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+button {
+    height: 2.5em;
+    width: 100%;
+    margin: 0.25em;
+    border-radius: 0.5em;
+    border-color: black;
+    font-size: 3em;
+    border-width: 0.1em;
+    font-family: "Comic Sans MS";
+    cursor: url('../../assets/cursor_art/cclick.png'), default;
+}
+
+    button:hover {
+      transform: scale(1.1) perspective(1px)
+    }

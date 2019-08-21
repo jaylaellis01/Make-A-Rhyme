@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="quiz.css">
+    </head>
+    <body>
+        <div id="stars">
+            <img class="star" src="../../assets/star_empty.png">
+            <img class="star" src="../../assets/star_empty.png">
+            <img class="star" src="../../assets/star_empty.png">
+        </div>
+        
+        <img id="word_art" src="../../assets/word_assets/word_art/5/mouse.png">
+        
+        <section id='choices'>
+            <div class="buttonsRow">
+                <button id='btn1' class="button-wrapper" onclick="myFunction(this.id)"></button>
+                <button id='btn2' class="button-wrapper" onclick="myFunction(this.id)"></button>
+            </div>
+            <div class="buttonsRow">
+                <button id='btn3' class="button-wrapper" onclick="myFunction(this.id)"></button>
+                <button id='btn4' class="button-wrapper" onclick="myFunction(this.id)"></button>
+            </div>
+        </section>
+
+        <h2 id="result"></h2>
+        
+        <script src="../global/words.js"></script>
+        <script src="quiz.js"></script>
+    </body>
+</html>
