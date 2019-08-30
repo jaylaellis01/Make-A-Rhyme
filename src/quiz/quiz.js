@@ -47,24 +47,24 @@ function shuffle_btns() {
         document.getElementById(button_id).innerHTML = word;
     });
 }
-
-function myFunction(clicked_id) {
-    var clicked_word = document.getElementById(clicked_id).innerHTML;
-    clearTimeout(timedAudio);
+function pauseAudio() {
     sight_word_audio.pause()
     sight_word_audio.currentTime = 0;
     instructions_audio.pause()
     instructions_audio.currentTime = 0;
     correct_audio.pause()
     correct_audio.currentTime = 0
+}
+function myFunction(clicked_id) {
+    var clicked_word = document.getElementById(clicked_id).innerHTML;
+    clearTimeout(timedAudio);
+    pauseAudio();
 
     if (clicked_word == sight_word) {
         // Randomly selects a praise from audio.js
         random_praise = praises[Math.floor(Math.random() * 42)]
         correct_audio = new Audio('../../assets/quiz_audio/praise_phrases/' + random_praise + ".mp3")
-        console.log(consecutive_correct);
         consecutive_correct++;
-        console.log(consecutive_correct);
         result.innerHTML = "Correct!";
         result.style.color = "green";
         correct_audio.play();
