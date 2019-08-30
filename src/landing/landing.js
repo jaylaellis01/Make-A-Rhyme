@@ -1,4 +1,4 @@
-function myFunction(imgs) {
+function expandImg(imgs) {
     // Get the expanded image
     var expandImg = document.getElementById("expandedImg");
     // Get the image text
