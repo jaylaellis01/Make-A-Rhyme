@@ -1,13 +1,15 @@
 var consecutive_correct = 0;
-var sight_word = "mouse";
-var categoryTemp = 1;
+var sight_word = "ostrich";
+var categoryTemp = 7;
 var timedAudio;
 
 let result = document.getElementById("result");
 
 var instructions_audio = new Audio('../../assets/quiz_audio/instructions/00_Three_Times_in_a_row.mp3');
+var sightWordImg = '../../assets/word_assets/word_art/' + categoryTemp + '/' + sight_word + '.png';
+document.getElementById('word_art').src = sightWordImg;
 
-var sight_word_audio_url = '../../assets/word_assets/word_audio/' + sight_word + '.mp3'
+var sight_word_audio_url = '../../assets/word_assets/word_audio/' + sight_word + '.mp3';
 var sight_word_audio = new Audio(sight_word_audio_url);
 
 var correct_audio = new Audio('../../assets/quiz_audio/praise_phrases/aa1_excellent_4b.mp3');
@@ -25,10 +27,6 @@ function updateStars() {
                 star.src = "../../assets/star_empty.png";
             }
     }
-}
-
-function randomCategory() {
-    category = Math.floor(Math.random * 19);
 }
 
 function shuffle_btns() {
