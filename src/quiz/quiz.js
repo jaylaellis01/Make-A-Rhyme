@@ -72,7 +72,6 @@ function myFunction(clicked_id) {
         //instructions_audio.play()
         result.innerHTML = "Wrong!";
         result.style.color = "red";
-        console.log(consecutive_correct);
         if (consecutive_correct != 0) {
             instructions_audio.play();
             timedAudio = setTimeout(function(){ sight_word_audio.play(); }, 2200);
