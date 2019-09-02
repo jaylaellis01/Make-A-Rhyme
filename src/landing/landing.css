@@ -1,7 +1,5 @@
 /* The grid: Four equal columns that floats next to each other */
-html {
-	cursor: url('../../assets/cursor_art/c.png'), default;
-}
+
 .column {
     float: left;
     width: 25%;
@@ -17,7 +15,6 @@ html {
   
   .column img:hover {
     opacity: 1;
-    cursor: url('../../assets/cursor_art/c.png'), default;
   }
   
   /* Clear floats after the columns */

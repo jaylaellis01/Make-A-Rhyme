@@ -1,0 +1,8 @@
+html {
+	cursor: url('../../assets/cursor_art/c.png'), default;
+}
+
+.clickable:hover {
+    transform: scale(1.1) perspective(1px);
+    cursor: url('../../assets/cursor_art/cclick.png'), default;
+}
