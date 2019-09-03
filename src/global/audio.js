@@ -1,6 +1,6 @@
 const praises = [42];
 praises [0] = "aa4_you_did_really_well_14b";
-praises [1] = "a1a_awesome_g";
+praises [1] = "aa1a_awesome_g";
 praises [2] = "aa2_good_job_22g";
 praises [3] = "aa3_magnificent_23g";
 praises [4] = "aa4_you_did_really_well_14b";

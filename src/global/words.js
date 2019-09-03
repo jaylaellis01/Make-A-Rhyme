@@ -20,9 +20,10 @@ const words = {
 
 var wordObjs = createWordObjs();
 
-function wordObj(aWord) {
+function wordObj(aWord, aCategory) {
 	this.learned = false;
 	this.word = aWord;
+    this.category = aCategory;
 }
 
 function createWordObjs() {
@@ -38,7 +39,7 @@ function createWordObjs() {
         // makes a word object for each word in current category
         category = i.toString();
         for (j = 0; j < (words[category]).length; j++) {
-        	wordTemp = new wordObj((words[category])[j]);
+        	wordTemp = new wordObj((words[category])[j], parseInt(category));
         	wordObjsTemp[category].push(wordTemp);
             count++;
         }

@@ -45,6 +45,11 @@ function shuffle_btns() {
         document.getElementById(button_id).innerHTML = word;
     });
 }
+
+window.onload = function() {
+    document.getElementById("my_audio").play();
+}
+
 function pauseAudio() {
     sight_word_audio.pause()
     sight_word_audio.currentTime = 0;
