@@ -1,5 +1,5 @@
 var consecutive_correct = 0;
-var sight_word = "ostrich";
+var sight_word = "swan";
 var categoryTemp = 7;
 var timedAudio;
 

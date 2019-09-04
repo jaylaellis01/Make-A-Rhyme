@@ -31,8 +31,7 @@ function createWordObjs() {
     var category;
     var wordTemp;
     var wordObjsTemp = {1: new Array, 2: new Array, 3: new Array, 4: new Array, 5: new Array, 6: new Array,
-    				7: new Array, 8: new Array, 9: new Array, 10: new Array, 11: new Array,
-    				 12: new Array}
+    				7: new Array, 8: new Array, 9: new Array, 10: new Array, 11: new Array, 12: new Array}
 
     // goes through the # of word categories
     for (i = 1; i <= 12; i++) {
@@ -44,7 +43,8 @@ function createWordObjs() {
             count++;
         }
     }
-    console.log(count);
-    console.log(wordObjsTemp['7']['4'].word);
+
+    // format is wordObsTemp[category][index in array].attribute
+    // console.log(wordObjsTemp['7']['4'].learned);
     return wordObjs;
 }
