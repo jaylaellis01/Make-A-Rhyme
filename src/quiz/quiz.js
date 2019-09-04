@@ -46,10 +46,6 @@ function shuffle_btns() {
     });
 }
 
-window.onload = function() {
-    document.getElementById("my_audio").play();
-}
-
 function pauseAudio() {
     sight_word_audio.pause()
     sight_word_audio.currentTime = 0;
