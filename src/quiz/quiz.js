@@ -15,6 +15,8 @@ var sight_word_audio = new Audio(sight_word_audio_url);
 var correct_audio = new Audio('../../assets/quiz_audio/praise_phrases/aa1_excellent_4b.mp3');
 
 shuffle_btns();
+firstAudio();
+
 
 function updateStars() {
     let stars = document.getElementsByClassName('star');
@@ -27,6 +29,10 @@ function updateStars() {
                 star.src = "../../assets/star_empty.png";
             }
     }
+}
+
+function firstAudio() {
+    setTimeout(function(){ sight_word_audio.play(); }, 650);
 }
 
 function shuffle_btns() {
