@@ -3,25 +3,32 @@
     <head>
         <link rel="stylesheet" href="landing.css">
         <link rel="stylesheet" href="../global/cursor.css">
+        <script type="text/javascript" src="landing.js"></script>
     </head>
-    <body>
-        <img class="clickable" src="../../assets/backarrow.png" alt="back" width='50' height='50' onclick="location.href = 'landing.html">
+    <div>
+        <img style = "margin-left: 4vw; margin-right: 25vw; width: 10vw; height: 10vw;" class="clickable" src="../../assets/backarrow.png" alt="back" width='100vw' height='100vw' onclick="location.href = '../login/login.html';">
         <h1>Poems</h1>
+    </div>
+    <body>
         <div class="row">
-            <div class="column">
-                <img class="clickable" src="../../assets/poem_art/no_placeholders/Background-Fantabulous_Zoo_no_placeholders.png" alt="Zoo" onclick="location.href = '../poem/zoo-poem.html';">
+            <div class="column" onmouseover="playClip('parade_audio');" onmouseout="stopClip('parade_audio');">
+                <img class="clickable" src="../../assets/poem_art/no_placeholders/Background-Strange_Parade_no_placeholders.png" alt="Zoo" onclick="location.href = '../poem/parade-poem.html';">
             </div>
-            <div class="column">
+            <div class="column" onmouseover="playClip('park_audio');" onmouseout="stopClip('park_audio');">
                 <img class="clickable" src="../../assets/poem_art/no_placeholders/Background-Muddy_Park_no_placeholders.png" alt="MuddyPark" onclick="location.href = '../poem/park-poem.html';">
             </div>
-            <div class="column">
+            <div class="column" onmouseover="playClip('pet_party_audio');" onmouseout="stopClip('pet_party_audio');">
                 <img class="clickable" src="../../assets/poem_art/no_placeholders/Background-Pet_Party_Picnic_no_placeholders.png" alt="Picnic" onclick="location.href = '../poem/picnic-poem.html';">
             </div>
+        </div>
+        <div class="row">
             <div class="column">
                 <img class="clickable" src="../../assets/bank-clipart-word-bank-3.jpg" alt="Word Bank" onclick="expandImg(this);">
-            </div>
-
+            </div>  
         </div>
+        
+        
+      
         <!-- The expanding image container -->
             <div class="container">
                 <!-- Close the image -->
@@ -32,5 +39,15 @@
                 <div id="imgtext"></div>
             </div>
         <script src="landing.js"></script>
+        <audio id="pet_party_audio">
+            <source src="../../assets/audio/pet_party.wav">
+        </audio>
+        <audio id="parade_audio">
+            <source src="../../assets/audio/strange_parade.wav">
+        </audio>
+        <audio id="park_audio">
+            <source src="../../assets/audio/muddy_park.wav">
+        </audio>
+        <div id="sounddiv"><bgsound id="sound"></div>
     </body>
 </html>
