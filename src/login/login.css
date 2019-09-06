@@ -10,7 +10,9 @@ html, body{
 h1 {
     font-family: "Comic Sans MS", "Comic Sans", cursive;
     font-size: 80px;
-    color: black;
+    color: #3384bb;
+    -webkit-text-stroke-width: .15vw;
+    -webkit-text-stroke-color: white;
 }
 
 form {
