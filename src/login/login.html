@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html>
     <head>
-            <link rel="stylesheet" href="login.css">
-            <link rel="stylesheet" href="../global/cursor.css">
+        <link rel="stylesheet" href="login.css">
+        <link rel="stylesheet" href="../global/cursor.css">
+        <script type="text/javascript" src="login.js"></script>
     </head>
 
-    <body >
-
+    <body>
         <h1 align = "center"> Make A Rhyme </h1>
-
-        <a href = "../landing/landing.html"> <img class="clickable" src = "play.png" atl = "rainbow" align = "right"/> </a>
-            
+        <div align = "center">
+            <a href = "../landing/landing.html" onmouseover="playClip('play_audio');" onmouseout="stopClip('play_audio');"> 
+                <img class="clickable" src = "../../assets/play.png" atl = "rainbow"/> 
+            </a>
+        </div>
+        <audio id="play_audio">
+            <source src="../../assets/audio/play.wav">
+        </audio>
     </body>
 </html>
 

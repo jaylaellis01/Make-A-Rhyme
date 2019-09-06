@@ -11,6 +11,7 @@ h1 {
     font-family: "Comic Sans MS", "Comic Sans", cursive;
     font-size: 80px;
     color: #3384bb;
+    margin-bottom: 0px;
     -webkit-text-stroke-width: .15vw;
     -webkit-text-stroke-color: white;
 }
