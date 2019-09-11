@@ -32,12 +32,14 @@ function updateStars() {
 }
 
 function firstAudio() {
-    setTimeout(function(){ sight_word_audio.play(); }, 650);
+    setTimeout(function(){ sight_word_audio.play(); }, 850);
 }
 
 function shuffle_btns() {
     category_words =  words[categoryTemp].slice();
     category_words.sort(() => Math.random() - 0.5);
+    indexOfSightWord = category_words.indexOf(sight_word);
+    category_words.splice(indexOfSightWord, 1);
     
     // Take 3 words from the category add the sight word and shufle
     category_words = category_words.slice(0,3);
@@ -60,7 +62,8 @@ function pauseAudio() {
     correct_audio.pause()
     correct_audio.currentTime = 0
 }
-function myFunction(clicked_id) {
+
+function checkAnswer(clicked_id) {
     var clicked_word = document.getElementById(clicked_id).innerHTML;
     clearTimeout(timedAudio);
     pauseAudio();
