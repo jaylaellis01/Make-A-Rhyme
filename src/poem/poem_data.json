@@ -1,0 +1,16 @@
+{
+    "poems": {
+        "parade": {
+            "name": "Strange Parade",
+            "image": "../../assets/poem_art/no_placeholders/Background-Strange_Parade_no_placeholders.png"
+        },
+        "picnic": {
+            "name": "Pet Party Picnic",
+            "image": "../../assets/poem_art/no_placeholders/Background-Pet_Party_Picnic_no_placeholders.png"
+        },
+        "park": {
+            "name": "Muddy Park",
+            "image": "../../assets/poem_art/no_placeholders/Background-Muddy_Park_no_placeholders.png"
+        }
+    }
+}
