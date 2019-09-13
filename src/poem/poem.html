@@ -10,7 +10,9 @@
     <body>
         <script id="poem_template" type="x-tmpl-mustache">
             <h1>{{name}}</h1>
-            <img src={{image}}>
+            <div id="canvas">
+                <img src={{image}}>
+            </div>
         </script>
         <script>
             $.getJSON("poem_data.json", function(data) {
