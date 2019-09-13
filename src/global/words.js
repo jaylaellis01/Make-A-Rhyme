@@ -12,3 +12,24 @@ const words = {
     11:[],
     12:[]
 };
+const categories = {
+    1: "People",
+    2: "Friends",
+    3: "Pretend",
+    4: "Body Parts",
+    5: "Animals",
+    6: "Water Animals",
+    7: "Birds",
+    8: "Things",
+    9: "House Stuff",
+    10: "Toys",
+    11: "Tools",
+    12: "Clothes",
+    13: "Vehicles",
+    14: "Food",
+    15: "Places",
+    16: "Outdoors",
+    17: "Doing",
+    18: "Describe",
+    19: "Colors"
+}
