@@ -4,8 +4,9 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: white;
+    background-color: #79ADDC;
     overflow-x: hidden;
+    border: solid .3vw white;
   }
 .sidenav img {
     width: 10vw;
