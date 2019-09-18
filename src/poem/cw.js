@@ -1,6 +1,6 @@
 window.onload = function makeList() {
     // Establish the array which acts as a data source for the list
-    let listData = words[5],
+    let listData = wordObjs[5],
     // Make a container element for the list
     listContainer = document.createElement('div'),
     
@@ -19,8 +19,6 @@ window.onload = function makeList() {
     
     listContainer.className = "wordList";
     
-    listContainer.addEventListener('mouseout',onMouseOut,true);
-    
     
 //    console.log(listData);
     // Add it to the page
@@ -30,25 +28,43 @@ window.onload = function makeList() {
 
     for (i = 0; i < numberOfListItems; ++i) {
         // create an item for each one
+        listItemLink = document.createElement('a');
         listItem = document.createElement('li');
+        listItem.addEventListener('click', function(){
+        console.log("Child clicked");
+      });
         listItem.className = "WordItem clickable";
         
         const clip_name = '../../assets/word_assets/word_audio/' + listData[i] + '.mp3'
+        
+        
         listItem.onmouseover = function(){playClip(clip_name);};
         listItem.onmouseout = function(){stopClip(clip_name);};
         
         
         imageItem = document.createElement('img');
-
-        // Add the item text
-        imageItem.src = '../../assets/word_assets/word_art/5/' + listData[i] + '.png';
-        listItem.innerHTML = '<h2>' + listData[i] + '</h2>';
-        listItem.appendChild(imageItem);
         
 
+
+        // Add the item text
+        imageItem.src = '../../assets/word_assets/word_art/5/' + listData[i].word + '.png';
+        listItem.innerHTML = '<h2>' + listData[i].word + '</h2>';
+            imageItem.onclick = function(){console.log("0");}
+        
+        listItem.appendChild(imageItem);
+        
+        
+        
         // Add listItem to the listElement
-        listElement.innerHTML += listItem.outerHTML;
-        listElement2.innerHTML += listItem.outerHTML;
+        if (listData[i].learned) {
+            
+            listElement.innerHTML += listItem.outerHTML;
+        } else {
+            
+            listItemLink.href = "../quiz/quiz.html";
+            listItemLink.innerHTML += listItem.outerHTML;
+            listElement2.innerHTML += listItemLink.outerHTML;
+        }
     }
     document.getElementsByTagName('body')[0].appendChild(listContainer);
 //    listContainer.appendChild(listElement);
@@ -96,15 +112,4 @@ function stopClip(clip_name) {
   audio.currentTime = 0;
     playing = false;
     console.log("playing=" + playing);
-}
-
-
-function onMouseOut(event) {
-        //this is the original element the event handler was assigned to
-        var e = event.toElement || event.relatedTarget;
-        if (e.parentNode == this || e == this) {
-           return;
-        }
-    //alert('MouseOut');
-    // handle mouse event here!
 }

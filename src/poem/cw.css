@@ -24,6 +24,7 @@ ul {
     margin-right: auto;
     margin: 5%;
     min-width: 5.1em;
+    vertical-align:top;
     
 }
 
@@ -46,5 +47,5 @@ h2 {
 }
 
 .listElement2 {
-
+    filter: grayscale(100%);
 }
