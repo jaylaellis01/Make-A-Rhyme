@@ -10,14 +10,23 @@ window.onload = function makeList() {
     numberOfListItems = listData.length,
     listItem,
     i;
+
+    // Establish the array which acts as a data source for the list
+    let listElement2 = document.createElement('ul');
+    
+    listElement2.className = "listElement2 listcol";
+    listElement.className = "listElement listcol";
     
     listContainer.className = "wordList";
+    
+    listContainer.addEventListener('mouseout',onMouseOut,true);
     
     
 //    console.log(listData);
     // Add it to the page
-    document.getElementsByTagName('body')[0].appendChild(listContainer);
-    listContainer.appendChild(listElement);
+
+    
+//    listElement.appendChild(listItem);
 
     for (i = 0; i < numberOfListItems; ++i) {
         // create an item for each one
@@ -33,18 +42,24 @@ window.onload = function makeList() {
 
         // Add the item text
         imageItem.src = '../../assets/word_assets/word_art/5/' + listData[i] + '.png';
-        listItem.innerHTML = '';
         listItem.innerHTML = '<h2>' + listData[i] + '</h2>';
         listItem.appendChild(imageItem);
         
 
         // Add listItem to the listElement
-        listElement.appendChild(listItem);
+        listElement.innerHTML += listItem.outerHTML;
+        listElement2.innerHTML += listItem.outerHTML;
     }
+    document.getElementsByTagName('body')[0].appendChild(listContainer);
+//    listContainer.appendChild(listElement);
+//    listContainer.appendChild(listElement2);
+    
+    listContainer.innerHTML += listElement.outerHTML + listElement2.outerHTML;
 }
 
 
 function playClip(clip_name) {
+    if (playing) {return;}
   if (navigator.appName == "Microsoft Internet Explorer" && (navigator.appVersion.indexOf("MSIE 7")!=-1) || (navigator.appVersion.indexOf("MSIE 8")!=-1)) {
     if (document.all) {
       document.all.sound.src = "click.mp3";
@@ -53,8 +68,8 @@ function playClip(clip_name) {
   else {
     {
     var audio = document.getElementById("word_audio");
-        
-        console.log(!audio.paused);
+    
+    
         
     if (audio == null ) {
         return;
@@ -63,11 +78,13 @@ function playClip(clip_name) {
     audio.src = clip_name;
     const playPromise = audio.play();
     if (playPromise !== null){
-      playPromise.catch(() => { audio.play(); })
+      playPromise.catch(() => { console.log("Caugth"); })
       console.log("User needs to click on page first");
     }
     }
   }
+    playing = true;
+    console.log("playing=" + playing);
 }
 
 function stopClip(clip_name) {
@@ -77,4 +94,17 @@ function stopClip(clip_name) {
     }
   audio.pause();
   audio.currentTime = 0;
+    playing = false;
+    console.log("playing=" + playing);
+}
+
+
+function onMouseOut(event) {
+        //this is the original element the event handler was assigned to
+        var e = event.toElement || event.relatedTarget;
+        if (e.parentNode == this || e == this) {
+           return;
+        }
+    //alert('MouseOut');
+    // handle mouse event here!
 }

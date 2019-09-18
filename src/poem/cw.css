@@ -12,10 +12,19 @@
     border: 0.25em solid;
     border-radius: 1em;
     border-color: burlywood;
+    margin-bottom: 1em;
 }
 
 ul {
     list-style: none;
+    width: 40%;
+    display: inline-block;
+    padding-inline-start: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 5%;
+    min-width: 5.1em;
+    
 }
 
 li {
@@ -24,10 +33,18 @@ li {
     border: 0.25em solid;
     border-radius: 1em;
     border-color: burlywood;
-    width: 30%;
     margin-bottom: 0.5em;
 }
 
 h2 {
     margin-bottom: 0;
+}
+
+
+.listElement {
+
+}
+
+.listElement2 {
+
 }
