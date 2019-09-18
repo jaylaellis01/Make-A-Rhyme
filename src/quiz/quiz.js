@@ -1,17 +1,22 @@
 var consecutive_correct = 0;
-var sight_word = "mouse";
-var category = 1;
+var sight_word = "swan";
+var categoryTemp = 7;
+var timedAudio;
 
 let result = document.getElementById("result");
 
 var instructions_audio = new Audio('../../assets/quiz_audio/instructions/00_Three_Times_in_a_row.mp3');
+var sightWordImg = '../../assets/word_assets/word_art/' + categoryTemp + '/' + sight_word + '.png';
+document.getElementById('word_art').src = sightWordImg;
 
-var sight_word_audio_url = '../../assets/word_assets/word_audio/' + sight_word + '.mp3'
+var sight_word_audio_url = '../../assets/word_assets/word_audio/' + sight_word + '.mp3';
 var sight_word_audio = new Audio(sight_word_audio_url);
 
 var correct_audio = new Audio('../../assets/quiz_audio/praise_phrases/aa1_excellent_4b.mp3');
-                                
+
 shuffle_btns();
+firstAudio();
+
 
 function updateStars() {
     let stars = document.getElementsByClassName('star');
@@ -26,13 +31,15 @@ function updateStars() {
     }
 }
 
+function firstAudio() {
+    setTimeout(function(){ sight_word_audio.play(); }, 850);
+}
 
 function shuffle_btns() {
-    sight_word_audio.pause();
-    setTimeout(function(){ sight_word_audio.play(); },2000);
-        
-    category_words =  words[category].slice();
+    category_words =  words[categoryTemp].slice();
     category_words.sort(() => Math.random() - 0.5);
+    indexOfSightWord = category_words.indexOf(sight_word);
+    category_words.splice(indexOfSightWord, 1);
     
     // Take 3 words from the category add the sight word and shufle
     category_words = category_words.slice(0,3);
@@ -47,23 +54,46 @@ function shuffle_btns() {
     });
 }
 
-function myFunction(clicked_id) {
+function pauseAudio() {
+    sight_word_audio.pause()
+    sight_word_audio.currentTime = 0;
+    instructions_audio.pause()
+    instructions_audio.currentTime = 0;
+    correct_audio.pause()
+    correct_audio.currentTime = 0
+}
+
+function checkAnswer(clicked_id) {
     var clicked_word = document.getElementById(clicked_id).innerHTML;
-    
+    clearTimeout(timedAudio);
+    pauseAudio();
+
     if (clicked_word == sight_word) {
-        correct_audio.play();
+        // Randomly selects a praise from audio.js
+        random_praise = praises[Math.floor(Math.random() * 42)]
+        correct_audio = new Audio('../../assets/quiz_audio/praise_phrases/' + random_praise + ".mp3")
         consecutive_correct++;
         result.innerHTML = "Correct!";
         result.style.color = "green";
+        correct_audio.play();
     } else {
-        instructions_audio.play();
-        consecutive_correct = 0;
+        //instructions_audio.play()
         result.innerHTML = "Wrong!";
         result.style.color = "red";
+        if (consecutive_correct != 0) {
+            instructions_audio.play();
+            timedAudio = setTimeout(function(){ sight_word_audio.play(); }, 2200);
+        } else {
+            sight_word_audio.play();
+        }
+        consecutive_correct = 0;
+        //sight_word_audio.play()
     }
     
 
     if (consecutive_correct >= 3) {
+        instructions_audio.pause()
+        sight_word_audio.pause()
         result.innerHTML = "Quiz Complete!";
         document.getElementById("choices").style.display = 'none';
     } else {

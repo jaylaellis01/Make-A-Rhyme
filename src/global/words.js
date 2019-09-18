@@ -1,7 +1,8 @@
+// Only words with art are included in the array below.
 const words = {
-    1:["baby", "boy", "brother" , "child", "clown", "cook", "dancer", "family", "father", "girl",  "grandma", "grandpa", "juggler", "king", "man", "mother", "nurse", "queen", "sister", "twin"],
+    1:["baby", "boy", "brother" , "child", "clown", "cook", "dancer", "family", "father", "girl", "grandma", "grandpa", "juggler", "king", "man", "mother", "nurse", "queen", "sister", "twin"],
     2:[],
-    // there appears to be no art for any of the names (all of Category 2)
+    // ipmlementation of art for category 2 is in progress
     // 2:["Ali", "Han", "Duc", "Ron", "Pau", "Kim", "Eli", "Wen", "John", "Khalid", "Luis", "Sunil", "Sam", "Han", "Dev", "Don", "Ted", "Paz", "Jim", "Lin", "Will", "Alex", "Adam", "Joe", "Luz", "Nia",
     // 	"Peg", "Uma", "Rose", "Lily", "Ann", "Pat", "Deb", "Beth", "Zoe", "Eva", "Mia", "Rio", "Joy", "Mary", "Iris", "Joan", "Jan", "Kate"],
     3:["centaur", "cyclops", "dragon", "elf", "fairy", "mermaid", "yeti"],
@@ -45,7 +46,7 @@ function wordObj(aWord, aCategory, aGender) {
 	this.word = aWord;
     this.category = aCategory;
     this.gender = aGender;
-
+}
     /* NOTES FOR FUTURE IMPLEMENTATION:
     1. Mapping child names to child pictures. 
         -- Can be implemented by separating male and female pictures and adding a "gender"
@@ -55,8 +56,6 @@ function wordObj(aWord, aCategory, aGender) {
 
 
     */
-
-}
 
 function createWordObjs() {
     var count = 0;
