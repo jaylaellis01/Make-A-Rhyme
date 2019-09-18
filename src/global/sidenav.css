@@ -1,0 +1,16 @@
+.sidenav {
+    height: 100vw;
+    width: 10vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
+    overflow-x: hidden;
+  }
+.sidenav img {
+    width: 10vw;
+    height: 10vw;
+    align-content: center;
+    display: flex;
+    justify-content: space-evenly;
+}
