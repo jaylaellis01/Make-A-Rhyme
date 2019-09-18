@@ -1,9 +1,7 @@
     /* The grid: Four equal columns that floats next to each other */
     .column {
-      float: left;
       width: 28%;
-      padding: 10px;
-      margin-left: auto ;
+      padding: 13px;
       margin-right:auto ;
     }
     .row{
@@ -53,8 +51,8 @@
       cursor: pointer;
     }
 
-  h1{
-    display: inline;
+  header{
+    text-align: center;
     font-family: "Comic Sans MS", cursive, sans-serif;
     font-size: 8vw;
     color: #3384BB;
@@ -64,5 +62,6 @@
   }
   body{
     background-color: #FED49E;
+    margin-left: 10vw;
   }
 
