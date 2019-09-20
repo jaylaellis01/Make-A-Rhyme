@@ -7,19 +7,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
         <script src="poem.js"></script>
     </head>
-    <body>
+    <body onload="init();">
         <script id="poem_template" type="x-tmpl-mustache">
             <h1>{{name}}</h1>
-            <div id="canvas">
-                <img src={{image}}>
-            </div>
-        </script>
-        <script>
-            $.getJSON("poem_data.json", function(data) {
-                var template = $("#poem_template").html();
-                var text = Mustache.render(template, data["poems"][getCookie("currentPoem")]);
-                $("#target").html(text);
-            });
+            <canvas id="canvas" width={{img_w}} height={{img_h}}>
+                Your browser does not support the HTML Canvas element
+                <img id="background" src={{image}}>
+            </canvas>
         </script>
         <img class="clickable" src="../../assets/backarrow.png" alt="back" width='50' height='50' onclick="location.href = '../landing/landing.html'">
         <div id="target"></div>
