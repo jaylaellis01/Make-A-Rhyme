@@ -38,7 +38,7 @@ h1{
 ul {
     list-style: none;
 }
-
+/* 
 li {
     text-align: center;
     background-color: antiquewhite;
@@ -47,7 +47,8 @@ li {
     border-color: burlywood;
     width: 10px;
     margin-bottom: 0.5em;
-}
+} */
 button {
-    background-color: aliceblue;
+    background-color: #7DAF9C;
+    border-radius: 25px;
 }

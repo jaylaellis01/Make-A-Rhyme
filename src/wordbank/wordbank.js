@@ -3,6 +3,8 @@ window.onload = function makeList() {
     let listData = words[1],
     // Make a container element for the list
     listContainer = document.createElement('div'),
+
+    // masteredList = document.getElementById("MasteredList");
     
     // Make the list
     listElement = document.createElement('ul'),
@@ -17,6 +19,8 @@ window.onload = function makeList() {
 //    console.log(listData);
     // Add it to the page
     document.getElementsByTagName('body')[0].appendChild(listContainer);
+    // listContainer.appendChild(listElement);
+
     listContainer.appendChild(listElement);
 
     for (i = 0; i < numberOfListItems; ++i) {
