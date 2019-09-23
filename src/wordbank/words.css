@@ -26,7 +26,7 @@ h1{
 
 .wordList {
     /* background-color: chocolate; */
-    width: 50%;
+    width: 100%;
     float: left;
     height: 100vh;
     overflow: scroll;

@@ -19,12 +19,13 @@ const words = {
     11:["axe", "drill", "hatchet", "hoe", "nail", "rake", "saw", "tools"],
     12:["boots", "clothes", "dress", "glove", "hoodie", "jacket", "purse", "ring", "scarf", "shirt", "suit", "tie", "veil", "wig"],
     13:["ambulance", "boat", "bug", "bus", "car", "cars", "dozer", "go-kart", "jeep", "moped", "plane", "taxi", "truck", "van"],
-    14:[],
-    15:[],
-    16:[],
-    17:[],
-    18:[],
-    19:[]
+    14:["apple", "bread", "burger", "cake", "candy", "carrot", "cone", "cookies", "corn", "grapes", "hotdog", "lettuce", "milk", "nuts", "pie", "plum", "pretzel", "snack", "tea"],
+    15:["bridge", "hill", "house", "park", "school", "volcano", "zoo"],
+    16:["air", "fern", "flag", "grass", "ice", "leaf", "moon", "rain", "rainbow", "sky", "snow", "star", "statue", "straw", "tree", "wall", "wind"],
+    17:["balance", "blew", "burn", "chew", "chop", "chop", "clean", "cry", "cut", "dig", "draw", "drive", "fall", "fall", "fish", "flew", "float", "fly", "glue", "hit", "hug", "juggle", "jump", "lick",
+        "look", "love", "paint", "play", "read", "rescue", "scold", "see", "sing", "ski", "skip", "sleep", "slip", "smell", "smile", "spill", "stand", "stop", "swim", "throw", "twinkle", "wash", "whisper", "yawn"],
+    18:["afraid", "cloudy", "dark", "eight", "five", "high", "hot", "loud", "naughty", "old", "quiet", "rude", "silly", "six", "sixteen", "sleepy", "slow", "smart", "stripes", "twelve"],
+    19:["black", "blue", "brown", "gold", "green", "purple", "red", "silver", "white", "yellow"]
 };
 const categories = {
     1: "People",
@@ -51,7 +52,7 @@ const categories = {
 var wordObjs = createWordObjs();
 
 function wordObj(aWord, aCategory, aGender) {
-	this.learned = true;
+	this.learned = false;
 	this.word = aWord;
     this.category = aCategory;
     this.gender = aGender;
