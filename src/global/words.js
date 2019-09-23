@@ -39,6 +39,8 @@ const categories = {
     19: "Colors"
 }
 
+var quizWord;
+
 var wordObjs = createWordObjs();
 
 function wordObj(aWord, aCategory, aGender) {

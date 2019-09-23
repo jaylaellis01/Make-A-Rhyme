@@ -1,6 +1,7 @@
+console.log(quizWord);
 var consecutive_correct = 0;
-var sight_word = "swan";
-var categoryTemp = 7;
+var sight_word = quizWord.word;
+var categoryTemp = quizWord.category;
 var timedAudio;
 
 let result = document.getElementById("result");

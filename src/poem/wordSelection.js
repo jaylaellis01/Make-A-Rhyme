@@ -30,6 +30,7 @@ window.onload = function makeList() {
         listItem.className = "WordItem clickable";
         
         // Get the name of the word
+        let wordObject = listData[i];
         const wordName = listData[i].word;
         
         // Set up word audio on mouse over
@@ -38,7 +39,7 @@ window.onload = function makeList() {
         listItem.onmouseout = function(){stopClip(clip_name);};
         
         // Log word name when list item is clicked
-        listItem.onclick = function(){console.log("Clicked="+wordName);};
+        listItem.onclick = function(){console.log(wordName);};
 
         // Add the word name to the list item
         listItem.innerHTML = '<h2>' + wordName + '</h2>';
@@ -59,7 +60,10 @@ window.onload = function makeList() {
         } else {
             // Unmastered words
             // Set onclock to go to quiz page
-            listItem.onclick = function(){window.location.href = '../quiz/quiz.html';};
+            listItem.onclick = function() {
+                quizWord = wordObject;
+                window.location.href = '../quiz/quiz.html';
+            };
             unmasteredWordsListElement.append(listItem);
         }
     }
