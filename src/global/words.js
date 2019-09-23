@@ -9,13 +9,22 @@ const words = {
     4:["ankle", "arm", "chin", "elbow", "face", "feet", "foot", "hair", "hand", "head", "lip", "mouth", "nose", "thigh", "thumb", "toe"],
     5:["Ape", "ant", "bat", "bear", "bee", "bug", "camel", "cat", "centipede", "collie", "cow", "cub", "dog", "dogs", "donkey", "elk", "fly", "fox", "goat", "kitten", "mole", "monkey", "moth", "mouse",
     	"paw", "pet", "pig", "rabbit", "ram", "sheep", "skunk", "snail", "tail", "tiger", "toad", "wasp", "whale", "wolf", "worms", "zebra"],
-    6:[],
+    6:["beaver", "clam", "crab", "fish", "frog", "gator", "oyster", "seal", "shark"],
     7:["bird", "canary", "hen", "jay", "ostrich", "owl", "parrot", "swan"],
-    8:[],
-    9:[],
-    10:[],
-    11:[],
-    12:[]
+    8:["bags", "bed", "blanket", "box", "brick", "broom", "bubble", "cast", "clarinet", "clock", "coin", "cushion", "fashion", "flute", "fork",
+        "fridge", "fright", "fringe", "glass",],
+    9:["key", "light", "mirror", "money", "music", "net", "oven", "pan", "pearl", "pencil", "plug", "poison", "pot", "prize", "quiz", "saucepan",
+        "skis", "soap", "sofa", "spoon", "squares", "string", "toilet", "tuba", "wheel", "zipper"],
+    10:["ball", "block", "boat", "car", "crayon", "doll", "jeep", "jet", "present", "puppet", "slide", "stilts", "swing", "toys", "truck", "unicycle", "wagon", "yoyo"],
+    11:["axe", "drill", "hatchet", "hoe", "nail", "rake", "saw", "tools"],
+    12:["boots", "clothes", "dress", "glove", "hoodie", "jacket", "purse", "ring", "scarf", "shirt", "suit", "tie", "veil", "wig"],
+    13:["ambulance", "boat", "bug", "bus", "car", "cars", "dozer", "go-kart", "jeep", "moped", "plane", "taxi", "truck", "van"],
+    14:[],
+    15:[],
+    16:[],
+    17:[],
+    18:[],
+    19:[]
 };
 const categories = {
     1: "People",
@@ -42,7 +51,7 @@ const categories = {
 var wordObjs = createWordObjs();
 
 function wordObj(aWord, aCategory, aGender) {
-	this.learned = false;
+	this.learned = true;
 	this.word = aWord;
     this.category = aCategory;
     this.gender = aGender;
@@ -78,5 +87,5 @@ function createWordObjs() {
 
     // format is wordObsTemp[category][index in array].attribute
     // console.log(wordObjsTemp['7']['4'].learned);
-    return wordObjs;
+    return wordObjsTemp;
 }
