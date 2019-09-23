@@ -1,7 +1,8 @@
-console.log(quizWord);
+// Get the quiz word from cookies
+var word = read_cookie('quizWord');
 var consecutive_correct = 0;
-var sight_word = quizWord.word;
-var categoryTemp = quizWord.category;
+var sight_word = word.word;
+var categoryTemp = word.category;
 var timedAudio;
 
 let result = document.getElementById("result");
@@ -97,9 +98,19 @@ function checkAnswer(clicked_id) {
         sight_word_audio.pause()
         result.innerHTML = "Quiz Complete!";
         document.getElementById("choices").style.display = 'none';
+        //code before the pause
+        setTimeout(function(){
+            window.history.back();
+        }, 2000);
     } else {
         shuffle_btns();
     }
     updateStars();
     
+}
+
+function read_cookie(name) {
+    var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
+    result && (result = JSON.parse(result[1]));
+    return result;
 }

@@ -62,6 +62,10 @@ window.onload = function makeList() {
             // Set onclock to go to quiz page
             listItem.onclick = function() {
                 quizWord = wordObject;
+                 // Store quizWord in the cookies
+                bake_cookie('quizWord', quizWord);
+                
+                // Go to quiz
                 window.location.href = '../quiz/quiz.html';
             };
             unmasteredWordsListElement.append(listItem);
@@ -92,4 +96,10 @@ function stopClip(clip_name) {
     var audio = document.getElementById("word_audio");
     audio.pause();
     audio.currentTime = 0;
+}
+
+// Saves cookie
+function bake_cookie(name, value) {
+    var cookie = [name, '=', JSON.stringify(value), '; path=/;'].join('');
+    document.cookie = cookie;
 }
