@@ -1,9 +1,4 @@
-.WordItem img {
-    width: 5em;
-    height: auto;
-}
-
-.wordList {
+.wordLists {
     background-color: chocolate;
     width: 30%;
     float: right;
@@ -15,7 +10,7 @@
     margin-bottom: 1em;
 }
 
-ul {
+.wordsListElement {
     list-style: none;
     width: 40%;
     display: inline-block;
@@ -28,7 +23,15 @@ ul {
     
 }
 
-li {
+.masteredWordsListElement {
+
+}
+
+.unmasteredWordsListElement {
+    filter: grayscale(100%);
+}
+
+.WordItem {
     text-align: center;
     background-color: antiquewhite;
     border: 0.25em solid;
@@ -37,15 +40,11 @@ li {
     margin-bottom: 0.5em;
 }
 
-h2 {
-    margin-bottom: 0;
-}
+    .WordItem h2 {
+        margin-bottom: 0;
+    }
 
-
-.listElement {
-
-}
-
-.listElement2 {
-    filter: grayscale(100%);
-}
+    .WordItem img {
+        width: 5em;
+        height: auto;
+    }
