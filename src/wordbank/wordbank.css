@@ -28,11 +28,11 @@
     content: "";
     clear: both;
     display: table;
-  }
+}
 button{
     width: 25%;
     height: 14%;
-    text-align: start;
+    text-align: center;
     margin: 2%;
     border-radius: 25px;
     font-family: "Comic Sans MS", cursive, sans-serif;
@@ -42,7 +42,11 @@ button{
 body{
     background-color: #FED49E;
 }
-img{
+button img{
     width: 10vw;
     height: 10vw;
+    vertical-align: middle;
+}
+h1{
+    font-size: 2vw;
 }
