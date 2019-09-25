@@ -3,20 +3,26 @@
     <head>
         <link rel="stylesheet" href="poem.css">
         <link rel="stylesheet" href="../global/cursor.css">
+        <link rel="stylesheet" href="../global/sidenav.css">
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
-        <script src="poem.js"></script>
+        <script type="text/javascript" src="../global/words.js"></script>
+        <script type="text/javascript" src="poem.js"></script>
     </head>
     <body onload="init();">
-        <script id="poem_template" type="x-tmpl-mustache">
-            <h1>{{name}}</h1>
-            <canvas id="canvas" width={{img_w}} height={{img_h}}>
-                Your browser does not support the HTML Canvas element
-                <img id="background" src={{image}}>
-            </canvas>
-        </script>
         <img class="clickable" src="../../assets/backarrow.png" alt="back" width='50' height='50' onclick="location.href = '../landing/landing.html'">
+        <div id="container">
+            <script id="poem_template" type="x-tmpl-mustache">
+                <h1>{{name}}</h1>
+                <canvas id="canvas" width={{img_w}} height={{img_h}}>
+                    Your browser does not support the HTML Canvas element
+                    <img id="background" src={{image}}>
+                </canvas>
+            </script>
         <div id="target"></div>
+        </div>
+        <audio id="word_audio">
+        </audio>
     </body>
 </html>
 

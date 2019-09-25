@@ -3,25 +3,26 @@ function getCookie(cname) {
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
     for(var i = 0; i <ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == ' ') {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
         c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
+        }
+        if (c.indexOf(name) == 0) {
         return c.substring(name.length, c.length);
-      }
+        }
     }
     return "";
-  }
+}
 
-  $.getJSON("poem_data.json", function(data) {
+//Inserts JSON data into template
+$.getJSON("poem_data.json", function(data) {
     var template = $("#poem_template").html();
     var text = Mustache.render(template, data["poems"][getCookie("currentPoem")]);
     $("#target").html(text);
-  });
+});
 
 
-  function WordBox(x, y, w, h, fill, categories) {
+function WordBox(x, y, w, h, fill, categories) {
     // This is a very simple and unsafe constructor. 
     // All we're doing is checking if the values exist.
     // "x || 0" just means "if there is a value for x, use that. Otherwise use 0."
@@ -33,22 +34,30 @@ function getCookie(cname) {
     this.completed = false;
     this.word = null;
     this.categories = categories || [];
-  }
+    this.imageSrc = null;
+}
 
   // Draws the WordBox. Refactor later to include drawing the picture
-  WordBox.prototype.draw = function(ctx, fill) {
-    ctx.fillStyle = fill;
-    ctx.strokeStyle = '#000000';
-    ctx.fillRect(this.x + (this.w * 0.1), this.y, this.w*0.8, this.h);
-    ctx.fillRect(this.x, this.y + (this.h * 0.3), this.w, this.h*0.7);
-    ctx.strokeRect(this.x + (this.w * 0.1), this.y, this.w*0.8, this.h);
-    ctx.strokeRect(this.x, this.y + (this.h * 0.3), this.w, this.h*0.7);
+WordBox.prototype.draw = function(ctx, fill) {
+    if (!this.completed) {
+        ctx.fillStyle = fill;
+        ctx.strokeStyle = '#000000';
+        ctx.fillRect(this.x + (this.w * 0.1), this.y, this.w*0.8, this.h);
+        ctx.fillRect(this.x, this.y + (this.h * 0.3), this.w, this.h*0.7);
+        ctx.strokeRect(this.x + (this.w * 0.1), this.y, this.w*0.8, this.h);
+        ctx.strokeRect(this.x, this.y + (this.h * 0.3), this.w, this.h*0.7);
+    }
   }
 
   // Sees if the point (mx, my) is inside the box's area
   WordBox.prototype.contains = function(mx, my) {
     return  (this.x <= mx) && (this.x + this.w >= mx) &&
             (this.y <= my) && (this.y + this.h >= my);
+  }
+  WordBox.prototype.addWord = function(wordName) {
+    this.word = wordName;
+    this.completed = true;
+    this.imageSrc = '../../assets/word_assets/word_art/5/' + wordName + '.png';
   }
 
 function CanvasState(canvas) {
@@ -105,6 +114,8 @@ function CanvasState(canvas) {
 
 
         */
+       console.log("making list");
+        makeList(words[i].categories);
         return;
       }
     }
@@ -166,6 +177,12 @@ CanvasState.prototype.getMouse = function(e) {
   return {x: mx, y: my};
 }
 
+CanvasState.prototype.fillWord = function(wordName) {
+    if (this.selection != null) {
+        this.selection.addPicture(wordName);
+    }
+}
+
 // Function that actually draws the stuff on the canvas
 CanvasState.prototype.draw = function() {
   // if our state is invalid, redraw and validate!
@@ -186,26 +203,93 @@ CanvasState.prototype.draw = function() {
         words[i].draw(ctx, words[i].fill);
       }
     }
-    
-    
     // ** Add stuff you want drawn on top all the time here **
-    
     this.valid = true;
   }
 }
 
+function makeList(categories) {
+    // Establish the array which acts as a data source for the list
+    let listData = wordObjs[5];
+    // Make a container element for the lists and set HTML class tag
+    let listContainer = document.createElement('div');
+    listContainer.className = "wordLists";
+    
+    // Create HTML list elements for mastered and unmastered words and set HTML class tag
+    // Mastered words
+    let masteredWordsListElement = document.createElement('ul');
+    masteredWordsListElement.className = "masteredWordsListElement wordsListElement";
+    // Unmastered words
+    let unmasteredWordsListElement = document.createElement('ul');
+    unmasteredWordsListElement.className = "unmasteredWordsListElement wordsListElement";
+
+    // Add lists to the list container
+    listContainer.append(masteredWordsListElement)
+    listContainer.append(unmasteredWordsListElement)
+    
+    // Set up a loop that goes through the items in listItems one at a time
+    let numberOfListItems = i;
+    // Create a list item for each word and place in apropriate list
+    for (i = 0; i < listData.length; i++) {
+        // Create the HTML list item and set HTML class tag
+        let listItem = document.createElement('li');
+        listItem.className = "WordItem clickable";
+        
+        // Get the name of the word
+        const wordName = listData[i].word;
+        
+        // Set up word audio on mouse over
+        const clip_name = '../../assets/word_assets/word_audio/' + wordName + '.mp3';    
+        listItem.onmouseover = function(){playClip(clip_name);};
+        listItem.onmouseout = function(){stopClip(clip_name);};
+        
+        // Log word name when list item is clicked
+        listItem.onclick = function(){console.log("Clicked="+wordName);};
+
+        // Add the word name to the list item
+        listItem.innerHTML = '<h2>' + wordName + '</h2>';
+        // Add the word image to the list item
+        imageItem = document.createElement('img');
+        imageItem.src = '../../assets/word_assets/word_art/5/' + wordName + '.png';
+        listItem.appendChild(imageItem);
+        
+        
+        // Onclick function for all list items
+        listItem.onclick = function(){console.log(wordName);};
+        
+        
+        // Add listItem to the listElement
+        if (listData[i].learned) {
+            // Mastered words
+            // listItem.onclick = fillWord(wordName);
+            masteredWordsListElement.append(listItem);
+        } else {
+            // Unmastered words
+            // Set onclock to go to quiz page
+            listItem.onclick = function(){window.location.href = '../quiz/quiz.html';};
+            unmasteredWordsListElement.append(listItem);
+        }
+    }
+    
+    // Add the lists div to the body of page
+    document.getElementById('container').appendChild(listContainer);
+}
+
+
+
+
 function init() {
-  var s = new CanvasState(document.getElementById('canvas'));
-  var canvas = document.getElementById('canvas')
-  var width = canvas.width;
-  var height = canvas.height;
-  $.getJSON("poem_data.json", function(data) {
+    var s = new CanvasState(document.getElementById('canvas'));
+    var canvas = document.getElementById('canvas')
+    var width = canvas.width;
+    var height = canvas.height;
+    $.getJSON("poem_data.json", function(data) {
     var wordsArr = data["poems"][getCookie("currentPoem")]["words"];
     var fillColor = 'rgba(232, 232, 232, 0.5)'
     for (i = 0; i < wordsArr.length; i++) {
-      var word = wordsArr[i];
-      s.addWord(new WordBox(word["x"]*width, word["y"]*height, 100, 100, fillColor, word["categories"]))
+        var word = wordsArr[i];
+        s.addWord(new WordBox(word["x"]*width, word["y"]*height, 100, 100, fillColor, word["categories"]))
     } 
-  });
+    });
 }
 

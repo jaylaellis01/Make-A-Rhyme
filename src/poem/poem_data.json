@@ -2,11 +2,47 @@
     "poems": {
         "parade": {
             "name": "Strange Parade",
-            "image": "../../assets/poem_art/no_placeholders/Background-Strange_Parade_no_placeholders.png"
+            "image": "../../assets/poem_art/no_placeholders/Background-Strange_Parade_no_placeholders.png",
+            "img_w": "930px",
+            "img_h": "653px"
         },
         "picnic": {
             "name": "Pet Party Picnic",
-            "image": "../../assets/poem_art/no_placeholders/Background-Pet_Party_Picnic_no_placeholders.png"
+            "image": "../../assets/poem_art/no_placeholders/Background-Pet_Party_Picnic_no_placeholders.png",
+            "img_w": "930px",
+            "img_h": "653px",
+            "words": [
+                {
+                    "x": 0.077142857,
+                    "y": 0.25210084,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.302857143,
+                    "y": 0.016806723,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.502857143,
+                    "y": 0.075630252,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.608571429,
+                    "y": 0.31092437,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.457142857,
+                    "y": 0.470588235,
+                    "categories": [1, 2, 3]
+                },
+                {
+                    "x": 0.137142857,
+                    "y": 0.453781513,
+                    "categories": [1, 2, 3]
+                }
+            ]
         },
         "park": {
             "name": "Muddy Park",
