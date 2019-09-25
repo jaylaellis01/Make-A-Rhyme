@@ -1,16 +1,23 @@
+#container {
+    display: block;
+    height: 100vh;
+}
+
+#target {
+    display: inline-block;
+}
+
 .wordLists {
+    display: inline-block;
     background-color: chocolate;
-    position: absolute;
     width: 30%;
     float: right;
-    height: 100vh;
+    height: 100%;
     overflow: scroll;
     border: 0.25em solid;
     border-radius: 1em;
     border-color: burlywood;
     margin-bottom: 1em;
-    top: 5%;
-    left:75%;
 }
 
 .wordsListElement {
@@ -23,7 +30,7 @@
     margin: 5%;
     min-width: 5.1em;
     vertical-align:top;
-
+    
 }
 
 .masteredWordsListElement {
@@ -51,32 +58,3 @@
         width: 5em;
         height: auto;
     }
-#container {
-    position: relative;
-}
-
-ul {
-    list-style: none;
-    width: 40%;
-    display: inline-block;
-    padding-inline-start: 0;
-    margin-left: auto;
-    margin-right: auto;
-    margin: 5%;
-    min-width: 5.1em;
-    vertical-align:top;
-
-}
-
-li {
-    text-align: center;
-    background-color: antiquewhite;
-    border: 0.25em solid;
-    border-radius: 1em;
-    border-color: burlywood;
-    margin-bottom: 0.5em;
-}
-
-h2 {
-    margin-bottom: 0;
-}
