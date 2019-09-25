@@ -1,8 +1,15 @@
 #container {
     display: block;
     height: 100vh;
+    padding-left:10vh;
 }
-
+.sidenav {
+    width: 5vw;
+}
+.sidenav img {
+    width: 5vw;
+    height: 5vw;
+}
 #target {
     display: inline-block;
 }
@@ -13,6 +20,7 @@
     width: 30%;
     float: right;
     height: 100%;
+    position: absolute;
     overflow: scroll;
     border: 0.25em solid;
     border-radius: 1em;

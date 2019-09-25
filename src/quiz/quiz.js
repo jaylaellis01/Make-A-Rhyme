@@ -102,17 +102,22 @@ function checkAnswer(clicked_id) {
         console.log(wordObjs[categoryTemp].find(function(word){ return word.word == sight_word;}));
         //code before the pause
         setTimeout(function(){
+            bake_cookie("reload", true);
             window.history.back();
         }, 2000);
     } else {
         shuffle_btns();
     }
     updateStars();
-    
 }
 
 function read_cookie(name) {
     var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
     result && (result = JSON.parse(result[1]));
     return result;
+}
+
+function bake_cookie(name, value) {
+    var cookie = [name, '=', JSON.stringify(value), '; path=/;'].join('');
+    document.cookie = cookie;
 }

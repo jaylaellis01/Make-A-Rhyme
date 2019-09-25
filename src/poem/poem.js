@@ -22,7 +22,7 @@ $.getJSON("poem_data.json", function(data) {
 });
 
 
-function WordBox(x, y, w, h, fill, categories) {
+function WordBox(x, y, w, h, fill, categories, word, completed, imgSrc) {
     // This is a very simple and unsafe constructor. 
     // All we're doing is checking if the values exist.
     // "x || 0" just means "if there is a value for x, use that. Otherwise use 0."
@@ -31,10 +31,10 @@ function WordBox(x, y, w, h, fill, categories) {
     this.w = w || 1;
     this.h = h || 1;
     this.fill = fill || 'rgba(232, 232, 232, 0.5)';
-    this.completed = false;
-    this.word = null;
+    this.completed = completed || false;
+    this.word = word || null;
     this.categories = categories || [];
-    this.imageSrc = null;
+    this.imageSrc = imgSrc || null;
 }
 
   // Draws the WordBox. Refactor later to include drawing the picture
@@ -48,6 +48,14 @@ WordBox.prototype.draw = function(ctx, fill) {
         ctx.strokeRect(this.x, this.y + (this.h * 0.3), this.w, this.h*0.7);
     } else {
         console.log("showing image");
+        if (!document.getElementById(this.word)) {
+            let wordImage = document.createElement('img');
+            wordImage.src = this.imageSrc;
+            wordImage.id = this.word;
+            document.getElementById('images').appendChild(wordImage);
+            console.log("image created");
+            console.log(document.getElementById(this.word));
+        } 
         const image = document.getElementById(this.word);
         ctx.drawImage(image, this.x, this.y, this.w, this.h);
     }
@@ -58,7 +66,7 @@ WordBox.prototype.draw = function(ctx, fill) {
     return  (this.x <= mx) && (this.x + this.w >= mx) &&
             (this.y <= my) && (this.y + this.h >= my);
   }
-  WordBox.prototype.addWord = function(wordName) {
+  WordBox.prototype.fillWord = function(wordName) {
     this.word = wordName;
     this.completed = true;
     this.imageSrc = '../../assets/word_assets/word_art/5/' + wordName + '.png';
@@ -130,16 +138,18 @@ function CanvasState(canvas) {
     var mx = mouse.x;
     var my = mouse.y;
     var words = myState.words;
-    for (var i = 0; i < words.length; i++) {
-      if (words[i].contains(mx, my)) {
-        var mySel = words[i];
-        myState.selection = mySel;
-        myState.valid = false;
-        return;
-      }
-    }
-    if (myState.selection != null && !myState.clicked && !myState.selection.contains(mx, my)) {
-        myState.selection = null;
+    if (!myState.clicked) {
+        for (var i = 0; i < words.length; i++) {
+            if (words[i].contains(mx, my)) {
+                var mySel = words[i];
+                myState.selection = mySel;
+                myState.valid = false;
+                return;
+            }
+        }
+        if (myState.selection != null && !myState.selection.contains(mx, my)) {
+            myState.selection = null;
+        }
     }
   }, true);
   
@@ -182,13 +192,27 @@ CanvasState.prototype.getMouse = function(e) {
   return {x: mx, y: my};
 }
 
-CanvasState.prototype.fillWord = function(wordName) {
-    console.log("hello?");
+CanvasState.prototype.fillWord = function(wordName, redraw) {
     if (this.selection != null) {
         console.log("Adding pic for", wordName);
-        this.selection.addWord(wordName);
+        this.selection.fillWord(wordName);
         this.selection = null;
         this.clicked = false;
+        this.valid = !redraw;
+    }
+}
+
+CanvasState.prototype.saveState = function() {
+    localStorage.setItem("canvasWords", JSON.stringify(this.words));
+}
+
+CanvasState.prototype.loadState = function() {
+    var load = JSON.parse(localStorage.getItem("canvasWords"));
+    if (load != null) {
+        for (var i = 0; i < load.length; i++) {
+            var w = load[i];
+            this.addWord(new WordBox(w.x, w.y, w.w, w.h, w.fill, w.categories, w.word, w.completed, w.imageSrc));
+        }
         this.valid = false;
     }
 }
@@ -205,8 +229,7 @@ CanvasState.prototype.draw = function() {
     ctx.drawImage(img, 0, 0);
 
     // draw all words
-    var l = words.length
-    for (var i = 0; i < l; i++) {
+    for (var i = 0; i < words.length; i++) {
       if (this.selection != null && this.selection == words[i]) {
         words[i].draw(ctx, this.selectionColor);
       } else {
@@ -277,18 +300,19 @@ function makeList(categories, canvasState) {
         if (listData[i].learned) {
             // Mastered words
             listItem.onclick = function() {
-                console.log("I wanna start", wordName);
-                canvasState.fillWord(wordName);
+                canvasState.fillWord(wordName, true);
             }
             masteredWordsListElement.append(listItem);
         } else {
             // Unmastered words
             // Set onclock to go to quiz page
             listItem.onclick = function() {
+                canvasState.fillWord(wordName, false);
                 quizWord = wordObject;
                  // Store quizWord in the cookies
                 bake_cookie('quizWord', quizWord);                
                 // Go to quiz
+                canvasState.saveState();
                 window.location.href = '../quiz/quiz.html';
             };
             unmasteredWordsListElement.append(listItem);
@@ -301,6 +325,11 @@ function makeList(categories, canvasState) {
 function bake_cookie(name, value) {
     var cookie = [name, '=', JSON.stringify(value), '; path=/;'].join('');
     document.cookie = cookie;
+}
+function read_cookie(name) {
+    var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
+    result && (result = JSON.parse(result[1]));
+    return result;
 }
 
 function playClip(clip_name) {
@@ -327,16 +356,23 @@ function stopClip(clip_name) {
 
 function init() {
     var s = new CanvasState(document.getElementById('canvas'));
-    var canvas = document.getElementById('canvas')
+    var canvas = document.getElementById('canvas');
     var width = canvas.width;
     var height = canvas.height;
-    $.getJSON("poem_data.json", function(data) {
-    var wordsArr = data["poems"][getCookie("currentPoem")]["words"];
-    var fillColor = 'rgba(232, 232, 232, 0.5)'
-    for (i = 0; i < wordsArr.length; i++) {
-        var word = wordsArr[i];
-        s.addWord(new WordBox(word["x"]*width, word["y"]*height, 100, 100, fillColor, word["categories"]))
-    } 
-    });
+    // if we are coming back from the quiz, reload state of words
+    if (read_cookie('reload')) {
+        s.loadState();
+        s.draw();
+        bake_cookie('reload', false);
+    } else { // else, get word info from JSON
+        $.getJSON("poem_data.json", function(data) {
+            var wordsArr = data["poems"][getCookie("currentPoem")]["words"];
+            var fillColor = 'rgba(232, 232, 232, 0.5)'
+            for (i = 0; i < wordsArr.length; i++) {
+                var word = wordsArr[i];
+                s.addWord(new WordBox(word["x"]*width, word["y"]*height, 100, 100, fillColor, word["categories"]))
+            } 
+        });
+    }
 }
 

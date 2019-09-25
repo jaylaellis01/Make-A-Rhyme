@@ -4,7 +4,99 @@
             "name": "Strange Parade",
             "image": "../../assets/poem_art/no_placeholders/Background-Strange_Parade_no_placeholders.png",
             "img_w": "930px",
-            "img_h": "653px"
+            "img_h": "653px",
+            "words": [
+                {
+                    "x": 0.166666667,
+                    "y": 0.12745098,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.095,
+                    "y": 0.357843137,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.226666667,
+                    "y": 0.355392157,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.285,
+                    "y": 0.06127451,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.43,
+                    "y": 0.093137255,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.213333333,
+                    "y": 0.674019608,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.283333333,
+                    "y": 0.632352941,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.426666667,
+                    "y": 0.632352941,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.658333333,
+                    "y": 0.595588235,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.685,
+                    "y": 0.357843137,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.543333333,
+                    "y": 0.357843137,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.81,
+                    "y": 0.355392157,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.808333333,
+                    "y": 0.789215686,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.668333333,
+                    "y": 0.218137255,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.668333333,
+                    "y": 0.105392157,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.788333333,
+                    "y": 0.125,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.786666667,
+                    "y": 0.017156863,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.343333333,
+                    "y": 0.125,
+                    "categories": "unknown"
+                }
+            ]
         },
         "picnic": {
             "name": "Pet Party Picnic",
