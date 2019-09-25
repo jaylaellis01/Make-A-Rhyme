@@ -52,5 +52,3 @@ window.onload = function makeList() {
         }
     }
 }
-
-
