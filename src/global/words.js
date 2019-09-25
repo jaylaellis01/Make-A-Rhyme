@@ -48,7 +48,7 @@ function wordObj(aWord, aCategory, aGender) {
     this.gender = aGender;
 }
     /* NOTES FOR FUTURE IMPLEMENTATION:
-    1. Mapping child names to child pictures. 
+    1. Mapping child names to child pictures.
         -- Can be implemented by separating male and female pictures and adding a "gender"
         attribute to the word object (NEED: to make an issue for this)
         -- need a gray-scale function to show the associated picture in gray-scale if word is unlearned
@@ -70,14 +70,14 @@ function createWordObjs() {
         // makes a word object for each word in current category
         category = i.toString();
         for (j = 0; j < (words[category]).length; j++) {
-        	wordTemp = new wordObj((words[category])[j], 
+        	wordTemp = new wordObj((words[category])[j],
             parseInt(category), "neuter");
             if (j%5 == 0) {
                 wordTemp.learned = true;
             }
         	wordObjsTemp[category].push(wordTemp);
             count++;
-            
+
         }
     }
 
