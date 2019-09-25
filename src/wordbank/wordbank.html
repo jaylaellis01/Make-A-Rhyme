@@ -2,39 +2,36 @@
 <html>
     <head>
         <link rel="stylesheet" href="wordbank.css">
+        <link rel="stylesheet" href="../global/sidenav.css">
         <link rel="stylesheet" href="../global/cursor.css">
-        <!-- <script type="javascript" src="wordbank.js"></script> -->
     </head>
-    <body>
         <div class ="sidenav">
             <img class="clickable" src="../../assets/backarrow.png" alt="back" width='100vw' height='100vw' onclick="location.href = '../landing/landing.html';">
             <img class="clickable" src="../../assets/homeButton.png" alt="back" width='100vw' height='100vw' onclick="location.href = '../login/login.html';">
         </div>
+
         <div class="tab">
-            <button onclick="location.href = '../wordbank/words.html';" id = "1" class="tablinks">
-                <img src = "../../assets/category_assets/people.png">
-            </button>
-            <button id = "2" class="tablinks">Friends</button>
-            <button id = "3" class="tablinks">Pretend</button>
-            <button id = "4" class="tablinks">Body Parts</button>
-            <button id = "5" class="tablinks">Animals</button>
-            <button id = "6" class="tablinks">Water Animals</button>
-            <button id = "7" class="tablinks">Birds</button>
-            <button id = "8" class="tablinks">Things</button>
-            <button id = "9" class="tablinks">House Stuff</button>
-            <button id = "10" class="tablinks">Toys</button>
-            <button id = "11" class="tablinks">Tools</button>
-            <button id = "12" class="tablinks">Clothes</button>
-            <button id = "13" class="tablinks"></button>
-                <img src="../../assets/category_assets/vehicles.png">
-            <button id = "14" class="tablinks">Food</button>
-            <button id = "15" class="tablinks">Places</button>
-            <button id = "16" class="tablinks">Outdoors</button>
-            <button id = "17" class="tablinks">Doing</button>
-            <button id = "18" class="tablinks">Describe</button>
-            <button id = "19" class="tablinks">Colors</button>
+            <button id ="1" class="tablinks" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/people.png">People</button>
+            <button id ="2" class="tablinks" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/friends.png">Friends</button>
+            <button id ="3" class="tablinks" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/pretend.png">Pretend</button>
+            <button id ="4" class="tablinks" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/bodyparts.png">Body Parts</button>
+            <button id ="5" class="tablinks" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/animals.png">Animals</button>
+            <button id ="6" class="tablinks" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/wateranimals.png">Water Animals</button>
+            <button id ="7" class="tablinks" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/birds.png">Birds</button>
+            <button id ="8" class="tablinks" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/things.png">Things</button>
+            <button id ="9" class="tablinks" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/housestuff.png">House Stuff</button>
+            <button id ="10" class="tablinks" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/toys.png">Toys</button>
+            <button id ="11" class="tablinks" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/tools.png">Tools</button>
+            <button id ="12" class="tablinks" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/clothes.png">Clothes</button>
+            <button id ="13" class="tablinks" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/vehicles.png">Vehicles</button>
+            <button id ="14" class="tablinks" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/food.png">Food</button>
+            <button id ="15" class="tablinks" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/places.png">Places</button>
+            <button id ="16" class="tablinks" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/outdoors.png">Outdoors</button>
+            <button id ="17" class="tablinks" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/doing.png">Doing</button>
+            <button id ="18" class="tablinks" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/describe.png">Describe</button>
+            <button id ="19" class="tablinks" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/colors.png">Colors</button>
         </div>
-                
+        <script src="../global/words.js"></script>
+        <script src="wordbanktransition.js"></script>
     </body>
-        
 </html>
