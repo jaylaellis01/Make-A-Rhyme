@@ -12,7 +12,7 @@ const words = {
     6:["beaver", "clam", "crab", "fish", "frog", "gator", "oyster", "seal", "shark"],
     7:["bird", "canary", "hen", "jay", "ostrich", "owl", "parrot", "swan"],
     8:["bags", "bed", "blanket", "box", "brick", "broom", "bubble", "cast", "clarinet", "clock", "coin", "cushion", "fashion", "flute", "fork",
-        "fridge", "fright", "fringe", "glass",],
+        "fridge", "fright", "fringe", "glass"],
     9:["key", "light", "mirror", "money", "music", "net", "oven", "pan", "pearl", "pencil", "plug", "poison", "pot", "prize", "quiz", "saucepan",
         "skis", "soap", "sofa", "spoon", "squares", "string", "toilet", "tuba", "wheel", "zipper"],
     10:["ball", "block", "boat", "car", "crayon", "doll", "jeep", "jet", "present", "puppet", "slide", "stilts", "swing", "toys", "truck", "unicycle", "wagon", "yoyo"],
@@ -73,10 +73,12 @@ function createWordObjs() {
     var wordTemp;
     var gender;
     var wordObjsTemp = {1: new Array, 2: new Array, 3: new Array, 4: new Array, 5: new Array, 6: new Array,
-    				7: new Array, 8: new Array, 9: new Array, 10: new Array, 11: new Array, 12: new Array}
+    				7: new Array, 8: new Array, 9: new Array, 10: new Array, 11: new Array, 12: new Array,
+                    13: new Array, 14: new Array, 15: new Array, 16: new Array, 17: new Array, 18: new Array,
+                    19: new Array}
 
     // goes through the # of word categories
-    for (i = 1; i <= 12; i++) {
+    for (i = 1; i <= 19; i++) {
         // makes a word object for each word in current category
         category = i.toString();
         for (j = 0; j < (words[category]).length; j++) {
