@@ -1,3 +1,4 @@
+console.log(document.cookie)
 // Get the quiz word from cookies
 var word = read_cookie('quizWord');
 var consecutive_correct = 0;
@@ -89,7 +90,6 @@ function checkAnswer(clicked_id) {
             sight_word_audio.play();
         }
         consecutive_correct = 0;
-        //sight_word_audio.play()
     }
     
 
@@ -98,6 +98,8 @@ function checkAnswer(clicked_id) {
         sight_word_audio.pause()
         result.innerHTML = "Quiz Complete!";
         document.getElementById("choices").style.display = 'none';
+        wordObjs[categoryTemp].find(function(word){ return word.word == sight_word;}).learned = true;
+        console.log(wordObjs[categoryTemp].find(function(word){ return word.word == sight_word;}));
         //code before the pause
         setTimeout(function(){
             window.history.back();

@@ -1,7 +1,8 @@
 window.onload = function makeList() {
-    
+    console.log("ran");
     // Establish the array which acts as a data source for the list
-    let listData = wordObjs[5];
+    let listCat = 5;
+    let listData = wordObjs[listCat];
     
     // Make a container element for the lists and set HTML class tag
     let listContainer = document.createElement('div');
@@ -63,8 +64,7 @@ window.onload = function makeList() {
             listItem.onclick = function() {
                 quizWord = wordObject;
                  // Store quizWord in the cookies
-                bake_cookie('quizWord', quizWord);
-                
+                bake_cookie('quizWord', quizWord);                
                 // Go to quiz
                 window.location.href = '../quiz/quiz.html';
             };
