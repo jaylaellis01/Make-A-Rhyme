@@ -46,6 +46,10 @@ WordBox.prototype.draw = function(ctx, fill) {
         ctx.fillRect(this.x, this.y + (this.h * 0.3), this.w, this.h*0.7);
         ctx.strokeRect(this.x + (this.w * 0.1), this.y, this.w*0.8, this.h);
         ctx.strokeRect(this.x, this.y + (this.h * 0.3), this.w, this.h*0.7);
+    } else {
+        console.log("showing image");
+        const image = document.getElementById(this.word);
+        ctx.drawImage(image, this.x, this.y, this.w, this.h);
     }
   }
 
@@ -58,6 +62,11 @@ WordBox.prototype.draw = function(ctx, fill) {
     this.word = wordName;
     this.completed = true;
     this.imageSrc = '../../assets/word_assets/word_art/5/' + wordName + '.png';
+    console.log("adding", this.word, this.imageSrc);
+    let wordImage = document.createElement('img');
+    wordImage.src = this.imageSrc;
+    wordImage.id = this.word;
+    document.getElementById('images').appendChild(wordImage);
   }
 
 function CanvasState(canvas) {
@@ -89,6 +98,7 @@ function CanvasState(canvas) {
   this.dragging = false; // Keep track of when we are dragging
   // the current selected object. In the future we could turn this into an array for multiple selection
   this.selection = null;
+  this.clicked = false;
   
   // **** Then events! ****
   
@@ -109,13 +119,8 @@ function CanvasState(canvas) {
     var words = myState.words;
     for (var i = 0; i < words.length; i++) {
       if (words[i].contains(mx, my)) {
-        /*
-        TODO: add code for word selector
-
-
-        */
-       console.log("making list");
-        makeList(words[i].categories);
+        makeList(words[i].categories, myState);
+        myState.clicked = true;
         return;
       }
     }
@@ -133,8 +138,8 @@ function CanvasState(canvas) {
         return;
       }
     }
-    if (myState.selection != null && !myState.selection.contains(mx, my)) {
-      myState.selection = null;
+    if (myState.selection != null && !myState.clicked && !myState.selection.contains(mx, my)) {
+        myState.selection = null;
     }
   }, true);
   
@@ -178,8 +183,13 @@ CanvasState.prototype.getMouse = function(e) {
 }
 
 CanvasState.prototype.fillWord = function(wordName) {
+    console.log("hello?");
     if (this.selection != null) {
-        this.selection.addPicture(wordName);
+        console.log("Adding pic for", wordName);
+        this.selection.addWord(wordName);
+        this.selection = null;
+        this.clicked = false;
+        this.valid = false;
     }
 }
 
@@ -208,9 +218,11 @@ CanvasState.prototype.draw = function() {
   }
 }
 
-function makeList(categories) {
+function makeList(categories, canvasState) {
     // Establish the array which acts as a data source for the list
-    let listData = wordObjs[5];
+    let listCat = 5;
+    let listData = wordObjs[listCat];
+    
     // Make a container element for the lists and set HTML class tag
     let listContainer = document.createElement('div');
     listContainer.className = "wordLists";
@@ -229,13 +241,16 @@ function makeList(categories) {
     
     // Set up a loop that goes through the items in listItems one at a time
     let numberOfListItems = i;
+    
     // Create a list item for each word and place in apropriate list
-    for (i = 0; i < listData.length; i++) {
+    for (i = 0; i < listData.length; ++i) {
+
         // Create the HTML list item and set HTML class tag
         let listItem = document.createElement('li');
         listItem.className = "WordItem clickable";
         
         // Get the name of the word
+        let wordObject = listData[i];
         const wordName = listData[i].word;
         
         // Set up word audio on mouse over
@@ -244,7 +259,7 @@ function makeList(categories) {
         listItem.onmouseout = function(){stopClip(clip_name);};
         
         // Log word name when list item is clicked
-        listItem.onclick = function(){console.log("Clicked="+wordName);};
+        listItem.onclick = function(){console.log(wordName);};
 
         // Add the word name to the list item
         listItem.innerHTML = '<h2>' + wordName + '</h2>';
@@ -261,21 +276,53 @@ function makeList(categories) {
         // Add listItem to the listElement
         if (listData[i].learned) {
             // Mastered words
-            // listItem.onclick = fillWord(wordName);
+            listItem.onclick = function() {
+                console.log("I wanna start", wordName);
+                canvasState.fillWord(wordName);
+            }
             masteredWordsListElement.append(listItem);
         } else {
             // Unmastered words
             // Set onclock to go to quiz page
-            listItem.onclick = function(){window.location.href = '../quiz/quiz.html';};
+            listItem.onclick = function() {
+                quizWord = wordObject;
+                 // Store quizWord in the cookies
+                bake_cookie('quizWord', quizWord);                
+                // Go to quiz
+                window.location.href = '../quiz/quiz.html';
+            };
             unmasteredWordsListElement.append(listItem);
         }
     }
-    
     // Add the lists div to the body of page
     document.getElementById('container').appendChild(listContainer);
 }
 
+function bake_cookie(name, value) {
+    var cookie = [name, '=', JSON.stringify(value), '; path=/;'].join('');
+    document.cookie = cookie;
+}
 
+function playClip(clip_name) {
+    if (navigator.appName == "Microsoft Internet Explorer" && (navigator.appVersion.indexOf("MSIE 7")!=-1) || (navigator.appVersion.indexOf("MSIE 8")!=-1)) {
+        if (document.all) {
+            document.all.sound.src = "click.mp3";
+        }
+    } else {
+        var audio = document.getElementById("word_audio");
+        audio.src = clip_name;
+        const playPromise = audio.play();
+        if (playPromise !== null){
+            playPromise.catch(() => { console.log("Caught: playPromise !== null"); })
+        }
+    }
+}
+
+function stopClip(clip_name) {
+    var audio = document.getElementById("word_audio");
+    audio.pause();
+    audio.currentTime = 0;
+}
 
 
 function init() {
