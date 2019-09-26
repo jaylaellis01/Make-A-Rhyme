@@ -3,8 +3,8 @@ body {
 }
 #container {
     display: block;
-/*    height: 100vh;*/
-    padding-left:10vh;
+    height: 100vh;
+    padding-left:10vw;
 }
 .sidenav {
     width: 5vw;
@@ -43,7 +43,7 @@ body {
     margin: 5%;
     min-width: 5.1em;
     vertical-align:top;
-    
+
 }
 
 .masteredWordsListElement {
