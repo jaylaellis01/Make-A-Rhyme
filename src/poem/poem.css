@@ -8,7 +8,7 @@ body {
 #container {
     display: block;
     height: 100vh;
-    padding-left:10vw;
+    padding-left:5vw;
 }
 .sidenav {
     width: 5vw;
