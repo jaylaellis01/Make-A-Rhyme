@@ -1,0 +1,16 @@
+{
+    "name": "Make-A-Rhyme",
+    "version": "1.0.0",
+    "description": "Make a Rhyme",
+    "dependencies": {},
+    "devDependencies": {
+      "https-localhost": "^4.1.3",
+      "http-server": "0.11.1",
+      "typescript": "^3.6"
+    },
+    "scripts": {
+      "http": "http-server"
+    },
+    "author": "Grant",
+    "license": "CC BY-SA 4.0"
+  }

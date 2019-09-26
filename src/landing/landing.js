@@ -23,6 +23,13 @@ function stopClip(clip_name) {
   audio.currentTime = 0;
 }
 
+function switchPoem(poem) {
+  document.cookie="currentPoem="+poem+";path=/"
+  location.href = '../poem/poem.html';
+}
+
+
+
 function expandImg(imgs) {
     // Get the expanded image
     var expandImg = document.getElementById("expandedImg");

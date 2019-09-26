@@ -6,3 +6,7 @@ html {
     transform: scale(1.1) perspective(1px);
     cursor: url('../../assets/cursor_art/cclick.png'), default;
 }
+
+.clickableCanvas:hover {
+    cursor: url('../../assets/cursor_art/cclick.png'), default;
+}

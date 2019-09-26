@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="landing.css">
         <link rel="stylesheet" href="../global/cursor.css">
         <script type="text/javascript" src="landing.js"></script>
+        <script src="../global/words.js"></script>
     </head>
     <body>
         <div class ="sidenav">
@@ -14,14 +15,13 @@
         <header>Rhymes</header>
         <div class="row">
             <div class="column" onmouseover="playClip('parade_audio');" onmouseout="stopClip('parade_audio');">
-                <img class="clickable" src="../../assets/poem_art/no_placeholders/Background-Strange_Parade_no_placeholders.png" alt="Zoo" onclick="location.href = '../poem/parade-poem.html';">
+                <img class="clickable" src="../../assets/poem_art/no_placeholders/Background-Strange_Parade_no_placeholders.png" alt="Parade" onclick="switchPoem('parade');">
             </div>
             <div class="column" onmouseover="playClip('park_audio');" onmouseout="stopClip('park_audio');">
-                <img class="clickable" src="../../assets/poem_art/no_placeholders/Background-Muddy_Park_no_placeholders.png" alt="MuddyPark" onclick="location.href = '../poem/park-poem.html';">
+                <img class="clickable" src="../../assets/poem_art/no_placeholders/Background-Muddy_Park_no_placeholders.png" alt="MuddyPark" onclick="switchPoem('park');">
             </div>
-                <div class="column" onmouseover="playClip('pet_party_audio');" onmouseout="stopClip('pet_party_audio');">
-                    <img class="clickable" src="../../assets/poem_art/no_placeholders/Background-Pet_Party_Picnic_no_placeholders.png" alt="Picnic" onclick="location.href = '../poem/picnic-poem.html';">
-                </div>
+            <div class="column" onmouseover="playClip('pet_party_audio');" onmouseout="stopClip('pet_party_audio');">
+                <img class="clickable" src="../../assets/poem_art/no_placeholders/Background-Pet_Party_Picnic_no_placeholders.png" alt="Picnic" onclick="switchPoem('picnic');">
             </div>
             <div class="row">
                 <div class="column">

@@ -1,0 +1,173 @@
+{
+    "poems": {
+        "parade": {
+            "name": "Strange Parade",
+            "image": "../../assets/poem_art/no_placeholders/Background-Strange_Parade_no_placeholders.png",
+            "img_w": "930px",
+            "img_h": "653px",
+            "words": [
+                {
+                    "x": 0.166666667,
+                    "y": 0.12745098,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.095,
+                    "y": 0.357843137,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.226666667,
+                    "y": 0.355392157,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.285,
+                    "y": 0.06127451,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.43,
+                    "y": 0.093137255,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.213333333,
+                    "y": 0.674019608,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.283333333,
+                    "y": 0.632352941,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.426666667,
+                    "y": 0.632352941,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.658333333,
+                    "y": 0.595588235,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.685,
+                    "y": 0.357843137,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.543333333,
+                    "y": 0.357843137,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.81,
+                    "y": 0.355392157,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.808333333,
+                    "y": 0.789215686,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.668333333,
+                    "y": 0.218137255,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.668333333,
+                    "y": 0.105392157,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.788333333,
+                    "y": 0.125,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.786666667,
+                    "y": 0.017156863,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.343333333,
+                    "y": 0.125,
+                    "categories": "unknown"
+                }
+            ]
+        },
+        "picnic": {
+            "name": "Pet Party Picnic",
+            "image": "../../assets/poem_art/no_placeholders/Background-Pet_Party_Picnic_no_placeholders.png",
+            "img_w": "930px",
+            "img_h": "653px",
+            "words": [
+                {
+                    "x": 0.077142857,
+                    "y": 0.25210084,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.302857143,
+                    "y": 0.016806723,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.502857143,
+                    "y": 0.075630252,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.608571429,
+                    "y": 0.31092437,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.457142857,
+                    "y": 0.470588235,
+                    "categories": [1, 2, 3]
+                },
+                {
+                    "x": 0.137142857,
+                    "y": 0.453781513,
+                    "categories": [1, 2, 3]
+                }
+            ]
+        },
+        "park": {
+            "name": "Muddy Park",
+            "image": "../../assets/poem_art/no_placeholders/Background-Muddy_Park_no_placeholders.png",
+            "img_w": "930px",
+            "img_h": "653px",
+            "words": [
+                {
+                    "x": 0.46,
+                    "y": 0.1852941176,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.748,
+                    "y": 0.4176470588,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.668,
+                    "y": 0.6235294118,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.56,
+                    "y": 0.7411764706,
+                    "categories": "unknown"
+                },
+                {
+                    "x": 0.436,
+                    "y": 0.6647058824,
+                    "categories": [1, 2, 3]
+                }
+            ]
+        }
+    }
+}
