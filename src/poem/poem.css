@@ -1,7 +1,7 @@
 #container {
     display: block;
     height: 100vh;
-    padding-left:10vh;
+    padding-left:10vw;
 }
 .sidenav {
     width: 5vw;
