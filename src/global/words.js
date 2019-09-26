@@ -22,7 +22,7 @@ const words = {
     14:["apple", "bread", "burger", "cake", "candy", "carrot", "cone", "cookies", "corn", "grapes", "hotdog", "lettuce", "milk", "nuts", "pie", "plum", "pretzel", "snack", "tea"],
     15:["bridge", "hill", "house", "park", "school", "volcano", "zoo"],
     16:["air", "fern", "flag", "grass", "ice", "leaf", "moon", "rain", "rainbow", "sky", "snow", "star", "statue", "straw", "tree", "wall", "wind"],
-    17:["balance", "blew", "burn", "chew", "chop", "chop", "clean", "cry", "cut", "dig", "draw", "drive", "fall", "fall", "fish", "flew", "float", "fly", "glue", "hit", "hug", "juggle", "jump", "lick",
+    17:["balance", "blew", "burn", "chew", "chop", "clean", "cry", "cut", "dig", "draw", "drive", "fall", "fall", "fish", "flew", "float", "fly", "glue", "hit", "hug", "juggle", "jump", "lick",
         "look", "love", "paint", "play", "read", "rescue", "scold", "see", "sing", "ski", "skip", "sleep", "slip", "smell", "smile", "spill", "stand", "stop", "swim", "throw", "twinkle", "wash", "whisper", "yawn"],
     18:["afraid", "cloudy", "dark", "eight", "five", "high", "hot", "loud", "naughty", "old", "quiet", "rude", "silly", "six", "sixteen", "sleepy", "slow", "smart", "stripes", "twelve"],
     19:["black", "blue", "brown", "gold", "green", "purple", "red", "silver", "white", "yellow"]
