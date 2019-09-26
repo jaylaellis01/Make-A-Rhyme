@@ -58,7 +58,7 @@ function playClip(clip_name) {
     {
     var audio = document.getElementById("word_audio");
         
-        console.log(!audio.paused);
+        //console.log(!audio.paused);
         
     if (audio == null ) {
         return;

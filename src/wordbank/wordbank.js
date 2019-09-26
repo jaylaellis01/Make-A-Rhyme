@@ -30,9 +30,15 @@ window.onload = function makeList() {
     for (i = 0; i < numberOfListItems; ++i) {
         // create an item for each one
         // each item is created as a button 
-        console.log(listData[i].learned)
+        //console.log(listData[i].learned)
         listItem = document.createElement('button');
+        const wordName = listData[i].word;
         listItem.className = "WordItem clickable";
+
+        const clip_name = '../../assets/word_assets/word_audio/' + wordName + '.mp3';   
+        console.log(clip_name);
+        listItem.onmouseover = function(){playClip(clip_name);};
+        listItem.onmouseout = function(){stopClip(clip_name);};
         
         imageItem = document.createElement('img');
 
@@ -49,4 +55,25 @@ window.onload = function makeList() {
             listElementUnmastered.appendChild(listItem);
         }
     }
+}
+
+function playClip(clip_name) {
+    if (navigator.appName == "Microsoft Internet Explorer" && (navigator.appVersion.indexOf("MSIE 7")!=-1) || (navigator.appVersion.indexOf("MSIE 8")!=-1)) {
+        if (document.all) {
+            document.all.sound.src = "click.mp3";
+        }
+    } else {
+        var audio = document.getElementById("word_audio");
+        audio.src = clip_name;
+        const playPromise = audio.play();
+        if (playPromise !== null){
+            playPromise.catch(() => { console.log("Caught: playPromise !== null"); })
+        }
+    }
+}
+
+function stopClip(clip_name) {
+    var audio = document.getElementById("word_audio");
+    audio.pause();
+    audio.currentTime = 0;
 }
