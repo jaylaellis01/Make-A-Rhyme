@@ -17,7 +17,6 @@
 button{
     width: 25%;
     height: 14%;
-    /* text-align: center; */
     margin: 2%;
     border-radius: 25px;
     font-family: "Comic Sans MS", cursive, sans-serif;
@@ -26,14 +25,11 @@ button{
     vertical-align: middle;
 
 }
-body{
-    background-color: #FED49E;
-}
 button img{
     float: left;
     width: 10vw;
     height: 10vw;
 }
-h1{
-    font-size: 3vw;
+body{
+    background-color: #FED49E;
 }

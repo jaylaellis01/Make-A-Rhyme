@@ -6,8 +6,6 @@ window.onload = function makeList() {
     // Make a container element for the list
     listContainerMastered = document.createElement('div'),
     listContainerUnmastered = document.createElement('div'),
-
-    // masteredList = document.getElementById("MasteredList");
     
     // Make the list
     listElementMastered = document.createElement('ul'),
@@ -16,7 +14,7 @@ window.onload = function makeList() {
     numberOfListItems = listData.length,
     listItem,
     i;
-    
+    // Create wordList class elements for both Mastered and Unmastered words
     listContainerMastered.className = "wordList";
     listContainerUnmastered.className = "wordList";
     
@@ -25,13 +23,13 @@ window.onload = function makeList() {
     // Add it to the page
     document.getElementById('mastered').appendChild(listContainerMastered);
     document.getElementById('unmastered').appendChild(listContainerUnmastered);
-    // listContainer.appendChild(listElement);
 
     listContainerMastered.appendChild(listElementMastered);
     listContainerUnmastered.appendChild(listElementUnmastered);
 
     for (i = 0; i < numberOfListItems; ++i) {
         // create an item for each one
+        // each item is created as a button 
         console.log(listData[i].learned)
         listItem = document.createElement('button');
         listItem.className = "WordItem clickable";
