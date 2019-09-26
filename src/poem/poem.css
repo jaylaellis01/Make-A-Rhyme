@@ -1,6 +1,9 @@
+body {
+    overflow: hidden
+}
 #container {
     display: block;
-    height: 100vh;
+/*    height: 100vh;*/
     padding-left:10vh;
 }
 .sidenav {
@@ -12,20 +15,22 @@
 }
 #target {
     display: inline-block;
+    position: relative;
+    z-index: 0;
 }
 
 .wordLists {
     display: inline-block;
     background-color: chocolate;
-    width: 30%;
+    width: calc(100% - 960px);
+    height: 653px;
     float: right;
-    height: 100%;
-    position: absolute;
     overflow: scroll;
     border: 0.25em solid;
     border-radius: 1em;
     border-color: burlywood;
     margin-bottom: 1em;
+    z-index: 1;
 }
 
 .wordsListElement {

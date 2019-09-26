@@ -242,6 +242,16 @@ CanvasState.prototype.draw = function() {
 }
 
 function makeList(categories, canvasState) {
+    
+    let exisitingLists = document.getElementById('wordLists');
+    console.log(exisitingLists);
+    if (exisitingLists) {
+        console.log("List exists");
+        console.log(exisitingLists.parentElement);
+        
+        exisitingLists.parentElement.removeChild(exisitingLists);
+    }
+    
     // Establish the array which acts as a data source for the list
     let listCat = 5;
     let listData = wordObjs[listCat];
@@ -249,6 +259,7 @@ function makeList(categories, canvasState) {
     // Make a container element for the lists and set HTML class tag
     let listContainer = document.createElement('div');
     listContainer.className = "wordLists";
+    listContainer.id = "wordLists";
     
     // Create HTML list elements for mastered and unmastered words and set HTML class tag
     // Mastered words
