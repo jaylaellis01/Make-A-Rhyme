@@ -1,4 +1,4 @@
-    /* The grid: Four equal columns that floats next to each other */
+    /* The grid: Three equal columns that floats next to each other */
     .column {
       width: 28%;
       padding: 13px;
@@ -13,6 +13,8 @@
       opacity: 0.8; 
       cursor: pointer;
       width: 100%; 
+      border: #3384BB .5vw solid; 
+      border-radius: 25px;
     }
     
     .column img:hover {
@@ -51,17 +53,17 @@
       cursor: pointer;
     }
 
-  header{
-    text-align: center;
-    font-family: "Comic Sans MS", cursive, sans-serif;
-    font-size: 8vw;
-    color: #3384BB;
-    -webkit-text-stroke-width: .15vw;
-    -webkit-text-stroke-color: white;
-    
-  }
-  body{
-    background-color: #FED49E;
-    margin-left: 10vw;
-  }
+    header{
+      text-align: center;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      font-size: 8vw;
+      color: #3384BB;
+      -webkit-text-stroke-width: .15vw;
+      -webkit-text-stroke-color: white;
+      
+    }
+    body{
+      background-color: #FED49E;
+      margin-left: 10vw;
+    }
 

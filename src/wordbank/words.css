@@ -2,7 +2,6 @@
     float: left;
     width: 50%;
     height: 100%;
-    /* background-color: aliceblue; */
 }
 .row:after {
     content: "";
@@ -20,12 +19,9 @@ h1{
     width: 10vw;
     height: auto;
     background-color: transparent;
-    /* height: 10vw;
-    width: 10vw; */
 }
 
 .wordList {
-    /* background-color: chocolate; */
     width: 90%;
     margin-left: 20px;
     float: left;
@@ -33,22 +29,10 @@ h1{
     overflow: scroll;
     border: 0.25em solid;
     border-radius: 1em;
-    /* border-color: burlywood; */
 }
-
 ul {
     list-style: none;
 }
-/* 
-li {
-    text-align: center;
-    background-color: antiquewhite;
-    border: 0.25em solid;
-    border-radius: 1em;
-    border-color: burlywood;
-    width: 10px;
-    margin-bottom: 0.5em;
-} */
 button {
     background-color: #7DAF9C;
     border-radius: 25px;
