@@ -6,19 +6,20 @@ var sight_word = word.word;
 var categoryTemp = word.category;
 var timedAudio;
 
-let result = document.getElementById("result");
-
 var instructions_audio = new Audio('../../assets/quiz_audio/instructions/00_Three_Times_in_a_row.mp3');
-var sightWordImg = '../../assets/word_assets/word_art/' + categoryTemp + '/' + sight_word + '.png';
-document.getElementById('word_art').src = sightWordImg;
-
 var sight_word_audio_url = '../../assets/word_assets/word_audio/' + sight_word + '.mp3';
 var sight_word_audio = new Audio(sight_word_audio_url);
-
 var correct_audio = new Audio('../../assets/quiz_audio/praise_phrases/aa1_excellent_4b.mp3');
+var sightWordImg = '../../assets/word_assets/word_art/' + categoryTemp + '/' + sight_word + '.png';
 
-shuffle_btns();
-firstAudio();
+
+window.onload = function runQuiz() {
+    let result = document.getElementById("result");
+    document.getElementById('word_art').src = sightWordImg;
+
+    shuffle_btns();
+    firstAudio();
+}
 
 
 function updateStars() {

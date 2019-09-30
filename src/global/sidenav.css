@@ -1,3 +1,5 @@
+/* CSS for sidenav - IMPORT ON ALL HTML PAGES */
+
 .sidenav {
     height: 100vw;
     width: 10vw;
@@ -7,10 +9,11 @@
     background-color: #79ADDC;
     overflow-x: hidden;
   }
-.sidenav img {
-    width: 10vw;
-    height: 10vw;
-    align-content: center;
-    display: flex;
-    justify-content: space-evenly;
-}
+
+    .sidenav img {
+        width: 10vw;
+        height: 10vw;
+        align-content: center;
+        display: flex;
+        justify-content: space-evenly;
+    }

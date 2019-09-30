@@ -1,13 +1,28 @@
-    /* The grid: Three equal columns that floats next to each other */
-    .column {
-      width: 28%;
-      padding: 13px;
-      margin-right:auto ;
-    }
-    .row{
-      display: flex;
-      justify-content: space-between;
-    }
+
+header {
+  text-align: center;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-size: 8vw;
+  color: #3384BB;
+  -webkit-text-stroke-width: .15vw;
+  -webkit-text-stroke-color: white;
+
+}
+
+body {
+  background-color: #FED49E;
+  margin-left: 10vw;
+}
+    
+
+
+/* The grid: Three equal columns that floats next to each other */
+/* COLUMN */
+.column {
+  width: 28%;
+  padding: 13px;
+  margin-right:auto ;
+}
     /* Style the images inside the grid */
     .column img {
       opacity: 0.8; 
@@ -20,7 +35,13 @@
     .column img:hover {
       opacity: 1;
     }
-    
+
+/* ROW */
+.row {
+  display: flex;
+  justify-content: space-between;
+}
+
     /* Clear floats after the columns */
     .row:after {
       content: "";
@@ -28,42 +49,28 @@
       clear: both;
     }
     
-    /* The expanding image container (positioning is needed to position the close button and the text) */
-    .container {
-      position: relative;
-      display: none;
-    }
-    
-    /* Expanding image text */
-    #imgtext {
-      position: absolute;
-      bottom: 15px;
-      left: 15px;
-      color: white;
-      font-size: 20px;
-    }
-    
-    /* Closable button inside the image */
-    .closebtn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      color: white;
-      font-size: 35px;
-      cursor: pointer;
-    }
+/* The expanding image container (positioning is needed to position the close button and the text) */
+.container {
+  position: relative;
+  display: none;
+}
 
-    header{
-      text-align: center;
-      font-family: "Comic Sans MS", cursive, sans-serif;
-      font-size: 8vw;
-      color: #3384BB;
-      -webkit-text-stroke-width: .15vw;
-      -webkit-text-stroke-color: white;
-      
-    }
-    body{
-      background-color: #FED49E;
-      margin-left: 10vw;
-    }
+/* Expanding image text */
+#imgtext {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  color: white;
+  font-size: 20px;
+}
+
+/* Closable button inside the image */
+.closebtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
+}
 

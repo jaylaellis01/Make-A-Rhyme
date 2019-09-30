@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html>
+    
     <head>
+        <!--    Imports    -->
+        <!--    CSS    -->
         <link rel="stylesheet" href="wordbank.css">
         <link rel="stylesheet" href="../global/sidenav.css">
         <link rel="stylesheet" href="../global/cursor.css">
+        <!--    JS    -->
+        <script src="../global/words.js"></script>
+        <script src="wordbanktransition.js"></script>
     </head>
+    
     <body>
         <div class ="sidenav">
             <img class="clickable" src="../../assets/backarrow.png" alt="back" width='100vw' height='100vw' onclick="location.href = '../landing/landing.html';">
@@ -32,7 +39,6 @@
             <button id ="18" class="tablinks clickable" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/describe.png">Describe</button>
             <button id ="19" class="tablinks clickable" onclick="categoryClick(this.id)"><img src = "../../assets/category_assets/colors.png">Colors</button>
         </div>
-        <script src="../global/words.js"></script>
-        <script src="wordbanktransition.js"></script>
     </body>
+    
 </html>

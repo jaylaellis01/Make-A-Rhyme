@@ -5,24 +5,20 @@ html {
 body {
     overflow: hidden
 }
+
 #container {
     display: block;
     height: 100vh;
-    padding-left:5vw;
+    padding-left:10vw;
 }
-.sidenav {
-    width: 5vw;
-}
-.sidenav img {
-    width: 5vw;
-    height: 5vw;
-}
+
 #target {
     display: inline-block;
     position: relative;
     z-index: 0;
 }
 
+/* WORD SELECTION LIST*/
 .wordLists {
     display: inline-block;
     background-color: chocolate;
