@@ -71,3 +71,7 @@ body {
         width: 5em;
         height: auto;
     }
+
+.images {
+    display:none;
+}
