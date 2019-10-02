@@ -1,3 +1,4 @@
+// Function to get cookie variable (used to get poem name)
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -14,18 +15,15 @@ function getCookie(cname) {
     return "";
 }
 
-//Inserts JSON data into template
+// Inserts JSON data into template
 $.getJSON("poem_data.json", function(data) {
     var template = $("#poem_template").html();
     var text = Mustache.render(template, data["poems"][getCookie("currentPoem")]);
     $("#target").html(text);
 });
 
-
+// Constructor for WordBox - the object that represents a word (or a box) on screen
 function WordBox(x, y, w, h, fill, categories, word, completed, imgSrc) {
-    // This is a very simple and unsafe constructor. 
-    // All we're doing is checking if the values exist.
-    // "x || 0" just means "if there is a value for x, use that. Otherwise use 0."
     this.x = x || 0;
     this.y = y || 0;
     this.w = w || 1;
@@ -37,8 +35,9 @@ function WordBox(x, y, w, h, fill, categories, word, completed, imgSrc) {
     this.imageSrc = imgSrc || null;
 }
 
-  // Draws the WordBox. Refactor later to include drawing the picture
+// Draws the WordBox - grey box if not completed, image if word is completed
 WordBox.prototype.draw = function(ctx, fill) {
+    // Draw grey boxes
     if (!this.completed) {
         ctx.fillStyle = fill;
         ctx.strokeStyle = '#000000';
@@ -46,155 +45,165 @@ WordBox.prototype.draw = function(ctx, fill) {
         ctx.fillRect(this.x, this.y + (this.h * 0.3), this.w, this.h*0.7);
         ctx.strokeRect(this.x + (this.w * 0.1), this.y, this.w*0.8, this.h);
         ctx.strokeRect(this.x, this.y + (this.h * 0.3), this.w, this.h*0.7);
-    } else {
-        console.log("showing image");
-        if (!document.getElementById(this.word)) {
+    } else { // Draw image
+        if (!document.getElementById(this.word)) { // Create image if it doesn't exist (can happen on page reload)
             let wordImage = document.createElement('img');
             wordImage.src = this.imageSrc;
             wordImage.id = this.word;
             document.getElementById('images').appendChild(wordImage);
-            console.log("image created");
-            console.log(document.getElementById(this.word));
         } 
         const image = document.getElementById(this.word);
         ctx.drawImage(image, this.x, this.y, this.w, this.h);
     }
-  }
+}
 
   // Sees if the point (mx, my) is inside the box's area
-  WordBox.prototype.contains = function(mx, my) {
+WordBox.prototype.contains = function(mx, my) {
     return  (this.x <= mx) && (this.x + this.w >= mx) &&
             (this.y <= my) && (this.y + this.h >= my);
-  }
-  WordBox.prototype.fillWord = function(wordName) {
+}
+
+// "Completes" a word box by assigning a word and image
+WordBox.prototype.fillWord = function(wordName) {
     this.word = wordName;
     this.completed = true;
     this.imageSrc = '../../assets/word_assets/word_art/5/' + wordName + '.png';
-    console.log("adding", this.word, this.imageSrc);
     let wordImage = document.createElement('img');
     wordImage.src = this.imageSrc;
     wordImage.id = this.word;
     document.getElementById('images').appendChild(wordImage);
-  }
+}
 
+// CanvasState keeps track of the state of the canvas
+// I copied the template from this from the internet, thus there is some extra mouse stuff in here
 function CanvasState(canvas) {
-  // **** First some setup! ****
-  
-  this.canvas = canvas;
-  this.width = canvas.width;
-  this.height = canvas.height;
-  this.ctx = canvas.getContext('2d');
-  // This complicates things a little but but fixes mouse co-ordinate problems
-  // when there's a border or padding. See getMouse for more detail
-  var stylePaddingLeft, stylePaddingTop, styleBorderLeft, styleBorderTop;
-  if (document.defaultView && document.defaultView.getComputedStyle) {
-    this.stylePaddingLeft = parseInt(document.defaultView.getComputedStyle(canvas, null)['paddingLeft'], 10)      || 0;
-    this.stylePaddingTop  = parseInt(document.defaultView.getComputedStyle(canvas, null)['paddingTop'], 10)       || 0;
-    this.styleBorderLeft  = parseInt(document.defaultView.getComputedStyle(canvas, null)['borderLeftWidth'], 10)  || 0;
-    this.styleBorderTop   = parseInt(document.defaultView.getComputedStyle(canvas, null)['borderTopWidth'], 10)   || 0;
-  }
-  // Some pages have fixed-position bars (like the stumbleupon bar) at the top or left of the page
-  // They will mess up mouse coordinates and this fixes that
-  var html = document.body.parentNode;
-  this.htmlTop = html.offsetTop;
-  this.htmlLeft = html.offsetLeft;
-
-  // **** Keep track of state! ****
-  
-  this.valid = false; // when set to false, the canvas will redraw everything
-  this.words = [];  // the collection of things to be drawn
-  this.dragging = false; // Keep track of when we are dragging
-  // the current selected object. In the future we could turn this into an array for multiple selection
-  this.selection = null;
-  this.clicked = false;
-  
-  // **** Then events! ****
-  
-  // This is an example of a closure!
-  // Right here "this" means the CanvasState. But we are making events on the Canvas itself,
-  // and when the events are fired on the canvas the variable "this" is going to mean the canvas!
-  // Since we still want to use this particular CanvasState in the events we have to save a reference to it.
-  // This is our reference!
-  var myState = this;
-  
-  //fixes a problem where double clicking causes text to get selected on the canvas
-  canvas.addEventListener('selectstart', function(e) { e.preventDefault(); return false; }, false);
-  // Up, down, and move are for dragging
-  canvas.addEventListener('mousedown', function(e) {
-    var mouse = myState.getMouse(e);
-    var mx = mouse.x;
-    var my = mouse.y;
-    var words = myState.words;
-    for (var i = 0; i < words.length; i++) {
-      if (words[i].contains(mx, my)) {
-        makeList(words[i].categories, myState);
-        myState.clicked = true;
-        return;
-      }
+    // **** First some setup! ****
+    this.canvas = canvas;
+    this.width = canvas.width;
+    this.height = canvas.height;
+    this.ctx = canvas.getContext('2d');
+    // This complicates things a little but but fixes mouse co-ordinate problems
+    // when there's a border or padding. See getMouse for more detail
+    var stylePaddingLeft, stylePaddingTop, styleBorderLeft, styleBorderTop;
+    if (document.defaultView && document.defaultView.getComputedStyle) {
+        this.stylePaddingLeft = parseInt(document.defaultView.getComputedStyle(canvas, null)['paddingLeft'], 10)      || 0;
+        this.stylePaddingTop  = parseInt(document.defaultView.getComputedStyle(canvas, null)['paddingTop'], 10)       || 0;
+        this.styleBorderLeft  = parseInt(document.defaultView.getComputedStyle(canvas, null)['borderLeftWidth'], 10)  || 0;
+        this.styleBorderTop   = parseInt(document.defaultView.getComputedStyle(canvas, null)['borderTopWidth'], 10)   || 0;
     }
-  }, true);
-  canvas.addEventListener('mousemove', function(e) {
-    var mouse = myState.getMouse(e);
-    var mx = mouse.x;
-    var my = mouse.y;
-    var words = myState.words;
-    if (!myState.clicked) {
+    // Some pages have fixed-position bars (like the stumbleupon bar) at the top or left of the page
+    // They will mess up mouse coordinates and this fixes that
+    var html = document.body.parentNode;
+    this.htmlTop = html.offsetTop;
+    this.htmlLeft = html.offsetLeft;
+
+    // **** Keep track of state! ****
+
+    this.valid = false; // when set to false, the canvas will redraw everything
+    this.words = [];  // the collection of things to be drawn
+
+    // the current selected object. In the future we could turn this into an array for multiple selection
+    this.selection = null;
+    this.clicked = false;
+
+    // **** Then events! ****
+
+    // This is an example of a closure!
+    // Right here "this" means the CanvasState. But we are making events on the Canvas itself,
+    // and when the events are fired on the canvas the variable "this" is going to mean the canvas!
+    // Since we still want to use this particular CanvasState in the events we have to save a reference to it.
+    // This is our reference!
+    var myState = this;
+
+    // Fixes a problem where double clicking causes text to get selected on the canvas
+    canvas.addEventListener('selectstart', function(e) { e.preventDefault(); return false; }, false);
+    
+    // Event for mouse click
+    canvas.addEventListener('mousedown', function(e) {
+        var mouse = myState.getMouse(e);
+        var mx = mouse.x;
+        var my = mouse.y;
+        var words = myState.words;
+        // Look through all of the WordBoxes to see if the mouse is inside of it
         for (var i = 0; i < words.length; i++) {
+            // If where you clicked is inside of a WordBox, set the "clicked" state to true
+            // This way the "selected" element won't be overwritten when you mouse over another object
             if (words[i].contains(mx, my)) {
-                var mySel = words[i];
-                myState.selection = mySel;
-                myState.valid = false;
+                makeList(words[i].categories, myState);
+                myState.clicked = true;
                 return;
             }
         }
-        if (myState.selection != null && !myState.selection.contains(mx, my)) {
-            myState.selection = null;
+    }, true);
+
+    // Event for mouse movement (to highlight boxes)
+    canvas.addEventListener('mousemove', function(e) {
+        var mouse = myState.getMouse(e);
+        var mx = mouse.x;
+        var my = mouse.y;
+        var words = myState.words;
+        if (!myState.clicked) { // If you haven't clicked on a box yet
+            // Look through all of the WordBoxes to see if the mouse is inside of it
+            for (var i = 0; i < words.length; i++) {
+                // If the mouse is inside of the WordBox, set the box as selected (which will color it red)
+                if (words[i].contains(mx, my)) {
+                    var mySel = words[i];
+                    myState.selection = mySel;
+                    myState.valid = false;
+                    return;
+                }
+            }
+            // If the mouse is now outside the previously selected WordBox, deselect it
+            if (myState.selection != null && !myState.selection.contains(mx, my)) {
+                myState.selection = null;
+            }
         }
-    }
-  }, true);
-  
-  // **** Options! ****
-  
-  this.selectionColor = 'rgba(232, 0, 0, 0.5)';
-  this.selectionWidth = 2;  
-  this.interval = 30;
-  setInterval(function() { myState.draw(); }, myState.interval);
+    }, true);
+
+    // **** Options! ****
+
+    this.selectionColor = 'rgba(232, 0, 0, 0.5)';
+    this.selectionWidth = 2;  
+    this.interval = 30;
+    setInterval(function() { myState.draw(); }, myState.interval);
 }
 
 CanvasState.prototype.addWord = function(word) {
-  this.words.push(word);
-  this.valid = false;
+    this.words.push(word);
+    this.valid = false;
 }
 
 
 // Creates an object with x and y defined, set to the mouse position relative to the state's canvas
 // If you wanna be super-correct this can be tricky, we have to worry about padding and borders
 CanvasState.prototype.getMouse = function(e) {
-  var element = this.canvas, offsetX = 0, offsetY = 0, mx, my;
-  
-  // Compute the total offset
-  if (element.offsetParent !== undefined) {
-    do {
-      offsetX += element.offsetLeft;
-      offsetY += element.offsetTop;
-    } while ((element = element.offsetParent));
-  }
+    var element = this.canvas, offsetX = 0, offsetY = 0, mx, my;
 
-  // Add padding and border style widths to offset
-  // Also add the <html> offsets in case there's a position:fixed bar
-  offsetX += this.stylePaddingLeft + this.styleBorderLeft + this.htmlLeft;
-  offsetY += this.stylePaddingTop + this.styleBorderTop + this.htmlTop;
+    // Compute the total offset
+    if (element.offsetParent !== undefined) {
+        do {
+            offsetX += element.offsetLeft;
+            offsetY += element.offsetTop;
+        } while ((element = element.offsetParent));
+    }
 
-  mx = e.pageX - offsetX;
-  my = e.pageY - offsetY;
-  
-  // We return a simple javascript object (a hash) with x and y defined
-  return {x: mx, y: my};
+    // Add padding and border style widths to offset
+    // Also add the <html> offsets in case there's a position:fixed bar
+    offsetX += this.stylePaddingLeft + this.styleBorderLeft + this.htmlLeft;
+    offsetY += this.stylePaddingTop + this.styleBorderTop + this.htmlTop;
+
+    mx = e.pageX - offsetX;
+    my = e.pageY - offsetY;
+
+    // We return a simple javascript object (a hash) with x and y defined
+    return {x: mx, y: my};
 }
 
+// Tries to fill selected WordBox with the provided word
+// redraw param is for the edge case of selecting an unmastered word. 
+// You want to fill the word, but don't want to show it until after the quiz
 CanvasState.prototype.fillWord = function(wordName, redraw) {
     if (this.selection != null) {
-        console.log("Adding pic for", wordName);
         this.selection.fillWord(wordName);
         this.selection = null;
         this.clicked = false;
@@ -202,10 +211,12 @@ CanvasState.prototype.fillWord = function(wordName, redraw) {
     }
 }
 
+// Save state of words in localStorage for when you go to the quiz page
 CanvasState.prototype.saveState = function() {
     localStorage.setItem("canvasWords", JSON.stringify(this.words));
 }
 
+// Load the state of the words for when you come back from the quiz page
 CanvasState.prototype.loadState = function() {
     var load = JSON.parse(localStorage.getItem("canvasWords"));
     if (load != null) {
@@ -224,7 +235,7 @@ CanvasState.prototype.draw = function() {
     var ctx = this.ctx;
     var words = this.words;
 
-    // ** Add stuff you want drawn in the background all the time here **
+    // draw background
     var img = document.getElementById('background');
     ctx.drawImage(img, 0, 0);
 
@@ -236,7 +247,7 @@ CanvasState.prototype.draw = function() {
         words[i].draw(ctx, words[i].fill);
       }
     }
-    // ** Add stuff you want drawn on top all the time here **
+
     this.valid = true;
   }
 }
@@ -244,11 +255,7 @@ CanvasState.prototype.draw = function() {
 function makeList(categories, canvasState) {
     
     let exisitingLists = document.getElementById('wordLists');
-    console.log(exisitingLists);
     if (exisitingLists) {
-        console.log("List exists");
-        console.log(exisitingLists.parentElement);
-        
         exisitingLists.parentElement.removeChild(exisitingLists);
     }
     
@@ -364,7 +371,7 @@ function stopClip(clip_name) {
     audio.currentTime = 0;
 }
 
-
+// Init function called on page load
 function init() {
     var s = new CanvasState(document.getElementById('canvas'));
     var canvas = document.getElementById('canvas');
