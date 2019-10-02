@@ -20,6 +20,7 @@ function stopClip(clip_name) {
     audio.pause();
     audio.currentTime = 0;
 }
+
 // Sets currentPoem cookie to the specified poem
 function switchPoem(poem) {
     document.cookie="currentPoem="+poem+";path=/"
