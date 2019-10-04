@@ -1,3 +1,21 @@
+body {
+    margin-left: 10vw;
+    background-color: #fed49e;
+}
+
+h1 {
+    text-align: center;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    background-color: #7DAF9C;
+    border-radius: 25px;
+}
+
 .column {
     float: left;
     width: 50%;
@@ -7,18 +25,6 @@
     content: "";
     display: table;
     clear: both;
-}
-body{
-    margin-left: 10vw;
-    background-color: #fed49e;
-}
-h1{
-    text-align: center;
-}
-.WordItem img {
-    width: 10vw;
-    height: auto;
-    background-color: transparent;
 }
 
 .wordList {
@@ -30,10 +36,9 @@ h1{
     border: 0.25em solid;
     border-radius: 1em;
 }
-ul {
-    list-style: none;
-}
-button {
-    background-color: #7DAF9C;
-    border-radius: 25px;
+
+.WordItem img {
+    width: 10vw;
+    height: auto;
+    background-color: transparent;
 }

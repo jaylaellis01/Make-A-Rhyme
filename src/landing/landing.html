@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html>
+    
     <head>
+        <!--    Imports    -->
+        <!--    CSS    -->
+        <link rel="stylesheet" href="../global/cursor.css">
         <link rel ="stylesheet" href="../global/sidenav.css">
         <link rel="stylesheet" href="landing.css">
-        <link rel="stylesheet" href="../global/cursor.css">
-        <script type="text/javascript" src="landing.js"></script>
+        <!--    JS    -->
         <script src="../global/words.js"></script>
+        <script type="text/javascript" src="landing.js"></script>
     </head>
+    
     <body>
         <div class ="sidenav">
             <img class="clickable" src="../../assets/backarrow.png" alt="back" width='100vw' height='100vw' onclick="location.href = '../login/login.html';">
             <img class="clickable" src="../../assets/homeButton.png" alt="back" width='100vw' height='100vw' onclick="location.href = '../login/login.html';">
         </div>
+        
         <header>Rhymes</header>
         <div class="row">
             <div class="column" onmouseover="playClip('parade_audio');" onmouseout="stopClip('parade_audio');">
@@ -28,11 +34,10 @@
                      <img class="clickable" src="../../assets/wordBank.png" alt="Word Bank" onclick="location.href = '../wordbank/wordbank.html'">
                 </div>  
             </div>
-
+        </div>
     </body>
     
         
-        <script src="landing.js"></script>
         <audio id="pet_party_audio">
             <source src="../../assets/audio/pet_party.wav">
         </audio>

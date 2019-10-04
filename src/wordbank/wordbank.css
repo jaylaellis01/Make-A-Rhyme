@@ -1,4 +1,8 @@
+body {
+    background-color: #FED49E;
+}
 
+/* TAB */
 .tab { 
     width: 100%;
     height: 100vw;
@@ -9,12 +13,15 @@
     margin-left: 10vw;
     background-color: #FED49E;
 }
-.tab:after {
-    content: "";
-    clear: both;
-    display: table;
-}
-button{
+
+    .tab:after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+
+/* BUTTON */
+button {
     width: 25%;
     height: 14%;
     margin: 2%;
@@ -25,11 +32,9 @@ button{
     vertical-align: middle;
 
 }
-button img{
-    float: left;
-    width: 10vw;
-    height: 10vw;
-}
-body{
-    background-color: #FED49E;
-}
+
+    button img {
+        float: left;
+        width: 10vw;
+        height: 10vw;
+    }
