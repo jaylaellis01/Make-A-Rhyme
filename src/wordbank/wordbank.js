@@ -3,23 +3,24 @@ window.onload = function makeList() {
     var category = sessionStorage.getItem("category");
     console.log(category);
     let listData = wordObjs[category],
+
     // Make a container element for the list
     listContainerMastered = document.createElement('div'),
     listContainerUnmastered = document.createElement('div'),
     
-    // Make the list
+    // Make the lists
     listElementMastered = document.createElement('ul'),
     listElementUnmastered = document.createElement('ul'),
+
     // Set up a loop that goes through the items in listItems one at a time
     numberOfListItems = listData.length,
     listItem,
     i;
+
     // Create wordList class elements for both Mastered and Unmastered words
     listContainerMastered.className = "wordList";
     listContainerUnmastered.className = "wordList";
     
-    
-//    console.log(listData);
     // Add it to the page
     document.getElementById('mastered').appendChild(listContainerMastered);
     document.getElementById('unmastered').appendChild(listContainerUnmastered);
@@ -28,27 +29,25 @@ window.onload = function makeList() {
     listContainerUnmastered.appendChild(listElementUnmastered);
 
     for (i = 0; i < numberOfListItems; ++i) {
-        // create an item for each one
-        // each item is created as a button 
-        //console.log(listData[i].learned)
+        // Create an listItem as a button for each word
         listItem = document.createElement('button');
         const wordName = listData[i].word;
         listItem.className = "WordItem clickable";
 
+        // Add audio mouse-over functionality to listItem
         const clip_name = '../../assets/word_assets/word_audio/' + wordName + '.mp3';   
         console.log(clip_name);
         listItem.onmouseover = function(){playClip(clip_name);};
         listItem.onmouseout = function(){stopClip(clip_name);};
-        
-        imageItem = document.createElement('img');
 
-        // Add the item text
+        // Add the word's image and text to the listItem
+        imageItem = document.createElement('img');
         imageItem.src = '../../assets/word_assets/word_art/' + category + '/' + listData[i].word + '.png';
         listItem.innerHTML = '';
         listItem.innerHTML = '<h2>' + listData[i].word + '</h2>';
         listItem.appendChild(imageItem);
 
-        // Add listItem to the listElement
+        // Add listItem to the listElement of the correct container (mastered vs unmastered)
         if (listData[i].learned == true) {
             listElementMastered.appendChild(listItem);
         } else {
