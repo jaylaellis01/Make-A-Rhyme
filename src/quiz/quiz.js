@@ -119,8 +119,14 @@ function checkAnswer(clicked_id) {
         // Remove choice buttons
         document.getElementById("choices").style.display = 'none';
         // Set the quiz word as learnt
-        wordObjs[categoryTemp].find(function(word){ return word.word == sight_word;}).learned = true;
-        console.log(wordObjs[categoryTemp].find(function(word){ return word.word == sight_word;}));
+    
+        var words = JSON.parse(window.localStorage.getItem('words'));
+        
+        words[categoryTemp].find(function(word){ return word.word == sight_word;}).learned = true;
+        window.localStorage.setItem('words', JSON.stringify(words));
+        
+        console.log(window.localStorage.getItem('words'));
+        
         // Wait few seconds and return to poem page
         setTimeout(function(){
             bake_cookie("reload", true);
