@@ -83,7 +83,7 @@ function createWordObjs() {
         category = i.toString();
         for (j = 0; j < (words[category]).length; j++) {
         	wordTemp = new wordObj((words[category])[j],
-            parseInt(category), "neuter");
+                parseInt(category), "neuter");
             if (j%5 == 0) {
                 wordTemp.learned = true;
             }

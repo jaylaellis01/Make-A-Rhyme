@@ -64,10 +64,10 @@ WordBox.prototype.contains = function(mx, my) {
 }
 
 // "Completes" a word box by assigning a word and image
-WordBox.prototype.fillWord = function(wordName) {
+WordBox.prototype.fillWord = function(wordName, wordCat) {
     this.word = wordName;
     this.completed = true;
-    this.imageSrc = '../../assets/word_assets/word_art/5/' + wordName + '.png';
+    this.imageSrc = '../../assets/word_assets/word_art/' + wordCat + '/' + wordName + '.png';
     let wordImage = document.createElement('img');
     wordImage.src = this.imageSrc;
     wordImage.id = this.word;
@@ -162,7 +162,7 @@ function CanvasState(canvas) {
 
     // **** Options! ****
 
-    this.selectionColor = 'rgba(232, 0, 0, 0.5)';
+    this.selectionColor = 'rgba(0, 232, 0, 0.5)';
     this.selectionWidth = 2;  
     this.interval = 30;
     setInterval(function() { myState.draw(); }, myState.interval);
@@ -202,9 +202,9 @@ CanvasState.prototype.getMouse = function(e) {
 // Tries to fill selected WordBox with the provided word
 // redraw param is for the edge case of selecting an unmastered word. 
 // You want to fill the word, but don't want to show it until after the quiz
-CanvasState.prototype.fillWord = function(wordName, redraw) {
+CanvasState.prototype.fillWord = function(wordName, wordCat, redraw) {
     if (this.selection != null) {
-        this.selection.fillWord(wordName);
+        this.selection.fillWord(wordName, wordCat);
         this.selection = null;
         this.clicked = false;
         this.valid = !redraw;
@@ -260,9 +260,13 @@ function makeList(categories, canvasState) {
     }
     
     // Establish the array which acts as a data source for the list
-    let listCat = 5;
-    let listData = wordObjs[listCat];
-    
+    var listData = [];
+    for (var i = 0; i < categories.length; i++) {
+        if (categories[i] < 1) {
+            continue;
+        }
+        Array.prototype.push.apply(listData, wordObjs[categories[i]]);
+    }
     // Make a container element for the lists and set HTML class tag
     let listContainer = document.createElement('div');
     listContainer.className = "wordLists";
@@ -293,6 +297,7 @@ function makeList(categories, canvasState) {
         // Get the name of the word
         let wordObject = listData[i];
         const wordName = listData[i].word;
+        const wordCat = listData[i].category;
         
         // Set up word audio on mouse over
         const clip_name = '../../assets/word_assets/word_audio/' + wordName + '.mp3';    
@@ -306,7 +311,7 @@ function makeList(categories, canvasState) {
         listItem.innerHTML = '<h2>' + wordName + '</h2>';
         // Add the word image to the list item
         imageItem = document.createElement('img');
-        imageItem.src = '../../assets/word_assets/word_art/5/' + wordName + '.png';
+        imageItem.src = '../../assets/word_assets/word_art/' + wordCat + '/' + wordName + '.png';
         listItem.appendChild(imageItem);
         
         
@@ -318,14 +323,14 @@ function makeList(categories, canvasState) {
         if (listData[i].learned) {
             // Mastered words
             listItem.onclick = function() {
-                canvasState.fillWord(wordName, true);
+                canvasState.fillWord(wordName, wordCat, true);
             }
             masteredWordsListElement.append(listItem);
         } else {
             // Unmastered words
             // Set onclock to go to quiz page
             listItem.onclick = function() {
-                canvasState.fillWord(wordName, false);
+                canvasState.fillWord(wordName, wordCat, false);
                 quizWord = wordObject;
                  // Store quizWord in the cookies
                 bake_cookie('quizWord', quizWord);                
