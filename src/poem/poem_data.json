@@ -107,32 +107,38 @@
                 {
                     "x": 0.077142857,
                     "y": 0.25210084,
-                    "categories": "unknown"
+                    "categories": [1],
+                    "spot-id": "F"
                 },
                 {
                     "x": 0.302857143,
                     "y": 0.016806723,
-                    "categories": "unknown"
+                    "categories": "unknown",
+                    "spot-id": "A"
                 },
                 {
                     "x": 0.502857143,
                     "y": 0.075630252,
-                    "categories": "unknown"
+                    "categories": "[5,5,5]",
+                    "spot-id": "B"
                 },
                 {
                     "x": 0.608571429,
                     "y": 0.31092437,
-                    "categories": "unknown"
+                    "categories": [1,1],
+                    "spot-id": "D"
                 },
                 {
                     "x": 0.457142857,
                     "y": 0.470588235,
-                    "categories": [1, 2, 3]
+                    "categories": [5,5,5],
+                    "spot-id": "C"
                 },
                 {
                     "x": 0.137142857,
                     "y": 0.453781513,
-                    "categories": [1, 2, 3]
+                    "categories": [5,1],
+                    "spot-id": "E"
                 }
             ]
         },
