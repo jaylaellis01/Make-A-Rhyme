@@ -47,7 +47,10 @@ const categories = {
     18: "Colors"
 }
 
-var wordObjs = createWordObjs();
+if ( window.localStorage.getItem("words") == null) {
+    var wordObjs = createWordObjs();
+}
+
 
 function wordObj(aWord, aCategory, aGender) {
 	this.learned = false;
@@ -82,9 +85,6 @@ function createWordObjs() {
         for (j = 0; j < (words[category]).length; j++) {
         	wordTemp = new wordObj((words[category])[j],
             parseInt(category), "neuter");
-            if (j%5 == 0) {
-                wordTemp.learned = true;
-            }
         	wordObjsTemp[category].push(wordTemp);
             count++;
 
@@ -93,5 +93,6 @@ function createWordObjs() {
 
     // format is wordObsTemp[category][index in array].attribute
 //     console.log(wordObjs);
+    window.localStorage.setItem('words', JSON.stringify(wordObjsTemp));
     return wordObjsTemp;
 }
