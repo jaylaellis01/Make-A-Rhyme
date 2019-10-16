@@ -5,6 +5,7 @@ var categoryTemp = word.category;
 
 // Variables for quiz
 var consecutive_correct = 0;
+var max_consecutive_correct = 0;
 var timedAudio;
 
 // Setup audio and sight word image
@@ -39,7 +40,9 @@ function updateStars() {
     // Iterate through stars and set full for number of correct guesses
     for (let star of stars) {
         if (full_stars++ < consecutive_correct) {
-            star.src = "../../assets/star_full.png";
+            star.src = "../../assets/Gold-Star-Blank.png";
+        } else if (full_stars <= max_consecutive_correct) {
+            star.src = "../../assets/Silver-Star-Blank.png";
         } else {
             star.src = "../../assets/star_empty.png";
         }
@@ -95,6 +98,9 @@ function checkAnswer(clicked_id) {
         correct_audio.play();
         // Increment correct choices
         consecutive_correct++;
+        if (consecutive_correct > max_consecutive_correct) {
+            max_consecutive_correct = consecutive_correct;
+        }
     } else {
         // Visual feedback for incorrect
         result.innerHTML = "Wrong!";
@@ -104,6 +110,10 @@ function checkAnswer(clicked_id) {
             timedAudio = setTimeout(function(){ sight_word_audio.play(); }, 2200);
         } else {
             sight_word_audio.play();
+        }
+        
+        if (consecutive_correct > max_consecutive_correct) {
+            max_consecutive_correct = consecutive_correct;
         }
         // Reset correct choices
         consecutive_correct = 0;
