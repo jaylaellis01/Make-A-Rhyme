@@ -119,19 +119,19 @@
                 {
                     "x": 0.502857143,
                     "y": 0.075630252,
-                    "categories": "[5,5,5]",
+                    "categories": [5],
                     "spot-id": "B"
                 },
                 {
                     "x": 0.608571429,
                     "y": 0.31092437,
-                    "categories": [1,1],
+                    "categories": [1],
                     "spot-id": "D"
                 },
                 {
                     "x": 0.457142857,
                     "y": 0.470588235,
-                    "categories": [5,5,5],
+                    "categories": [5],
                     "spot-id": "C"
                 },
                 {
