@@ -36,6 +36,9 @@ button {
     border: 0.25em solid;
     border-radius: 1em;
 }
+.unmasteredWordsListElement {
+    filter: grayscale(100%);
+}
 
 .WordItem img {
     width: 10vw;

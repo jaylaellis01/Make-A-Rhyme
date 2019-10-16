@@ -19,7 +19,7 @@ window.onload = function makeList() {
 
     // Create wordList class elements for both Mastered and Unmastered words
     listContainerMastered.className = "wordList";
-    listContainerUnmastered.className = "wordList";
+    listContainerUnmastered.className = "unmasteredWordsListElement wordList";
     
     // Add it to the page
     document.getElementById('mastered').appendChild(listContainerMastered);
