@@ -20,6 +20,7 @@ body {
 
 /* Custom sidebar CSS to make it smaller */
 .sidenav {
+    min-width: 1em;
     width: 5vw;
 }
 .sidenav img {
