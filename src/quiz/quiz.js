@@ -48,6 +48,14 @@ function updateStars() {
 
 // Suffle the quiz answer buttons
 function shuffle_btns() {
+    var allWords;
+    Papa.parse(file, {
+        complete: function(results) {
+            console.log(results);
+            allWords = results;
+        }
+    })
+
     // Shuffle the words
     category_words =  words[categoryTemp].slice();
     category_words.sort(() => Math.random() - 0.5);
