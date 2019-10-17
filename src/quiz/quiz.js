@@ -68,36 +68,40 @@ function shuffle_btns() {
             // Find and place all similar and non-similar words into their own arrays
             for (i = 0; i <= 17; i++) {
                 for (j = 0; j < allWords[i].length; j++) {
-                    // if (first letter of current word == first letter of sight word)
+                    // If (first letter of current word == first letter of sight word)
                     if (allWords[i][j].charAt(0) == sight_word.charAt(0)) {
-                        similarWords.push(allWords[i][j]);
+                        if (allWords[i][j] != sight_word) {
+                            similarWords.push(allWords[i][j]);
+                        }
                     } else {
                         nonSimilarWords.push(allWords[i][j]);
                     }
                 }
             }
-            console.log(similarWords);
+            //console.log(similarWords);
 
-            // If we don't have the wanted number of 10 similar word options
+            // If we don't have the wanted number of 10 similar word options, pull from nonSimilarWords
             if (similarWords.length < 10) {
                 var stillNeed = 10 - similarWords.length;
                 nonSimilarWords.sort(() => Math.random() - 0.5);
                 nonSimilarWords = nonSimilarWords.splice(0, stillNeed);
                 randomTen = similarWords.concat(nonSimilarWords);
-            // When we do have at least 10 similar words
+            // Else randomly pull 10 words from similarWords
             } else {
                 similarWords.sort(() => Math.random() - 0.5);
                 similarWords = similarWords.splice(0, 10);
                 randomTen = similarWords;
             }
 
-            // Shuffle the 10 randomly selected words
-            randomTen.sort(() => Math.random - 0.5);
+            // Shuffle the 10 randomly selected words --> is this only needed if there are less than 10 similar word options?
+            randomTen.sort(() => Math.random() - 0.5);
 
             // Take 1st 3 words from the shuffled words then add the sight word and shuffle their order
             randomTen = randomTen.splice(0,3);
             randomTen.push(sight_word);
-            randomTen.sort(() => Math.random - 0.5);
+            console.log(randomTen);
+            randomTen.sort(() => Math.random() - 0.5);
+            console.log(randomTen);
 
             // Set word for each button
             var button_ids = ["btn1", "btn2", "btn3", "btn4"];
