@@ -49,50 +49,74 @@ const categories = {
 
 if ( window.localStorage.getItem("words") == null) {
     var wordObjs = createWordObjs();
+    var personObjs = createPersonObjs(); 
 }
 
-
-function wordObj(aWord, aCategory, aGender) {
+function wordObj(aWord, aCategory) {
 	this.learned = false;
 	this.word = aWord;
     this.category = aCategory;
-    this.gender = aGender;
 }
-    /* NOTES FOR FUTURE IMPLEMENTATION:
-    1. Mapping child names to child pictures.
-        -- Can be implemented by separating male and female pictures and adding a "gender"
-        attribute to the word object (NEED: to make an issue for this)
-        -- need a gray-scale function to show the associated picture in gray-scale if word is unlearned
 
-
-
-    */
 
 function createWordObjs() {
-    var count = 0;
+    var wordObjsTemp = {1: new Array, 2: new Array, 3: new Array, 4: new Array, 5: new Array, 6: new Array,
+                    7: new Array, 8: new Array, 9: new Array, 10: new Array, 11: new Array, 12: new Array,
+                    13: new Array, 14: new Array, 15: new Array, 16: new Array, 17: new Array, 18: new Array,
+                    };
     var category;
     var wordTemp;
-    var gender;
-    var wordObjsTemp = {1: new Array, 2: new Array, 3: new Array, 4: new Array, 5: new Array, 6: new Array,
-    				7: new Array, 8: new Array, 9: new Array, 10: new Array, 11: new Array, 12: new Array,
-                    13: new Array, 14: new Array, 15: new Array, 16: new Array, 17: new Array, 18: new Array,
-                    19: new Array}
-
-    // goes through the # of word categories
-    for (i = 1; i <= 18; i++) {
-        // makes a word object for each word in current category
-        category = i.toString();
-        for (j = 0; j < (words[category]).length; j++) {
-        	wordTemp = new wordObj((words[category])[j],
-            parseInt(category), "neuter");
-        	wordObjsTemp[category].push(wordTemp);
-            count++;
-
+    var allWords;
+    Papa.parse('../global/words.csv', {
+        header: false,
+        skipEmptyLines: true,
+        download: true,
+        skipEmptyLines: true,
+        complete: function(results) {
+            allWords = results.data;
+            // goes through the # of word categories (i == category - 1)
+            for (i = 0; i <= 17; i++) {
+                category = i + 1;
+                // makes a word object for each word in current category (j == word)
+                for (j = 0; j < (allWords[i]).length; j++) {
+                    wordTemp = new wordObj((allWords[i])[j], i);
+                    if (j%5 == 0) {
+                        wordTemp.learned = true;
+                    }
+                    wordObjsTemp[category].push(wordTemp);
+                }
+            }
+            // console.log(wordObjsTemp);
+            // Must be added to storage within the complete call since parse is asynchronous
+            window.localStorage.setItem('words', JSON.stringify(wordObjsTemp));
         }
-    }
-
-    // format is wordObsTemp[category][index in array].attribute
-//     console.log(wordObjs);
-    window.localStorage.setItem('words', JSON.stringify(wordObjsTemp));
+    });
+    // format is wordObjsTemp[category][index in array].attribute
     return wordObjsTemp;
+}
+
+function personObj(aName, aPerson) {
+    this.name = aName;
+    this.person = aPerson;
+}
+
+function createPersonObjs() {
+    var personTemp;
+    var personObjsTemp = new Array;
+    var friends;
+    Papa.parse('../global/friends.csv', {
+        header: false,
+        download: true,
+        complete: function(results) {
+            friends = results.data[0];
+            for (i = 0; i < friends.length; i++) {
+                personTemp = new personObj(friends[i], "none");
+                personObjsTemp.push(personTemp);
+            }
+            // console.log(personObjsTemp);
+            // Must be added to storage within the complete call since parse is asynchronous
+            window.localStorage.setItem('friends', JSON.stringify(personObsjTemp));
+        }
+    });
+    return personObjsTemp;
 }

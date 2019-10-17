@@ -51,24 +51,68 @@ function updateStars() {
 
 // Suffle the quiz answer buttons
 function shuffle_btns() {
-    // Shuffle the words
-    category_words =  words[categoryTemp].slice();
-    category_words.sort(() => Math.random() - 0.5);
-    indexOfSightWord = category_words.indexOf(sight_word);
-    category_words.splice(indexOfSightWord, 1);
-    
-    // Take 1st 3 words from the shuffled words add the sight word and shufle order
-    category_words = category_words.slice(0,3);
-    category_words.push(sight_word);
-    category_words.sort(() => Math.random() - 0.5);
+    // Retrieve all words
+    var allWords;
+    var nonSimilarWords = new Array;
+    var similarWords = new Array;
+    var randomTen = new Array;
+    Papa.parse('../global/words.csv', {
+        header: false,
+        skipEmptyLines: true,
+        download: true,
+        skipEmptyLines: true,
+        complete: function(results) {
+            //console.log(results.data);
+            allWords = results.data;
 
-    // Set word for each button
-    var button_ids = ["btn1", "btn2", "btn3", "btn4"];
-    var word_index = 0;
-    button_ids.forEach(function(button_id) {
-        word = category_words[word_index++];
-        document.getElementById(button_id).innerHTML = word;
+            // Find and place all similar and non-similar words into their own arrays
+            for (i = 0; i <= 17; i++) {
+                for (j = 0; j < allWords[i].length; j++) {
+                    // If (first letter of current word == first letter of sight word)
+                    if (allWords[i][j].charAt(0) == sight_word.charAt(0)) {
+                        if (allWords[i][j] != sight_word) {
+                            similarWords.push(allWords[i][j]);
+                        }
+                    } else {
+                        nonSimilarWords.push(allWords[i][j]);
+                    }
+                }
+            }
+            //console.log(similarWords);
+
+            // If we don't have the wanted number of 10 similar word options, pull from nonSimilarWords
+            if (similarWords.length < 10) {
+                var stillNeed = 10 - similarWords.length;
+                nonSimilarWords.sort(() => Math.random() - 0.5);
+                nonSimilarWords = nonSimilarWords.splice(0, stillNeed);
+                randomTen = similarWords.concat(nonSimilarWords);
+            // Else randomly pull 10 words from similarWords
+            } else {
+                similarWords.sort(() => Math.random() - 0.5);
+                similarWords = similarWords.splice(0, 10);
+                randomTen = similarWords;
+            }
+
+            // Shuffle the 10 randomly selected words --> is this only needed if there are less than 10 similar word options?
+            randomTen.sort(() => Math.random() - 0.5);
+
+            // Take 1st 3 words from the shuffled words then add the sight word and shuffle their order
+            randomTen = randomTen.splice(0,3);
+            randomTen.push(sight_word);
+            console.log(randomTen);
+            randomTen.sort(() => Math.random() - 0.5);
+            console.log(randomTen);
+
+            // Set word for each button
+            var button_ids = ["btn1", "btn2", "btn3", "btn4"];
+            var word_index = 0;
+            button_ids.forEach(function(button_id) {
+                word = randomTen[word_index++];
+                document.getElementById(button_id).innerHTML = word;
+            });
+        }
     });
+
 }
 
 // Pause the currently playing audio
