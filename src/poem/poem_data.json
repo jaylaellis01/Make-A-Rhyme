@@ -113,7 +113,7 @@
                 {
                     "x": 0.302857143,
                     "y": 0.016806723,
-                    "categories": "unknown",
+                    "categories": [19],
                     "spot-id": "A"
                 },
                 {
@@ -151,27 +151,32 @@
                 {
                     "x": 0.46,
                     "y": 0.1852941176,
-                    "categories": "unknown"
+                    "categories": [5],
+                    "spot-id": "D"
                 },
                 {
                     "x": 0.748,
                     "y": 0.4176470588,
-                    "categories": "unknown"
+                    "categories": [19],
+                    "spot-id": "C"
                 },
                 {
                     "x": 0.668,
                     "y": 0.6235294118,
-                    "categories": "unknown"
+                    "categories": [1],
+                    "spot-id": "E"
                 },
                 {
                     "x": 0.56,
                     "y": 0.7411764706,
-                    "categories": "unknown"
+                    "categories": [5],
+                    "spot-id": "B"
                 },
                 {
                     "x": 0.436,
                     "y": 0.6647058824,
-                    "categories": [1, 2, 3]
+                    "categories": [1],
+                    "spot-id": "A"
                 }
             ]
         }
