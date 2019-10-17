@@ -10,7 +10,7 @@ window.onload = function makeButtons() {
     listContainer.className = "tab";
     document.getElementsByTagName('body')[0].appendChild(listContainer);
 
-    for(i = 1; i <= 19; i++) {
+    for(i = 1; i <= 18; i++) {
         // create a button for each category in the list
         listItem = document.createElement('button');
         listItem.className = "tablinks clickable";
