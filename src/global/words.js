@@ -48,6 +48,18 @@ const categories = {
     18: "Describe",
     19: "Colors"
 }
+var allWords;
+
+function yeet() {
+    Papa.parse('friends.csv', {
+        header: false,
+        download: true,
+        complete: function(results) {
+            console.log(results);
+            allWords = results.data;
+        }
+    });
+}
 
 var wordObjs = createWordObjs();
 
@@ -94,6 +106,26 @@ function createWordObjs() {
     }
 
     // format is wordObsTemp[category][index in array].attribute
-//     console.log(wordObjs);
+    //console.log(wordObjs);
+    yeet();
     return wordObjsTemp;
 }
+
+function personObj(aName, aPerson) {
+    this.name = aName;
+    this.person = aPerson;
+}
+
+function createPersonObs() {
+    var count = 0;
+    var personTemp;
+    var personObsTemp = new Array;
+    for (i = 0; i < people.length; i++) {
+        personTemp = new personObj("none", );
+        personObsTemp.push(personTemp);
+        count++;
+    }
+    //console.log(personObsTemp[0]);
+    return personObsTemp;
+}
+
