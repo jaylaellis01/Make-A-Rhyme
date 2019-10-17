@@ -48,32 +48,42 @@ function updateStars() {
 
 // Suffle the quiz answer buttons
 function shuffle_btns() {
+    // Retrieve all words
     var allWords;
-    Papa.parse(file, {
+    Papa.parse('../global/words.csv', {
+        header: false,
+        skipEmptyLines: true,
+        download: true,
+        skipEmptyLines: true,
         complete: function(results) {
-            console.log(results);
-            allWords = results;
+            //console.log(results.data);
+            allWords = results.data;
+
+            // Shuffle the words
+            category_words =  words[categoryTemp].slice();
+            category_words.sort(() => Math.random() - 0.5);
+            indexOfSightWord = category_words.indexOf(sight_word);
+            category_words.splice(indexOfSightWord, 1);
+            
+            // Take 1st 3 words from the shuffled words add the sight word and shufle order
+            category_words = category_words.slice(0,3);
+            category_words.push(sight_word);
+            category_words.sort(() => Math.random() - 0.5);
+
+            // Set word for each button
+            var button_ids = ["btn1", "btn2", "btn3", "btn4"];
+            var word_index = 0;
+            button_ids.forEach(function(button_id) {
+                word = category_words[word_index++];
+                document.getElementById(button_id).innerHTML = word;
+            });
+
+
+
+
         }
-    })
-
-    // Shuffle the words
-    category_words =  words[categoryTemp].slice();
-    category_words.sort(() => Math.random() - 0.5);
-    indexOfSightWord = category_words.indexOf(sight_word);
-    category_words.splice(indexOfSightWord, 1);
-    
-    // Take 1st 3 words from the shuffled words add the sight word and shufle order
-    category_words = category_words.slice(0,3);
-    category_words.push(sight_word);
-    category_words.sort(() => Math.random() - 0.5);
-
-    // Set word for each button
-    var button_ids = ["btn1", "btn2", "btn3", "btn4"];
-    var word_index = 0;
-    button_ids.forEach(function(button_id) {
-        word = category_words[word_index++];
-        document.getElementById(button_id).innerHTML = word;
     });
+
 }
 
 // Pause the currently playing audio
