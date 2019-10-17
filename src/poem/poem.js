@@ -38,13 +38,20 @@ function WordBox(x, y, w, h, fill, categories, word, completed, imgSrc) {
 // Draws the WordBox - grey box if not completed, image if word is completed
 WordBox.prototype.draw = function(ctx, fill) {
     // Draw grey boxes
+    var cHeight = ctx.canvas.height;
+    var cWidth = ctx.canvas.width;
+    var scaledX = this.x * cWidth;
+    var scaledY = this.y * cHeight;
+    var scaledW = this.w * 100;
+    var scaledH = this.h * 100;
+    console.log(scaledW);
     if (!this.completed) {
         ctx.fillStyle = fill;
         ctx.strokeStyle = '#000000';
-        ctx.fillRect(this.x + (this.w * 0.1), this.y, this.w*0.8, this.h);
-        ctx.fillRect(this.x, this.y + (this.h * 0.3), this.w, this.h*0.7);
-        ctx.strokeRect(this.x + (this.w * 0.1), this.y, this.w*0.8, this.h);
-        ctx.strokeRect(this.x, this.y + (this.h * 0.3), this.w, this.h*0.7);
+        ctx.fillRect(scaledX + (scaledW * 0.1), scaledY, scaledW*0.8, scaledH);
+        ctx.fillRect(scaledX, scaledY + (scaledH * 0.3), scaledW, scaledH*0.7);
+        ctx.strokeRect(scaledX + (scaledW * 0.1), scaledY, scaledW*0.8, scaledH);
+        ctx.strokeRect(scaledX, scaledY + (scaledH * 0.3), scaledW, scaledH*0.7);
     } else { // Draw image
         if (!document.getElementById(this.word)) { // Create image if it doesn't exist (can happen on page reload)
             let wordImage = document.createElement('img');
@@ -53,27 +60,39 @@ WordBox.prototype.draw = function(ctx, fill) {
             document.getElementById('images').appendChild(wordImage);
         } 
         const image = document.getElementById(this.word);
-        ctx.drawImage(image, this.x, this.y, this.w, this.h);
+        ctx.drawImage(image, scaledX, scaledY, scaledW, scaledH);
     }
 }
 
   // Sees if the point (mx, my) is inside the box's area
-WordBox.prototype.contains = function(mx, my) {
-    return  (this.x <= mx) && (this.x + this.w >= mx) &&
-            (this.y <= my) && (this.y + this.h >= my);
+WordBox.prototype.contains = function(mx, my, ctx) {
+    var cHeight = ctx.canvas.height;
+    var cWidth = ctx.canvas.width;
+    var scaledX = this.x * cWidth;
+    var scaledY = this.y * cHeight;
+    var scaledW = this.w * 100;
+    var scaledH = this.h * 100;
+    return  (scaledX <= mx) && (scaledX + scaledW >= mx) &&
+            (scaledY <= my) && (scaledY + scaledH >= my);
 }
 
 // "Completes" a word box by assigning a word and image
-WordBox.prototype.fillWord = function(wordName) {
+WordBox.prototype.fillWord = function(wordName, wordCat) {
     this.word = wordName;
     this.completed = true;
-    this.imageSrc = '../../assets/word_assets/word_art/5/' + wordName + '.png';
+    this.imageSrc = '../../assets/word_assets/word_art/' + wordCat + '/' + wordName + '.png';
     let wordImage = document.createElement('img');
     wordImage.src = this.imageSrc;
     wordImage.id = this.word;
     document.getElementById('images').appendChild(wordImage);
 }
 
+WordBox.prototype.setWH = function(w, h) {
+    this.w = w;
+    this.h = h;
+    console.log("woi");
+    console.log(this.w);
+}
 // CanvasState keeps track of the state of the canvas
 // I copied the template from this from the internet, thus there is some extra mouse stuff in here
 function CanvasState(canvas) {
@@ -81,6 +100,7 @@ function CanvasState(canvas) {
     this.canvas = canvas;
     this.width = canvas.width;
     this.height = canvas.height;
+    this.WHRatio = this.width/this.height;
     this.ctx = canvas.getContext('2d');
     // This complicates things a little but but fixes mouse co-ordinate problems
     // when there's a border or padding. See getMouse for more detail
@@ -105,6 +125,7 @@ function CanvasState(canvas) {
     // the current selected object. In the future we could turn this into an array for multiple selection
     this.selection = null;
     this.clicked = false;
+    this.resize = false;
 
     // **** Then events! ****
 
@@ -128,7 +149,7 @@ function CanvasState(canvas) {
         for (var i = 0; i < words.length; i++) {
             // If where you clicked is inside of a WordBox, set the "clicked" state to true
             // This way the "selected" element won't be overwritten when you mouse over another object
-            if (words[i].contains(mx, my)) {
+            if (words[i].contains(mx, my, myState.ctx)) {
                 makeList(words[i].categories, myState);
                 myState.clicked = true;
                 return;
@@ -146,7 +167,7 @@ function CanvasState(canvas) {
             // Look through all of the WordBoxes to see if the mouse is inside of it
             for (var i = 0; i < words.length; i++) {
                 // If the mouse is inside of the WordBox, set the box as selected (which will color it red)
-                if (words[i].contains(mx, my)) {
+                if (words[i].contains(mx, my, myState.ctx)) {
                     var mySel = words[i];
                     myState.selection = mySel;
                     myState.valid = false;
@@ -162,7 +183,7 @@ function CanvasState(canvas) {
 
     // **** Options! ****
 
-    this.selectionColor = 'rgba(232, 0, 0, 0.5)';
+    this.selectionColor = 'rgba(0, 232, 0, 0.5)';
     this.selectionWidth = 2;  
     this.interval = 30;
     setInterval(function() { myState.draw(); }, myState.interval);
@@ -202,9 +223,9 @@ CanvasState.prototype.getMouse = function(e) {
 // Tries to fill selected WordBox with the provided word
 // redraw param is for the edge case of selecting an unmastered word. 
 // You want to fill the word, but don't want to show it until after the quiz
-CanvasState.prototype.fillWord = function(wordName, redraw) {
+CanvasState.prototype.fillWord = function(wordName, wordCat, redraw) {
     if (this.selection != null) {
-        this.selection.fillWord(wordName);
+        this.selection.fillWord(wordName, wordCat);
         this.selection = null;
         this.clicked = false;
         this.valid = !redraw;
@@ -234,10 +255,9 @@ CanvasState.prototype.draw = function() {
   if (!this.valid) {
     var ctx = this.ctx;
     var words = this.words;
-
     // draw background
     var img = document.getElementById('background');
-    ctx.drawImage(img, 0, 0);
+    ctx.drawImage(img, 0, 0, ctx.canvas.width, ctx.canvas.height);
 
     // draw all words
     for (var i = 0; i < words.length; i++) {
@@ -252,6 +272,24 @@ CanvasState.prototype.draw = function() {
   }
 }
 
+CanvasState.prototype.handleEvent = function(evt) {
+    var newW = window.innerWidth * 0.9;
+    if (newW >= 930) {
+        newW = 930;
+    }
+    var newH = newW / this.WHRatio;
+    this.canvas.width = newW;
+    this.canvas.height = newH;
+    this.width = newW;
+    this.height = newH;
+    this.valid = false;
+    for (var i = 0; i < this.words.length; i++) {
+        this.words[i].w = newW/930;
+        this.words[i].h = newH/653;
+    }
+
+    this.draw();
+}
 function makeList(categories, canvasState) {
     
     let exisitingLists = document.getElementById('wordLists');
@@ -263,8 +301,13 @@ function makeList(categories, canvasState) {
     
     
     // Establish the array which acts as a data source for the list
-    let listCat = 5;
-    let listData = JSON.parse(window.localStorage.getItem('words'))[listCat];
+    var listData = [];
+    for (var i = 0; i < categories.length; i++) {
+        if (categories[i] < 1) {
+            continue;
+        }
+        Array.prototype.push.apply(listData, JSON.parse(window.localStorage.getItem('words'))[categories[i]]);
+    }
     
     // Make a container element for the lists and set HTML class tag
     let listContainer = document.createElement('div');
@@ -296,6 +339,7 @@ function makeList(categories, canvasState) {
         // Get the name of the word
         let wordObject = listData[i];
         const wordName = listData[i].word;
+        const wordCat = listData[i].category;
         
         // Set up word audio on mouse over
         const clip_name = '../../assets/word_assets/word_audio/' + wordName + '.mp3';    
@@ -309,7 +353,7 @@ function makeList(categories, canvasState) {
         listItem.innerHTML = '<h2>' + wordName + '</h2>';
         // Add the word image to the list item
         imageItem = document.createElement('img');
-        imageItem.src = '../../assets/word_assets/word_art/5/' + wordName + '.png';
+        imageItem.src = '../../assets/word_assets/word_art/' + wordCat + '/' + wordName + '.png';
         listItem.appendChild(imageItem);
         
         
@@ -321,14 +365,14 @@ function makeList(categories, canvasState) {
         if (listData[i].learned) {
             // Mastered words
             listItem.onclick = function() {
-                canvasState.fillWord(wordName, true);
+                canvasState.fillWord(wordName, wordCat, true);
             }
             masteredWordsListElement.append(listItem);
         } else {
             // Unmastered words
             // Set onclock to go to quiz page
             listItem.onclick = function() {
-                canvasState.fillWord(wordName, false);
+                canvasState.fillWord(wordName, wordCat, false);
                 quizWord = wordObject;
                  // Store quizWord in the cookies
                 bake_cookie('quizWord', quizWord);                
@@ -376,10 +420,11 @@ function stopClip(clip_name) {
 
 // Init function called on page load
 function init() {
-    var s = new CanvasState(document.getElementById('canvas'));
     var canvas = document.getElementById('canvas');
+    var s = new CanvasState(canvas);
     var width = canvas.width;
     var height = canvas.height;
+    window.addEventListener('resize', s, false);
     // if we are coming back from the quiz, reload state of words
     if (read_cookie('reload')) {
         s.loadState();
@@ -391,9 +436,10 @@ function init() {
             var fillColor = 'rgba(232, 232, 232, 0.5)'
             for (i = 0; i < wordsArr.length; i++) {
                 var word = wordsArr[i];
-                s.addWord(new WordBox(word["x"]*width, word["y"]*height, 100, 100, fillColor, word["categories"]))
+                s.addWord(new WordBox(word["x"], word["y"], 1, 1, fillColor, word["categories"]))
             } 
         });
+        
     }
 }
 
