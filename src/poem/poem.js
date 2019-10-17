@@ -44,7 +44,6 @@ WordBox.prototype.draw = function(ctx, fill) {
     var scaledY = this.y * cHeight;
     var scaledW = this.w * 100;
     var scaledH = this.h * 100;
-    console.log(scaledW);
     if (!this.completed) {
         ctx.fillStyle = fill;
         ctx.strokeStyle = '#000000';
@@ -87,12 +86,6 @@ WordBox.prototype.fillWord = function(wordName, wordCat) {
     document.getElementById('images').appendChild(wordImage);
 }
 
-WordBox.prototype.setWH = function(w, h) {
-    this.w = w;
-    this.h = h;
-    console.log("woi");
-    console.log(this.w);
-}
 // CanvasState keeps track of the state of the canvas
 // I copied the template from this from the internet, thus there is some extra mouse stuff in here
 function CanvasState(canvas) {
@@ -151,7 +144,9 @@ function CanvasState(canvas) {
             // This way the "selected" element won't be overwritten when you mouse over another object
             if (words[i].contains(mx, my, myState.ctx)) {
                 makeList(words[i].categories, myState);
+                myState.selection = words[i];
                 myState.clicked = true;
+                myState.valid = false;
                 return;
             }
         }
@@ -175,7 +170,7 @@ function CanvasState(canvas) {
                 }
             }
             // If the mouse is now outside the previously selected WordBox, deselect it
-            if (myState.selection != null && !myState.selection.contains(mx, my)) {
+            if (myState.selection != null && !myState.selection.contains(mx, my, myState.ctx)) {
                 myState.selection = null;
             }
         }
@@ -243,7 +238,11 @@ CanvasState.prototype.loadState = function() {
     if (load != null) {
         for (var i = 0; i < load.length; i++) {
             var w = load[i];
-            this.addWord(new WordBox(w.x, w.y, w.w, w.h, w.fill, w.categories, w.word, w.completed, w.imageSrc));
+            if (w.word == read_cookie('quizWord').word && !read_cookie('mastered')) {
+                this.addWord(new WordBox(w.x, w.y, w.w, w.h, w.fill, w.categories));
+            } else {
+                this.addWord(new WordBox(w.x, w.y, w.w, w.h, w.fill, w.categories, w.word, w.completed, w.imageSrc));
+            }
         }
         this.valid = false;
     }
@@ -296,17 +295,18 @@ function makeList(categories, canvasState) {
     if (exisitingLists) {
         exisitingLists.parentElement.removeChild(exisitingLists);
     }
-    
-        console.log(window.localStorage.getItem('words'));
-    
-    
+
     // Establish the array which acts as a data source for the list
     var listData = [];
     for (var i = 0; i < categories.length; i++) {
         if (categories[i] < 1) {
             continue;
         }
-        Array.prototype.push.apply(listData, JSON.parse(window.localStorage.getItem('words'))[categories[i]]);
+        if (categories[i] == 19) {
+            Array.prototype.push.apply(listData, JSON.parse(window.localStorage.getItem('friends')));
+        } else {
+            Array.prototype.push.apply(listData, JSON.parse(window.localStorage.getItem('words'))[categories[i]]);
+        }
     }
     
     // Make a container element for the lists and set HTML class tag

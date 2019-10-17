@@ -183,6 +183,7 @@ function checkAnswer(clicked_id) {
         
         // Wait few seconds and return to poem page
         setTimeout(function(){
+            bake_cookie("mastered", true);
             bake_cookie("reload", true);
             window.history.back();
         }, 2000);
@@ -194,6 +195,7 @@ function checkAnswer(clicked_id) {
 }
 
 function onClickBack() {
+    bake_cookie("mastered", false);
     bake_cookie("reload", true);
     window.history.back();
 }
