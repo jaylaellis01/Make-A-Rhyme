@@ -57,15 +57,7 @@ function wordObj(aWord, aCategory) {
 	this.word = aWord;
     this.category = aCategory;
 }
-    /* NOTES FOR FUTURE IMPLEMENTATION:
-    1. Mapping child names to child pictures.
-        -- Can be implemented by separating male and female pictures and adding a "gender"
-        attribute to the word object (NEED: to make an issue for this)
-        -- need a gray-scale function to show the associated picture in gray-scale if word is unlearned
 
-
-
-    */
 
 function createWordObjs() {
     var wordObjsTemp = {1: new Array, 2: new Array, 3: new Array, 4: new Array, 5: new Array, 6: new Array,
@@ -95,11 +87,11 @@ function createWordObjs() {
                 }
             }
             // console.log(wordObjsTemp);
+            // Must be added to storage within the complete call since parse is asynchronous
+            window.localStorage.setItem('words', JSON.stringify(wordObjsTemp));
         }
     });
-    // console.log(wordObjsTemp);
-    // format is wordObsTemp[category][index in array].attribute
-    window.localStorage.setItem('words', JSON.stringify(wordObjsTemp));
+    // format is wordObjsTemp[category][index in array].attribute
     return wordObjsTemp;
 }
 
@@ -121,7 +113,9 @@ function createPersonObjs() {
                 personTemp = new personObj(friends[i], "none");
                 personObjsTemp.push(personTemp);
             }
-            console.log(personObjsTemp);
+            // console.log(personObjsTemp);
+            // Must be added to storage within the complete call since parse is asynchronous
+            window.localStorage.setItem('friends', JSON.stringify(personObsjTemp));
         }
     });
     return personObjsTemp;
