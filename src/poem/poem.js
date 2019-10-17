@@ -297,14 +297,18 @@ function makeList(categories, canvasState) {
         exisitingLists.parentElement.removeChild(exisitingLists);
     }
     
+        console.log(window.localStorage.getItem('words'));
+    
+    
     // Establish the array which acts as a data source for the list
     var listData = [];
     for (var i = 0; i < categories.length; i++) {
         if (categories[i] < 1) {
             continue;
         }
-        Array.prototype.push.apply(listData, wordObjs[categories[i]]);
+        Array.prototype.push.apply(listData, JSON.parse(window.localStorage.getItem('words'))[categories[i]]);
     }
+    
     // Make a container element for the lists and set HTML class tag
     let listContainer = document.createElement('div');
     listContainer.className = "wordLists";
@@ -323,7 +327,7 @@ function makeList(categories, canvasState) {
     listContainer.append(unmasteredWordsListElement)
     
     // Set up a loop that goes through the items in listItems one at a time
-    let numberOfListItems = i;
+
     
     // Create a list item for each word and place in apropriate list
     for (i = 0; i < listData.length; ++i) {
