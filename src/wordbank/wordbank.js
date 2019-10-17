@@ -2,7 +2,7 @@ window.onload = function makeList() {
     // Establish the array which acts as a data source for the list
     var category = sessionStorage.getItem("category");
     console.log(category);
-    let listData = wordObjs[category],
+    let listData = JSON.parse(window.localStorage.getItem('words'))[category],
 
     // Make a container element for the list
     listContainerMastered = document.createElement('div'),

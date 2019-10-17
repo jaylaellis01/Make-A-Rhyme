@@ -2,7 +2,7 @@
 window.onload = function makeButtons() {
     let categoryList = categories;
     console.log(categoryList.length);
-    numberOfItems = categoryList.length,
+    var numberOfItems = categoryList.length,
     i;
     //Setup div to hold the buttons
     listContainer = document.createElement('div');

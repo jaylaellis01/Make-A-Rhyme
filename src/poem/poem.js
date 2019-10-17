@@ -259,9 +259,12 @@ function makeList(categories, canvasState) {
         exisitingLists.parentElement.removeChild(exisitingLists);
     }
     
+        console.log(window.localStorage.getItem('words'));
+    
+    
     // Establish the array which acts as a data source for the list
     let listCat = 5;
-    let listData = wordObjs[listCat];
+    let listData = JSON.parse(window.localStorage.getItem('words'))[listCat];
     
     // Make a container element for the lists and set HTML class tag
     let listContainer = document.createElement('div');
@@ -281,7 +284,7 @@ function makeList(categories, canvasState) {
     listContainer.append(unmasteredWordsListElement)
     
     // Set up a loop that goes through the items in listItems one at a time
-    let numberOfListItems = i;
+
     
     // Create a list item for each word and place in apropriate list
     for (i = 0; i < listData.length; ++i) {

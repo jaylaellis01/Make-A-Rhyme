@@ -47,8 +47,10 @@ const categories = {
     18: "Colors"
 }
 
-var wordObjs = createWordObjs();
-var personObjs = createPersonObjs(); 
+if ( window.localStorage.getItem("words") == null) {
+    var wordObjs = createWordObjs();
+    var personObjs = createPersonObjs(); 
+}
 
 function wordObj(aWord, aCategory) {
 	this.learned = false;
@@ -92,11 +94,12 @@ function createWordObjs() {
                     wordObjsTemp[category].push(wordTemp);
                 }
             }
-            //console.log(wordObjsTemp);
+            // console.log(wordObjsTemp);
         }
     });
-    //console.log(wordObjsTemp);
+    // console.log(wordObjsTemp);
     // format is wordObsTemp[category][index in array].attribute
+    window.localStorage.setItem('words', JSON.stringify(wordObjsTemp));
     return wordObjsTemp;
 }
 
