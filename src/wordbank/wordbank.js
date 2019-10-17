@@ -69,10 +69,6 @@ window.onload = function makeList() {
         }
     }
 }
-function bake_cookie(name, value) {
-    var cookie = [name, '=', JSON.stringify(value), '; path=/;'].join('');
-    document.cookie = cookie;
-}
 
 function playClip(clip_name) {
     if (navigator.appName == "Microsoft Internet Explorer" && (navigator.appVersion.indexOf("MSIE 7")!=-1) || (navigator.appVersion.indexOf("MSIE 8")!=-1)) {
