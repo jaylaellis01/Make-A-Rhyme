@@ -149,6 +149,11 @@ function checkAnswer(clicked_id) {
     updateStars();
 }
 
+function onClickBack() {
+    bake_cookie("reload", true);
+    window.history.back();
+}
+
 // Read JSON from cookies
 function read_cookie(name) {
     var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
