@@ -1,4 +1,8 @@
 window.onload = function makeList() {
+    
+    // Set poem reload to false, for when returning to wordbank from quiz
+    bake_cookie("reload", false);
+    
     // Establish the array which acts as a data source for the list
     var category = sessionStorage.getItem("category");
     console.log(category);
@@ -75,4 +79,10 @@ function stopClip(clip_name) {
     var audio = document.getElementById("word_audio");
     audio.pause();
     audio.currentTime = 0;
+}
+
+// Turn JS object into JSON and save cookie
+function bake_cookie(name, value) {
+    var cookie = [name, '=', JSON.stringify(value), '; path=/;'].join('');
+    document.cookie = cookie;
 }
