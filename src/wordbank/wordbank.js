@@ -2,6 +2,7 @@ window.onload = function makeList() {
     // Establish the array which acts as a data source for the list
     var category = sessionStorage.getItem("category");
     console.log(category);
+
     let listData = JSON.parse(window.localStorage.getItem('words'))[category],
 
     // Make a container element for the list
@@ -31,6 +32,7 @@ window.onload = function makeList() {
     for (i = 0; i < numberOfListItems; ++i) {
         // Create an listItem as a button for each word
         listItem = document.createElement('button');
+        let wordObject = listData[i];
         const wordName = listData[i].word;
         listItem.className = "WordItem clickable";
 
@@ -51,9 +53,21 @@ window.onload = function makeList() {
         if (listData[i].learned == true) {
             listElementMastered.appendChild(listItem);
         } else {
+            listItem.onclick = function() {
+                quizWord = wordObject;
+                 // Store quizWord in the cookies
+                bake_cookie('quizWord', quizWord);                
+                // Go to quiz
+                window.location.href = '../quiz/quiz.html';
+            };
             listElementUnmastered.appendChild(listItem);
+            
         }
     }
+}
+function bake_cookie(name, value) {
+    var cookie = [name, '=', JSON.stringify(value), '; path=/;'].join('');
+    document.cookie = cookie;
 }
 
 function playClip(clip_name) {
