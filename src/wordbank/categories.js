@@ -2,7 +2,7 @@
 window.onload = function makeButtons() {
     let categoryList = categories;
     console.log(categoryList.length);
-    numberOfItems = categoryList.length,
+    var numberOfItems = categoryList.length,
     i;
     //Setup div to hold the buttons
     listContainer = document.createElement('div');
@@ -10,7 +10,7 @@ window.onload = function makeButtons() {
     listContainer.className = "tab";
     document.getElementsByTagName('body')[0].appendChild(listContainer);
 
-    for(i = 1; i <= 19; i++) {
+    for(i = 1; i <= 18; i++) {
         // create a button for each category in the list
         listItem = document.createElement('button');
         listItem.className = "tablinks clickable";
