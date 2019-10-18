@@ -47,9 +47,11 @@ const categories = {
     18: "Colors"
 }
 
-if ( window.localStorage.getItem("words") == null) {
-    var wordObjs = createWordObjs();
-    var personObjs = createPersonObjs(); 
+if (window.localStorage.getItem("words") == null) {
+    var wordObjs = createWordObjs(); 
+}
+if (window.localStorage.getItem("friends") == null) {
+    var personObjs = createPersonObjs();
 }
 
 function wordObj(aWord, aCategory) {
@@ -98,6 +100,8 @@ function createWordObjs() {
 function personObj(aName, aPerson) {
     this.name = aName;
     this.person = aPerson;
+    this.category = 19;
+    this.word = aName;
 }
 
 function createPersonObjs() {
@@ -115,7 +119,7 @@ function createPersonObjs() {
             }
             // console.log(personObjsTemp);
             // Must be added to storage within the complete call since parse is asynchronous
-            window.localStorage.setItem('friends', JSON.stringify(personObsjTemp));
+            window.localStorage.setItem('friends', JSON.stringify(personObjsTemp));
         }
     });
     return personObjsTemp;
