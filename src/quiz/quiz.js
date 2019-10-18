@@ -21,13 +21,24 @@ window.onload = function runQuiz() {
     document.getElementById('word_art').src = sightWordImg;
 
     // Quiz logic
-    shuffle_btns();
-    firstAudio();
+    showLearnWord()
 }
 
 // Play sight word audio when quiz starts
 function firstAudio() {
     setTimeout(function(){ sight_word_audio.play(); }, 850);
+}
+
+function showLearnWord() {
+    firstAudio();
+    document.getElementById("choices").style.display = 'none';
+    document.getElementById("stars").style.display = 'none';
+    result.innerHTML = sight_word;
+    setTimeout(function(){
+        result.innerHTML = "";
+        document.getElementById("stars").style.display = 'block';
+        shuffle_btns(); 
+    }, 2000);
 }
 
 
@@ -51,6 +62,7 @@ function updateStars() {
 
 // Suffle the quiz answer buttons
 function shuffle_btns() {
+    document.getElementById("choices").style.display = 'flex';
     // Retrieve all words
     var allWords;
     var nonSimilarWords = new Array;
