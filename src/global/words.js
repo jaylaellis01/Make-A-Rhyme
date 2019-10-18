@@ -81,7 +81,7 @@ function createWordObjs() {
                 category = i + 1;
                 // makes a word object for each word in current category (j == word)
                 for (j = 0; j < (allWords[i]).length; j++) {
-                    wordTemp = new wordObj((allWords[i])[j], i);
+                    wordTemp = new wordObj((allWords[i])[j], i+1);
                     if (j%5 == 0) {
                         wordTemp.learned = true;
                     }
