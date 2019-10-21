@@ -6,6 +6,7 @@ var categoryTemp = word.category;
 // Variables for quiz
 var consecutive_correct = 0;
 var max_consecutive_correct = 0;
+var consecutive_incorrect = 0;
 var timedAudio;
 
 // Setup audio and sight word image
@@ -21,13 +22,27 @@ window.onload = function runQuiz() {
     document.getElementById('word_art').src = sightWordImg;
 
     // Quiz logic
-    shuffle_btns();
-    firstAudio();
+    showLearnWord();
 }
 
 // Play sight word audio when quiz starts
 function firstAudio() {
     setTimeout(function(){ sight_word_audio.play(); }, 850);
+}
+
+function showLearnWord() {
+    firstAudio();
+    document.getElementById("choices").style.display = 'none';
+    document.getElementById("stars").style.display = 'none';
+    result.innerHTML = sight_word;
+    result.style.color = "black";
+    
+    // After 4 seconds continue with quiz
+    setTimeout(function(){
+        result.innerHTML = "";
+        document.getElementById("stars").style.display = 'block';
+        shuffle_btns(); 
+    }, 4000);
 }
 
 
@@ -51,6 +66,7 @@ function updateStars() {
 
 // Suffle the quiz answer buttons
 function shuffle_btns() {
+    document.getElementById("choices").style.display = 'flex';
     // Retrieve all words
     var allWords;
     var nonSimilarWords = new Array;
@@ -145,6 +161,7 @@ function checkAnswer(clicked_id) {
         if (consecutive_correct > max_consecutive_correct) {
             max_consecutive_correct = consecutive_correct;
         }
+        consecutive_incorrect = 0;
     } else {
         // Visual feedback for incorrect
         result.innerHTML = "Wrong!";
@@ -161,6 +178,7 @@ function checkAnswer(clicked_id) {
         }
         // Reset correct choices
         consecutive_correct = 0;
+        consecutive_incorrect++;
     }
     
     // If quiz is finished
@@ -187,6 +205,8 @@ function checkAnswer(clicked_id) {
             bake_cookie("reload", true);
             window.history.back();
         }, 2000);
+    } else if (consecutive_incorrect >= 3) {
+        showLearnWord();
     } else {
         // If quiz not complete suffle the buttons
         shuffle_btns();
