@@ -19,7 +19,7 @@ window.onload = function makeButtons() {
         listItem.onclick = function(){categoryClick(this.id)};
         //create image element for each button
         imageItem = document.createElement('img');
-        imageItem.src = '../../assets/category_assets/' + categoryList[i] + '.png';
+        imageItem.src = '../../assets/category_assets/' + categoryList[i].toLowerCase() + '.png';
         listItem.innerHTML = categoryList[i];
         listItem.appendChild(imageItem);
         listContainer.appendChild(listItem);
