@@ -366,6 +366,7 @@ function makeList(categories, canvasState) {
             // Mastered words
             listItem.onclick = function() {
                 canvasState.fillWord(wordName, wordCat, true);
+                playNextAudio();
             }
             masteredWordsListElement.append(listItem);
         } else {
@@ -418,8 +419,17 @@ function stopClip(clip_name) {
     audio.currentTime = 0;
 }
 
+var poemWordIndex = 1;
+
+function playNextAudio() {
+    let audioPath = "../../assets/audio/" + getCookie("currentPoem") + "/" + poemWordIndex++ + ".mp3";
+    playClip(audioPath);
+    // console.log(audioPath);
+}
+
 // Init function called on page load
 function init() {
+    // console.log(getCookie("currentPoem"));
     var canvas = document.getElementById('canvas');
     var s = new CanvasState(canvas);
     var width = canvas.width;
@@ -442,4 +452,6 @@ function init() {
         
     }
 }
+
+
 
