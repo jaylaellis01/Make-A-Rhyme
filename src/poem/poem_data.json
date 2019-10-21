@@ -96,6 +96,28 @@
                     "y": 0.125,
                     "categories": "unknown"
                 }
+            ],
+            "text": [
+                "Who made the strange parade at my house? \n—With a ",
+                " in front pulled by a mouse,\nBumped in back by some",
+                " slurping ice cream,\nAnd a ",
+                " and ",
+                " yoked as a team,\nHauling a ",
+                " on which some ",
+                " rode,\nAnd giggled to see a ",
+                " kiss a toad,\nAnd a ",
+                " and ",
+                " danced together,\nAs some ",
+                "tickled them with a peacock feather.\nA sleepy ",
+                " had a wee ",
+                " hanging down,\nFrom its back and a ",
+                "made a frown,\nWhile a ",
+                " gobbled ",
+                " and burped,\nAt a ",
+                ", who spilled chocolate milk as it slurped, \nAnd a strange smelling ",
+                " on a ",
+                " winked at me—\nAs I sat on a ",
+                " for an hour to sight-see.\nWho could dream up a strange parade of this kind?\nDid I maybe just make it all up in my mind?\n"
             ]
         },
         "picnic": {
@@ -140,6 +162,24 @@
                     "categories": [5,1],
                     "spot-id": "E"
                 }
+            ],
+            "text": [
+                "Once on a pretend time didn’t you tell me\nHow you hosted a happy pet-pair party?\nYou decided on goodies to buy at the store, \nAnd with your ",
+                " made a guest list of four,\nInvited ",
+                " and its ",
+                " to attend,\nAnd a ",
+                " paired with its ",
+                " best friend.\nYou spread a bright blanket with places for six,\nand bowls for ",
+                " food, ",
+                " food, and a mix\nof treats for the picky ",
+                ". For the rest\ncold milk, ",
+                " on napkins, and the best \nice cream—chocolate, vanilla, strawberry—\ntopped with sprinkles, ",
+                ", a bright red cherry,\nand butterscotch syrup! Gosh it was yummy,\nYum yummy in my tum, tum, tummy!\nThe ",
+                " and ",
+                " and ",
+                " played so well,\nAnd everyone loved it, so I heard tell, \nThe ",
+                " bragged that you were so clever, \nAnd the ",
+                " declared it the best party ever!\n"
             ]
         },
         "park": {
@@ -178,6 +218,22 @@
                     "categories": [1],
                     "spot-id": "A"
                 }
+            ],
+            "text": [
+                "Once on a pretend time didn’t you tell me\nYou once walked your ",
+                " to the park to run free,\nThere met ",
+                " with a pet ",
+                " come to play.\nThe pets scuffled and tussled every which way— \nYour ",
+                " chased the ",
+                " all around, \nThe swings, towers, trash cans round the playground,\nUnder a see-saw the ",
+                " tried to hide,\nThen climbed and tumbled down the slide,\nUpset a kid’s play pool, shook water and dripped\nA slippery mud puddle, and your ",
+                " tripped, \nThe clumsy ",
+                " who flopped and wallowed\nAnd knocked down some poor ",
+                " who followed\nTrying to help, but flip-flopped down too,\nThen ",
+                " and the ",
+                " both muddy with goo,\nDragged down with the ",
+                ", all three sunk\nDown, in the oozy, slop-sloshery muck gunk.\nHow awfully— fun to sit sunk to the chin,\nYour ",
+                " and you grinned—and just had to jump in.\nGrumpy grownups scrubbed clean your odds and ends, \nBut you made lots of new mud-loving friends!\n"
             ]
         }
     }
