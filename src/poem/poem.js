@@ -23,7 +23,7 @@ $.getJSON("poem_data.json", function(data) {
 });
 
 // Constructor for WordBox - the object that represents a word (or a box) on screen
-function WordBox(x, y, w, h, fill, categories, word, completed, imgSrc) {
+function WordBox(x, y, w, h, fill, categories, boxID, word, completed, imgSrc) {
     this.x = x || 0;
     this.y = y || 0;
     this.w = w || 1;
@@ -33,6 +33,7 @@ function WordBox(x, y, w, h, fill, categories, word, completed, imgSrc) {
     this.word = word || null;
     this.categories = categories || [];
     this.imageSrc = imgSrc || null;
+    this.boxID = boxID || null;
 }
 
 // Draws the WordBox - grey box if not completed, image if word is completed
@@ -232,6 +233,16 @@ CanvasState.prototype.saveState = function() {
     localStorage.setItem("canvasWords", JSON.stringify(this.words));
 }
 
+CanvasState.prototype.selectWordWithID = function(boxID) {
+    for (var i = 0; i < words.length; i++) {
+        if(words[i].boxID == boxID) {
+            this.selection = words[i];
+            return words[i];
+        }
+    }
+    return null;
+}
+
 // Load the state of the words for when you come back from the quiz page
 CanvasState.prototype.loadState = function() {
     var load = JSON.parse(localStorage.getItem("canvasWords"));
@@ -239,9 +250,9 @@ CanvasState.prototype.loadState = function() {
         for (var i = 0; i < load.length; i++) {
             var w = load[i];
             if (w.word == read_cookie('quizWord').word && !read_cookie('mastered')) {
-                this.addWord(new WordBox(w.x, w.y, w.w, w.h, w.fill, w.categories));
+                this.addWord(new WordBox(w.x, w.y, w.w, w.h, w.fill, w.categories, w.boxID));
             } else {
-                this.addWord(new WordBox(w.x, w.y, w.w, w.h, w.fill, w.categories, w.word, w.completed, w.imageSrc));
+                this.addWord(new WordBox(w.x, w.y, w.w, w.h, w.fill, w.categories, w.boxID, w.word, w.completed, w.imageSrc));
             }
         }
         this.valid = false;
@@ -366,7 +377,7 @@ function makeList(categories, canvasState) {
             // Mastered words
             listItem.onclick = function() {
                 canvasState.fillWord(wordName, wordCat, true);
-                playNextAudio();
+                // playNextAudio();
             }
             masteredWordsListElement.append(listItem);
         } else {
@@ -429,14 +440,33 @@ function stopClip(clip_name) {
     audio.currentTime = 0;
 }
 
-var poemWordIndex = 1;
 
-function playNextAudio() {
-    let audioPath = "../../assets/audio/" + getCookie("currentPoem") + "/" + poemWordIndex++ + ".mp3";
+function playNextAudio(poem, index) {
+    let audioPath = "../../assets/audio/" + poem + "/" + index + ".mp3";
     playPoemClip(audioPath);
+    
     // console.log(audioPath);
 }
 
+function readPoem() {
+    var poem = getCookie("currentPoem");
+    var poemIndex = 1;
+    for (var i = 0; i < textArr.length; i++) {
+        playNextAudio(poem, i+1);
+        displayText(i);
+        chooseWord(boxArr[i], canvasState);
+
+    }
+
+}
+function chooseWord(boxID, canvasState) {
+    var word = canvasState.selectWordWithID(boxID);
+    
+}
+$.getJSON("poem_data.json", function(data) {
+    var textArr = data["poems"][getCookie("currentPoem")]["text"];
+    var boxArr = data["poems"][getCookie("currentPoem")]["cueBox"];
+});
 // Init function called on page load
 function init() {
     // console.log(getCookie("currentPoem"));
@@ -456,7 +486,7 @@ function init() {
             var fillColor = 'rgba(232, 232, 232, 0.5)'
             for (i = 0; i < wordsArr.length; i++) {
                 var word = wordsArr[i];
-                s.addWord(new WordBox(word["x"], word["y"], 1, 1, fillColor, word["categories"]))
+                s.addWord(new WordBox(word["x"], word["y"], 1, 1, fillColor, word["categories"], word["spot-id"]))
             } 
         });
         
