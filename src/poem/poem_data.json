@@ -164,12 +164,15 @@
                 }
             ],
             "text": [
-                "Once on a pretend time didn’t you tell me\nHow you hosted a happy pet-pair party?\nYou decided on goodies to buy at the store, \nAnd with your ",
+                "Once on a pretend time didn’t you tell me How",
+                "hosted a happy pet-pair party?",
+                "decided on goodies to buy at the store, \nAnd with your ",
                 " made a guest list of four,\nInvited ",
                 " and its ",
                 " to attend,\nAnd a ",
                 " paired with its ",
-                " best friend.\nYou spread a bright blanket with places for six,\nand bowls for ",
+                " best friend.\n",
+                "spread a bright blanket with places for six,\nand bowls for ",
                 " food, ",
                 " food, and a mix\nof treats for the picky ",
                 ". For the rest\ncold milk, ",
@@ -180,6 +183,24 @@
                 " played so well,\nAnd everyone loved it, so I heard tell, \nThe ",
                 " bragged that you were so clever, \nAnd the ",
                 " declared it the best party ever!\n"
+            ],
+            "cueBox": [
+                "A",
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "A",
+                "B",
+                "C",
+                "E",
+                "B",
+                "C",
+                "E",
+                "D",
+                "E"
             ]
         },
         "park": {
