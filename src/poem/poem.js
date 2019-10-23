@@ -399,6 +399,7 @@ function read_cookie(name) {
 }
 
 function playClip(clip_name) {
+    if (!document.getElementById("poem_audio").paused) return;
     if (navigator.appName == "Microsoft Internet Explorer" && (navigator.appVersion.indexOf("MSIE 7")!=-1) || (navigator.appVersion.indexOf("MSIE 8")!=-1)) {
         if (document.all) {
             document.all.sound.src = "click.mp3";
@@ -413,6 +414,15 @@ function playClip(clip_name) {
     }
 }
 
+function playPoemClip(clip_name) {
+    var audio = document.getElementById("poem_audio");
+    audio.src = clip_name;
+    const playPromise = audio.play();
+    if (playPromise !== null){
+        playPromise.catch(() => { console.log("Caught: playPromise !== null"); })
+    }
+}
+
 function stopClip(clip_name) {
     var audio = document.getElementById("word_audio");
     audio.pause();
@@ -423,7 +433,7 @@ var poemWordIndex = 1;
 
 function playNextAudio() {
     let audioPath = "../../assets/audio/" + getCookie("currentPoem") + "/" + poemWordIndex++ + ".mp3";
-    playClip(audioPath);
+    playPoemClip(audioPath);
     // console.log(audioPath);
 }
 
