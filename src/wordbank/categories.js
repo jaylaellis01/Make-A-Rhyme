@@ -17,6 +17,13 @@ window.onload = function makeButtons() {
         listItem.id = i;
         //onclick function used to populate words page
         listItem.onclick = function(){categoryClick(this.id)};
+
+        // Add audio mouse-over functionality to listItem
+        const clip_name = '../../assets/category_assets/category_audio/' + categoryList[i] + '.mp3';   
+        console.log(clip_name);
+        listItem.onmouseover = function(){playClip(clip_name);};
+        listItem.onmouseout = function(){stopClip(clip_name);};
+
         //create image element for each button
         imageItem = document.createElement('img');
         imageItem.src = '../../assets/category_assets/' + categoryList[i] + '.png';
@@ -24,6 +31,26 @@ window.onload = function makeButtons() {
         listItem.appendChild(imageItem);
         listContainer.appendChild(listItem);
     }
+}
+function playClip(clip_name) {
+    if (navigator.appName == "Microsoft Internet Explorer" && (navigator.appVersion.indexOf("MSIE 7")!=-1) || (navigator.appVersion.indexOf("MSIE 8")!=-1)) {
+        if (document.all) {
+            document.all.sound.src = "click.mp3";
+        }
+    } else {
+        var audio = document.getElementById("category_audio");
+        audio.src = clip_name;
+        const playPromise = audio.play();
+        if (playPromise !== null){
+            playPromise.catch(() => { console.log("Caught: playPromise !== null"); })
+        }
+    }
+}
+
+function stopClip(clip_name) {
+    var audio = document.getElementById("category_audio");
+    audio.pause();
+    audio.currentTime = 0;
 }
 
 /* Function that is called when any of the category buttons are selected on the wordbank.html page*/
