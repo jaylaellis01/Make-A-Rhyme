@@ -38,7 +38,6 @@ window.onload = function makeList() {
         listItem = document.createElement('button');
         let wordObject = listData[i];
         const wordName = listData[i].word;
-        listItem.className = "WordItem clickable";
 
         // Add audio mouse-over functionality to listItem
         const clip_name = '../../assets/word_assets/word_audio/' + wordName + '.mp3';   
@@ -56,7 +55,17 @@ window.onload = function makeList() {
         // Add listItem to the listElement of the correct container (mastered vs unmastered)
         if (listData[i].learned == true) {
             listElementMastered.appendChild(listItem);
+            //make all learned words show in color
+            listItem.style.filter = "grayscale(0%)";
         } else {
+            //if the category is color only make the background gray and keep the pictures in color
+            if (category == 18) {
+                listItem.style.backgroundColor = "gray";
+            }
+            //for all other categories, make the buttons grayscale
+            else {
+                listItem.style.filter = "grayscale(100%)";
+            }
             listItem.onclick = function() {
                 quizWord = wordObject;
                  // Store quizWord in the cookies
