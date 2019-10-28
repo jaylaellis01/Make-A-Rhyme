@@ -44,7 +44,8 @@ const categories = {
     15: "Outdoors",
     16: "Doing",
     17: "Describe",
-    18: "Colors"
+    18: "Colors",
+    19: "Friends"
 }
 
 if (window.localStorage.getItem("words") == null) {
@@ -101,7 +102,6 @@ function personObj(aName, aPerson) {
     this.name = aName;
     this.person = aPerson;
     this.category = 19;
-    this.word = aName;
 }
 
 function createPersonObjs() {
@@ -114,6 +114,7 @@ function createPersonObjs() {
         complete: function(results) {
             friends = results.data[0];
             for (i = 0; i < friends.length; i++) {
+                // personTemp = new personObj("Name me!", "none");
                 personTemp = new personObj(friends[i], "none");
                 personObjsTemp.push(personTemp);
             }

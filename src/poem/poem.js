@@ -384,6 +384,7 @@ function makeList(categories, canvasState) {
         }
     }
     // Add the lists div to the body of page
+    console.log("yeet");
     document.getElementById('container').appendChild(listContainer);
 }
 
