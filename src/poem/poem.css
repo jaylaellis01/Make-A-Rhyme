@@ -8,7 +8,7 @@ body {
 
 #container {
     display: block;
-    height: 100vh;
+    /*height: 100vh;*/
     padding-left:5vw;
 }
 
@@ -16,6 +16,13 @@ body {
     display: inline-block;
     position: relative;
     z-index: 0;
+}
+
+#poem_text {
+    display: block;
+    position: relative;
+    text-align: center;
+
 }
 
 /* Custom sidebar CSS to make it smaller */
