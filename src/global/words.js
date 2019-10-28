@@ -115,7 +115,7 @@ function createPersonObjs() {
             friends = results.data[0];
             for (i = 0; i < friends.length; i++) {
                 // personTemp = new personObj("Name me!", "none");
-                personTemp = new personObj(friends[i], "none");
+                personTemp = new personObj("?", "none");
                 personObjsTemp.push(personTemp);
             }
             // console.log(personObjsTemp);

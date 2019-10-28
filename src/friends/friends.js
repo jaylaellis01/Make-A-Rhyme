@@ -72,6 +72,7 @@ function makeFriendList() {
         // Get the name of the word
         let friendObject = listData[i];
         const friendName = listData[i].name;
+        const friendPicture = listData[i].person;
         
         // Set up word audio on mouse over
         const clip_name = '../../assets/word_assets/word_audio/' + friendName + '.mp3';    
@@ -94,7 +95,18 @@ function makeFriendList() {
         listItem.onclick = function(){console.log(friendName);};
         
         // Add listItem to the listElement ******** place function here that changes the name in data and on screen *********
-        friendListElement.append(listItem);
+        listItem.onclick = function() {
+            var words = JSON.parse(window.localStorage.getItem('friends'));
+
+            friends.find(function(friendObject) { return friendObject.name == friendName;}).name = 
+            
+            words[categoryTemp].find(function(word){ return word.word == sight_word;}).learned = true;
+            window.localStorage.setItem('friends', JSON.stringify(words));
+            
+            console.log(window.localStorage.getItem('words'));
+            friendListElement.append(listItem);
+        }
+
     }
     // Add the lists div to the body of page
     console.log("yeet");
