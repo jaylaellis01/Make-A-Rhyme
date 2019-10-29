@@ -99,7 +99,9 @@ function createWordObjs() {
 }
 
 function personObj(aName, aPerson) {
+    // Name given to the friend. Not unique.
     this.name = aName;
+    // The Picture of the friend. This is unique amongst all friends.
     this.person = aPerson;
     this.category = 19;
 }
@@ -113,12 +115,13 @@ function createPersonObjs() {
         download: true,
         complete: function(results) {
             friends = results.data[0];
-            for (i = 0; i < friends.length; i++) {
+            // 31 == # of friend pictures available (not the # of names)
+            for (i = 1; i <= 31; i++) {
                 // personTemp = new personObj("Name me!", "none");
-                personTemp = new personObj("?", "none");
+                personTemp = new personObj("?", "friend" + i);
                 personObjsTemp.push(personTemp);
             }
-            // console.log(personObjsTemp);
+            console.log(personObjsTemp);
             // Must be added to storage within the complete call since parse is asynchronous
             window.localStorage.setItem('friends', JSON.stringify(personObjsTemp));
         }

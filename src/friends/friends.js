@@ -13,11 +13,11 @@ window.onload = function makeButtons() {
         // create a button for each category in the list
         listItem = document.createElement('button');
         listItem.className = "tablinks clickable";
-        listItem.id = friends[i].name;
+        listItem.id = friends[i].person;
+        let clickedPerson = friends[i].person;
 
         //onclick function used to populate words page
-        listItem.onclick = function(){makeFriendList()};
-        //create image element for each button
+        listItem.onclick = function(){makeFriendList(clickedPerson)};
 
         // Add audio mouse-over functionality to listItem
         const clip_name = '../../assets/word_assets/word_audio/' + friends[i].name + '.mp3';   
@@ -27,7 +27,7 @@ window.onload = function makeButtons() {
 
         // Add the word's image and text to the listItem
         imageItem = document.createElement('img');
-        imageItem.src = '../../assets/category_assets/' + friends[i].person.toLowerCase() + '.png';
+        imageItem.src = '../../assets/friend_art/' + friends[i].person + '.png';
         listItem.innerHTML = friends[i].name;
         listItem.appendChild(imageItem);
         listContainer.appendChild(listItem);
@@ -36,15 +36,17 @@ window.onload = function makeButtons() {
 
 
 
-function makeFriendList() {
+function makeFriendList(clickedPerson) {
     
+    console.log("yeet")
     let exisitingLists = document.getElementById('wordLists');
     if (exisitingLists) {
         exisitingLists.parentElement.removeChild(exisitingLists);
     }
 
     // Establish the array which acts as a data source for the list
-    var listData = JSON.parse(window.localStorage.getItem('friends')); 
+    var listData = JSON.parse(window.localStorage.getItem('friends'));
+    console.log(listData);
     
     // Make a container element for the lists and set HTML class tag
     let listContainer = document.createElement('div');
@@ -52,7 +54,6 @@ function makeFriendList() {
     listContainer.id = "wordLists";
     
     // Create HTML list elements for mastered and unmastered words and set HTML class tag
-    // Mastered words
     let friendListElement = document.createElement('ul');
     friendListElement.className = "friendListElement";
 
@@ -62,54 +63,58 @@ function makeFriendList() {
     // Set up a loop that goes through the items in listItems one at a time
 
     
-    // Create a list item for each word and place in apropriate list
-    for (i = 0; i < listData.length; ++i) {
+    Papa.parse('../global/friends.csv', {
+        header: false,
+        skipEmptyLines: true,
+        download: true,
+        skipEmptyLines: true,
+        complete: function(results) {
+            friendNames = results.data[0];
+            // Create a list item for each word and place in apropriate list
+            for (i = 0; i < listData.length; ++i) {
 
-        // Create the HTML list item and set HTML class tag
-        let listItem = document.createElement('li');
-        listItem.className = "WordItem clickable";
-        
-        // Get the name of the word
-        let friendObject = listData[i];
-        const friendName = listData[i].name;
-        const friendPicture = listData[i].person;
-        
-        // Set up word audio on mouse over
-        const clip_name = '../../assets/word_assets/word_audio/' + friendName + '.mp3';    
-        listItem.onmouseover = function(){playClip(clip_name);};
-        listItem.onmouseout = function(){stopClip(clip_name);};
-        
-        // Log word name when list item is clicked
-        listItem.onclick = function(){console.log(wordName);};
+                // Create the HTML list item and set HTML class tag
+                let listItem = document.createElement('li');
+                listItem.className = "WordItem clickable";
+                listItem.id = friendNames[i];
+                
+                // Get the name of the word
+                let friendObject = listData[i];
+                
+                // Set up word audio on mouse over
+                const clip_name = '../../assets/word_assets/word_audio/' + friendNames[i] + '.mp3';    
+                listItem.onmouseover = function(){playClip(clip_name);};
+                listItem.onmouseout = function(){stopClip(clip_name);};
+                
+                // Log word name when list item is clicked
+                listItem.onclick = function(){console.log(wordName);};
 
-        // Add the word name to the list item
-        listItem.innerHTML = '<h2>' + friendName + '</h2>';
+                // Add the word name to the list item
+                listItem.innerHTML = '<h2>' + friendNames[i] + '</h2>';  
+                
+                // Onclick function for all list items
+                listItem.onclick = function(){console.log(friendName);};
+                
+                // Add listItem to the listElement ******** place function here that changes the name in data and on screen *********
+                listItem.onclick = function() {
 
-        // Add the word image to the list item
-        imageItem = document.createElement('img');
-        imageItem.src = '../../assets/word_assets/word_art/' + 1 + '/' + "cook" + '.png';
-        listItem.appendChild(imageItem);
-        
-        
-        // Onclick function for all list items
-        listItem.onclick = function(){console.log(friendName);};
-        
-        // Add listItem to the listElement ******** place function here that changes the name in data and on screen *********
-        listItem.onclick = function() {
-            var words = JSON.parse(window.localStorage.getItem('friends'));
+                    // Change the name of the friend in storage
+                    var friends = JSON.parse(window.localStorage.getItem('friends'));
+                    friends.find(function(friendObject) { return friendObject.person == clickedPerson;}).name = this.id;
+                    window.localStorage.setItem('friends', JSON.stringify(friends));
 
-            friends.find(function(friendObject) { return friendObject.name == friendName;}).name = 
-            
-            words[categoryTemp].find(function(word){ return word.word == sight_word;}).learned = true;
-            window.localStorage.setItem('friends', JSON.stringify(words));
-            
-            console.log(window.localStorage.getItem('words'));
-            friendListElement.append(listItem);
+                    // Change text of button to match the new given name
+                    var div = document.getElementById(clickedPerson),
+                        img = div.getElementsByTagName('img')[0];
+                    div.innerHTML = this.id;
+                    div.appendChild(img);
+                }
+                friendListElement.append(listItem);
+            }
         }
+    });
 
-    }
     // Add the lists div to the body of page
-    console.log("yeet");
     document.getElementById('container').appendChild(listContainer);
 }
 
