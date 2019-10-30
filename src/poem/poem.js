@@ -377,7 +377,7 @@ function makeList(categories, canvasState) {
             // Mastered words
             listItem.onclick = function() {
                 canvasState.fillWord(wordName, wordCat, true);
-                // playNextAudio();
+                readPoem();
             }
             masteredWordsListElement.append(listItem);
         } else {
@@ -410,6 +410,7 @@ function read_cookie(name) {
 }
 
 function playClip(clip_name) {
+    // If poem audio is playing do not play sight word audio
     if (!document.getElementById("poem_audio").paused) return;
     if (navigator.appName == "Microsoft Internet Explorer" && (navigator.appVersion.indexOf("MSIE 7")!=-1) || (navigator.appVersion.indexOf("MSIE 8")!=-1)) {
         if (document.all) {
@@ -427,6 +428,10 @@ function playClip(clip_name) {
 
 function playPoemClip(clip_name) {
     var audio = document.getElementById("poem_audio");
+    audio.onpause = function() {
+        // readPoem(); // If we want continuous reading uncomment this
+    };
+
     audio.src = clip_name;
     const playPromise = audio.play();
     if (playPromise !== null){
@@ -440,71 +445,38 @@ function stopClip(clip_name) {
     audio.currentTime = 0;
 }
 
-
-function playNextAudio(poem, index) {
-    let audioPath = "../../assets/audio/" + poem + "/" + index + ".mp3";
+function playNextAudio(index) {
+    let audioPath = "../../assets/audio/" + currentPoem + "/" + index + ".mp3";
     playPoemClip(audioPath);
 }
 
-// type one text in the typwriter
-// keeps calling itself until the text is finished
-function typeWriter(text, i, fnCallback) {
-    // chekc if text isn't finished yet
-    if (i < (text.length)) {
-        // add next character to h1
-        document.getElementById("poem_text").innerHTML = text.substring(0, i+1);
+// Poem Variables
+var currentPoem = "";
+var poemIndex = 0;
 
-        // wait for a while and call this function again for next character
-        setTimeout(function() {
-            typeWriter(text, i + 1, fnCallback)
-        }, 100);
-    }
-    // text finished, call callback if there is a callback function
-    else if (typeof fnCallback == 'function') {
-        // call callback after timeout
-        setTimeout(fnCallback, 700);
-    }
-}
-// start a typewriter animation for a text in the dataText array
-function StartTextAnimation(i, txt) {
-    if (typeof txt == 'undefined'){
-        setTimeout(function() {
-            StartTextAnimation(0);
-        }, 20000);
-    }
-    // check if dataText[i] exists
-    if (i < txt.length) {
-        // text exists! start typewriter animation
-        typeWriter(txt, 0, function(){
-            // after callback (and whole text has been animated), start next text
-            StartTextAnimation(i + 1);
-        });
+// Variables for poem text
+var poemTextArr = [];
+var typingIndex = 0;
+var txt = "Poem Text Placeholder"; /* The text */
+var speed = 100; /* The speed/duration of the effect in milliseconds */
+
+// Writes out poem text
+function typeWriter() {
+    if (typingIndex < txt.length) {
+        document.getElementById("poem_text").innerHTML += txt.charAt(typingIndex);
+        typingIndex++;
+        setTimeout(typeWriter, speed);
     }
 }
 
-
-var i = 0;
-var txt = 'Lorem ipsum typing effect!'; /* The text */
-var speed = 300; /* The speed/duration of the effect in milliseconds */
-
-function typeNextText(txt) {
+// Reads the next line of the poem, plays audio and writes text
+function readPoem() {
+    playNextAudio(poemIndex + 1);
+    txt = poemTextArr[poemIndex];
     document.getElementById("poem_text").innerHTML = "";
-    i = 0;
-    StartTextAnimation(i, txt);
-}
-
-function readPoem(textArr) {
-    console.log(textArr);
-    var poem = getCookie("currentPoem");
-    var poemIndex = 1;
-    for (var i = 0; i < textArr.length; i++) {
-        playNextAudio(poem, i+1);
-        var text = textArr[i];
-        console.log(text);
-        typeNextText(text);
-
-    }
-
+    typingIndex = 0;
+    typeWriter();
+    poemIndex++;
 }
 function chooseWord(boxID, canvasState) {
     var word = canvasState.selectWordWithID(boxID);
@@ -518,6 +490,7 @@ function init() {
     var width = canvas.width;
     var height = canvas.height;
     window.addEventListener('resize', s, false);
+    currentPoem = getCookie("currentPoem");
     // if we are coming back from the quiz, reload state of words
     if (read_cookie('reload')) {
         s.loadState();
@@ -527,16 +500,16 @@ function init() {
         $.getJSON("poem_data.json", function(data) {
             var wordsArr = data["poems"][getCookie("currentPoem")]["words"];
             var fillColor = 'rgba(232, 232, 232, 0.5)'
-            for (i = 0; i < wordsArr.length; i++) {
-                var word = wordsArr[i];
+            for (typingIndex = 0; typingIndex < wordsArr.length; typingIndex++) {
+                var word = wordsArr[typingIndex];
                 s.addWord(new WordBox(word["x"], word["y"], 1, 1, fillColor, word["categories"], word["spot-id"]))
             } 
         });
     }
     $.getJSON("poem_data.json", function(data) {
         var boxArr = data["poems"][getCookie("currentPoem")]["cueBox"];
-        readPoem(data["poems"][getCookie("currentPoem")]["text"]);
-        console.log("end get json");
+        poemTextArr = data["poems"][getCookie("currentPoem")]["text"];
+        readPoem();
     });
 }
 

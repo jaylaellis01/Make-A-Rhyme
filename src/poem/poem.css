@@ -22,7 +22,8 @@ body {
     display: block;
     position: relative;
     text-align: center;
-
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 1.5em;
 }
 
 /* Custom sidebar CSS to make it smaller */
