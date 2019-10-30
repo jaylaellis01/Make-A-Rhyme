@@ -15,6 +15,11 @@ button {
     background-color: #7DAF9C;
     border-radius: 25px;
 }
+    img {
+        width: 10vw;
+        height: auto;
+        background-color: transparent;
+    }
 
 .column {
     float: left;
@@ -36,12 +41,5 @@ button {
     border: 0.25em solid;
     border-radius: 1em;
 }
-.unmasteredWordsListElement {
-    filter: grayscale(100%);
-}
 
-.WordItem img {
-    width: 10vw;
-    height: auto;
-    background-color: transparent;
-}
+
