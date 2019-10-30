@@ -90,6 +90,6 @@ body {
         height: auto;
     }
 
-.images {
+#images {
     display:none;
 }
