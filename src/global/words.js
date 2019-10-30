@@ -118,7 +118,7 @@ function createPersonObjs() {
             // 31 == # of friend pictures available (not the # of names)
             for (i = 1; i <= 31; i++) {
                 // personTemp = new personObj("Name me!", "none");
-                personTemp = new personObj("?", "friend" + i);
+                personTemp = new personObj(friends[i], "friend" + i);
                 personObjsTemp.push(personTemp);
             }
             console.log(personObjsTemp);
