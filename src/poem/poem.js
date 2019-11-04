@@ -23,7 +23,7 @@ $.getJSON("poem_data.json", function(data) {
 });
 
 // Constructor for WordBox - the object that represents a word (or a box) on screen
-function WordBox(x, y, w, h, fill, categories, boxID, word, completed, imgSrc) {
+function WordBox(x, y, w, h, fill, categories, boxID, word, completed, imgSrc, audioSrc) {
     this.x = x || 0;
     this.y = y || 0;
     this.w = w || 1;
@@ -33,6 +33,7 @@ function WordBox(x, y, w, h, fill, categories, boxID, word, completed, imgSrc) {
     this.word = word || null;
     this.categories = categories || [];
     this.imageSrc = imgSrc || null;
+    this.audioSrc = audioSrc || null;
     this.boxID = boxID || null;
 }
 
@@ -81,6 +82,7 @@ WordBox.prototype.fillWord = function(wordName, wordCat) {
     this.word = wordName;
     this.completed = true;
     this.imageSrc = '../../assets/word_assets/word_art/' + wordCat + '/' + wordName + '.png';
+    this.audioSrc = '../../assets/word_assets/word_audio/' + wordName + '.mp3';
     let wordImage = document.createElement('img');
     wordImage.src = this.imageSrc;
     wordImage.id = this.word;
@@ -231,13 +233,23 @@ CanvasState.prototype.fillWord = function(wordName, wordCat, redraw) {
 // Save state of words in localStorage for when you go to the quiz page
 CanvasState.prototype.saveState = function() {
     localStorage.setItem("canvasWords", JSON.stringify(this.words));
+    localStorage.setItem("poemIndex", JSON.stringify(poemIndex));
+    localStorage.setItem("boxIndex", JSON.stringify(boxIndex));
 }
 
 CanvasState.prototype.selectWordWithID = function(boxID) {
-    for (var i = 0; i < words.length; i++) {
-        if(words[i].boxID == boxID) {
-            this.selection = words[i];
-            return words[i];
+    for (var i = 0; i < this.words.length; i++) {
+        if(this.words[i].boxID == boxID) {
+            if (!this.words[i].completed) {
+                this.selection = this.words[i];
+                this.valid = false;
+                this.clicked = true;
+                makeList(this.words[i].categories, this);
+                return this.words[i];
+            } else {
+                playClipAndContinue(this.words[i].audioSrc);
+
+            }
         }
     }
     return null;
@@ -252,11 +264,13 @@ CanvasState.prototype.loadState = function() {
             if (w.word == read_cookie('quizWord').word && !read_cookie('mastered')) {
                 this.addWord(new WordBox(w.x, w.y, w.w, w.h, w.fill, w.categories, w.boxID));
             } else {
-                this.addWord(new WordBox(w.x, w.y, w.w, w.h, w.fill, w.categories, w.boxID, w.word, w.completed, w.imageSrc));
+                this.addWord(new WordBox(w.x, w.y, w.w, w.h, w.fill, w.categories, w.boxID, w.word, w.completed, w.imageSrc, w.audioSrc));
             }
         }
         this.valid = false;
     }
+    poemIndex = JSON.parse(localStorage.getItem("poemIndex"));
+    boxIndex = JSON.parse(localStorage.getItem("boxIndex"));
 }
 
 // Function that actually draws the stuff on the canvas
@@ -376,8 +390,10 @@ function makeList(categories, canvasState) {
         if (listData[i].learned) {
             // Mastered words
             listItem.onclick = function() {
+                console.log("onclick", poemIndex);
                 canvasState.fillWord(wordName, wordCat, true);
-                readPoem();
+                playClipAndContinue(clip_name);
+                // readPoem();
             }
             masteredWordsListElement.append(listItem);
         } else {
@@ -417,7 +433,27 @@ function playClip(clip_name) {
             document.all.sound.src = "click.mp3";
         }
     } else {
+        var audio = document.getElementById("preview_audio");
+        audio.src = clip_name;
+        const playPromise = audio.play();
+        if (playPromise !== null){
+            playPromise.catch(() => { console.log("Caught: playPromise !== null"); })
+        }
+    }
+}
+
+function playClipAndContinue(clip_name) {
+    // If poem audio is playing do not play sight word audio
+    if (!document.getElementById("poem_audio").paused) return;
+    if (navigator.appName == "Microsoft Internet Explorer" && (navigator.appVersion.indexOf("MSIE 7")!=-1) || (navigator.appVersion.indexOf("MSIE 8")!=-1)) {
+        if (document.all) {
+            document.all.sound.src = "click.mp3";
+        }
+    } else {
         var audio = document.getElementById("word_audio");
+        audio.onpause = function() {
+            readPoem();
+        };
         audio.src = clip_name;
         const playPromise = audio.play();
         if (playPromise !== null){
@@ -429,6 +465,8 @@ function playClip(clip_name) {
 function playPoemClip(clip_name) {
     var audio = document.getElementById("poem_audio");
     audio.onpause = function() {
+        chooseWord(boxArr[boxIndex], myState);
+        boxIndex++;
         // readPoem(); // If we want continuous reading uncomment this
     };
 
@@ -453,15 +491,19 @@ function playNextAudio(index) {
 // Poem Variables
 var currentPoem = "";
 var poemIndex = 0;
+var boxIndex = 0;
 
 // Variables for poem text
+var myState;
 var poemTextArr = [];
+var boxArr = [];
 var typingIndex = 0;
 var txt = "Poem Text Placeholder"; /* The text */
 var speed = 100; /* The speed/duration of the effect in milliseconds */
 
 // Writes out poem text
 function typeWriter() {
+    console.log(txt);
     if (typingIndex < txt.length) {
         document.getElementById("poem_text").innerHTML += txt.charAt(typingIndex);
         typingIndex++;
@@ -471,15 +513,23 @@ function typeWriter() {
 
 // Reads the next line of the poem, plays audio and writes text
 function readPoem() {
+    console.log("begin", poemIndex);
     playNextAudio(poemIndex + 1);
     txt = poemTextArr[poemIndex];
     document.getElementById("poem_text").innerHTML = "";
     typingIndex = 0;
+    console.log(txt);
     typeWriter();
     poemIndex++;
+    console.log("end", poemIndex);
 }
+
 function chooseWord(boxID, canvasState) {
-    var word = canvasState.selectWordWithID(boxID);
+    if (boxID == "N/A") {
+        readPoem();
+    } else {
+        var word = canvasState.selectWordWithID(boxID);
+    }
 }
 
 // Init function called on page load
@@ -492,10 +542,17 @@ function init() {
     window.addEventListener('resize', s, false);
     currentPoem = getCookie("currentPoem");
     // if we are coming back from the quiz, reload state of words
+
     if (read_cookie('reload')) {
         s.loadState();
         s.draw();
         bake_cookie('reload', false);
+        myState = s;
+        $.getJSON("poem_data.json", function(data) {
+            boxArr = data["poems"][getCookie("currentPoem")]["cueBox"];
+            poemTextArr = data["poems"][getCookie("currentPoem")]["text"];
+            readPoem();
+        });
     } else { // else, get word info from JSON
         $.getJSON("poem_data.json", function(data) {
             var wordsArr = data["poems"][getCookie("currentPoem")]["words"];
@@ -505,13 +562,13 @@ function init() {
                 s.addWord(new WordBox(word["x"], word["y"], 1, 1, fillColor, word["categories"], word["spot-id"]))
             } 
         });
+        myState = s;
+        $.getJSON("poem_data.json", function(data) {
+            boxArr = data["poems"][getCookie("currentPoem")]["cueBox"];
+            poemTextArr = data["poems"][getCookie("currentPoem")]["text"];
+            readPoem();
+        });
     }
-    $.getJSON("poem_data.json", function(data) {
-        var boxArr = data["poems"][getCookie("currentPoem")]["cueBox"];
-        poemTextArr = data["poems"][getCookie("currentPoem")]["text"];
-        readPoem();
-    });
 }
-
 
 
