@@ -13,12 +13,14 @@ ul {
 
 /* BUTTON */
 button {
+    background-color: #00E800;
     width: 8vw;
     height: 12vw;
     margin: 2%;
     border-radius: 25px;
     font-family: "Comic Sans MS", cursive, sans-serif;
     font-size: 2.25vw;
+/*    filter: 150;*/
 /*    display: table-cell;
     vertical-align: middle;*/
 
@@ -78,6 +80,7 @@ button {
     border-radius: 1em;
     border-color: burlywood;
     margin-bottom: 1em;
+    overflow-x: hidden;
 }
 
 .wordsListElement {
