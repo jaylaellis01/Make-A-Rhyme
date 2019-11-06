@@ -368,8 +368,8 @@ function makeList(categories, canvasState) {
         
         // Set up word audio on mouse over
         const clip_name = '../../assets/word_assets/word_audio/' + wordName + '.mp3';    
-        listItem.onmouseover = function(){playClip(clip_name);};
-        listItem.onmouseout = function(){stopClip(clip_name);};
+        listItem.onmouseenter = function(){playClip(clip_name);};
+        listItem.onmouseleave = function(){stopClip(clip_name);};
         
         // Log word name when list item is clicked
         listItem.onclick = function(){console.log(wordName);};
