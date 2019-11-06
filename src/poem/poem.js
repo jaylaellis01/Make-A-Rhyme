@@ -247,6 +247,9 @@ CanvasState.prototype.selectWordWithID = function(boxID) {
                 makeList(this.words[i].categories, this);
                 return this.words[i];
             } else {
+                fullPoemText += (" " + this.words[i].word + " ");
+                txt += (" " + this.words[i].word);
+                typeWriter();
                 playClipAndContinue(this.words[i].audioSrc);
 
             }
@@ -392,6 +395,9 @@ function makeList(categories, canvasState) {
             listItem.onclick = function() {
                 console.log("onclick", poemIndex);
                 canvasState.fillWord(wordName, wordCat, true);
+                fullPoemText += (" " + wordName + " ");
+                txt += (" " + wordName);
+                typeWriter();
                 playClipAndContinue(clip_name);
                 // readPoem();
             }
@@ -501,9 +507,10 @@ var typingIndex = 0;
 var txt = "Poem Text Placeholder"; /* The text */
 var speed = 100; /* The speed/duration of the effect in milliseconds */
 
+var fullPoemText = "";
+
 // Writes out poem text
 function typeWriter() {
-    console.log(txt);
     if (typingIndex < txt.length) {
         document.getElementById("poem_text").innerHTML += txt.charAt(typingIndex);
         typingIndex++;
@@ -513,15 +520,13 @@ function typeWriter() {
 
 // Reads the next line of the poem, plays audio and writes text
 function readPoem() {
-    console.log("begin", poemIndex);
     playNextAudio(poemIndex + 1);
-    txt = poemTextArr[poemIndex];
     document.getElementById("poem_text").innerHTML = "";
+    txt = poemTextArr[poemIndex];
     typingIndex = 0;
-    console.log(txt);
     typeWriter();
+    fullPoemText += txt;
     poemIndex++;
-    console.log("end", poemIndex);
 }
 
 function chooseWord(boxID, canvasState) {
@@ -531,6 +536,14 @@ function chooseWord(boxID, canvasState) {
         var word = canvasState.selectWordWithID(boxID);
     }
 }
+
+function readBackPoem() {
+    // document.getElementById("completed_text").innerHTML += fullPoemText;
+    poemIndex = 0;
+    boxIndex = 0;
+    readPoem();
+}
+
 
 // Init function called on page load
 function init() {
