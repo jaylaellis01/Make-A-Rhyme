@@ -1,15 +1,17 @@
 /* CSS for sidenav - IMPORT ON ALL HTML PAGES */
 
 .sidenav {
-    height: 100vh;
+    height: 100%;
     width: 10vw;
     max-width: 6em;
     min-width: 3em;
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #79ADDC;
+    background-color: #258EA6;
     overflow-x: hidden;
+    position: fixed;
+    display: block;
   }
 
     .sidenav img {

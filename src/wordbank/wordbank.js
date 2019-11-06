@@ -36,6 +36,7 @@ window.onload = function makeList() {
     for (i = 0; i < numberOfListItems; ++i) {
         // Create an listItem as a button for each word
         listItem = document.createElement('button');
+        listItem.className = "clickable";
         let wordObject = listData[i];
         const wordName = listData[i].word;
 
@@ -60,7 +61,7 @@ window.onload = function makeList() {
         } else {
             //if the category is color only make the background gray and keep the pictures in color
             if (category == 18) {
-                listItem.style.backgroundColor = "gray";
+                listItem.style.backgroundColor = "#D0D0D0";
             }
             //for all other categories, make the buttons grayscale
             else {

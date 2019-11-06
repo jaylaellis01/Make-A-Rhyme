@@ -5,6 +5,9 @@ body {
 
 h1 {
     text-align: center;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 3vw;
+    color: #187795;
 }
 
 ul {
@@ -12,8 +15,11 @@ ul {
 }
 
 button {
-    background-color: #7DAF9C;
+    background-color: white;
     border-radius: 25px;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    cursor: pointer;
+    
 }
     img {
         width: 10vw;
@@ -38,8 +44,12 @@ button {
     float: left;
     height: 100vh;
     overflow: scroll;
-    border: 0.25em solid;
+    /* border: 0.4em; */
     border-radius: 1em;
+    /* border-color: #258EA6; */
+    background-color: #a6cbce;
+    
+    
 }
 
 
