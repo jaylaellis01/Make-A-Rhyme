@@ -95,14 +95,14 @@ body {
     margin-bottom: 0.5em;
 }
 
-    .WordItem h2 {
-        margin-bottom: 0;
-    }
+.WordItem h2 {
+    margin-bottom: 0;
+}
 
-    .WordItem img {
-        width: 5em;
-        height: auto;
-    }
+.WordItem img {
+    width: 5em;
+    height: auto;
+}
 
 #images {
     display:none;
