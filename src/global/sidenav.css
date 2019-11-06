@@ -8,10 +8,12 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #258EA6;
+    background-color: #C2EAE9;
     overflow-x: hidden;
     position: fixed;
     display: block;
+    z-index: 1000;
+    overflow-y: hidden;
   }
 
     .sidenav img {
