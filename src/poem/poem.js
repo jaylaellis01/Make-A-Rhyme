@@ -59,6 +59,7 @@ WordBox.prototype.draw = function(ctx, fill) {
             document.getElementById('images').appendChild(wordImage);
         } 
         const image = document.getElementById(this.word);
+        console.log(image);
         ctx.drawImage(image, scaledX, scaledY, scaledW, scaledH);
     }
 }
@@ -79,7 +80,12 @@ WordBox.prototype.contains = function(mx, my, ctx) {
 WordBox.prototype.fillWord = function(wordName, wordCat) {
     this.word = wordName;
     this.completed = true;
-    this.imageSrc = '../../assets/word_assets/word_art/' + wordCat + '/' + wordName + '.png';
+    console.log(wordCat);
+    if (wordCat == 19) {
+        this.imageSrc = '../../assets/friend_art/' + wordName + '.png';
+    } else {
+        this.imageSrc = '../../assets/word_assets/word_art/' + wordCat + '/' + wordName + '.png';
+    }
     let wordImage = document.createElement('img');
     wordImage.src = this.imageSrc;
     wordImage.id = this.word;
@@ -335,12 +341,27 @@ function makeList(categories, canvasState) {
         // Create the HTML list item and set HTML class tag
         let listItem = document.createElement('li');
         listItem.className = "WordItem clickable";
+        console.log(listData[i].category);
+        if (listData[i].category == 19) {
+            // Get the name of the word
+            var wordObjectVar = listData[i];
+            var wordNameVar = listData[i].name;
+            var wordCatVar = 19;
+            // Unique to the category
+            var wordPersonVar = listData[i].person;
+
+        } else {
+            var wordObjectVar = listData[i];
+            var wordNameVar = listData[i].word;
+            var wordCatVar = listData[i].category;
+            // Not used - exists so the const can stil be defined
+            var wordPersonVar = "none";
+        }
         
-        // Get the name of the word
-        let wordObject = listData[i];
-        const wordName = listData[i].word;
-        const wordCat = listData[i].category;
-        
+        const wordObject = wordObjectVar;
+        const wordName = wordNameVar;
+        const wordCat = wordCatVar;
+        const wordPerson = wordPersonVar;
         // Set up word audio on mouse over
         const clip_name = '../../assets/word_assets/word_audio/' + wordName + '.mp3';    
         listItem.onmouseover = function(){playClip(clip_name);};
@@ -351,9 +372,15 @@ function makeList(categories, canvasState) {
 
         // Add the word name to the list item
         listItem.innerHTML = '<h2>' + wordName + '</h2>';
+
         // Add the word image to the list item
         imageItem = document.createElement('img');
-        imageItem.src = '../../assets/word_assets/word_art/' + wordCat + '/' + wordName + '.png';
+        // If the word is not a friend/else it is a friend
+        if (listData[i].category != 19) {
+            imageItem.src = '../../assets/word_assets/word_art/' + wordCat + '/' + wordName + '.png';
+        } else {
+            imageItem.src = '../../assets/friend_art/' + wordPerson + '.png';
+        }
         listItem.appendChild(imageItem);
         
         
@@ -362,7 +389,12 @@ function makeList(categories, canvasState) {
         
         
         // Add listItem to the listElement
-        if (listData[i].learned) {
+        if (listData[i].category == 19) {
+            listItem.onclick = function() {
+                canvasState.fillWord(wordPerson, wordCat, true);
+            }
+            masteredWordsListElement.append(listItem);
+        } else if (listData[i].learned) {
             // Mastered words
             listItem.onclick = function() {
                 canvasState.fillWord(wordName, wordCat, true);
@@ -384,6 +416,7 @@ function makeList(categories, canvasState) {
         }
     }
     // Add the lists div to the body of page
+    console.log("yeet");
     document.getElementById('container').appendChild(listContainer);
 }
 
