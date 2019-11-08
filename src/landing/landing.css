@@ -3,9 +3,9 @@ header {
   text-align: center;
   font-family: "Comic Sans MS", cursive, sans-serif;
   font-size: 8vw;
-  color: #2A4D14;
+  color: #ecf8f9;
   -webkit-text-stroke-width: .15vw;
-  -webkit-text-stroke-color: white;
+  -webkit-text-stroke-color: #717676;
 }
 
 body {
@@ -31,8 +31,8 @@ body {
       opacity: 0.8; 
       cursor: pointer;
       width: 100%; 
-      /* border: #252323 .5vw solid;  */
-      /* border-radius: 10em; */
+       /*border: #BFDEE0 .5vw solid;  
+       border-radius: 10em; */
       -webkit-border-radius: 50px;
       background-clip: padding-box;
     }
