@@ -61,7 +61,6 @@ WordBox.prototype.draw = function(ctx, fill) {
             document.getElementById('images').appendChild(wordImage);
         } 
         const image = document.getElementById(this.word);
-        console.log(image);
         ctx.drawImage(image, scaledX, scaledY, scaledW, scaledH);
     }
 }
@@ -82,12 +81,12 @@ WordBox.prototype.contains = function(mx, my, ctx) {
 WordBox.prototype.fillWord = function(wordName, wordCat) {
     this.word = wordName;
     this.completed = true;
-    console.log(wordCat);
     if (wordCat == 19) {
         this.imageSrc = '../../assets/friend_art/' + wordName + '.png';
     } else {
         this.imageSrc = '../../assets/word_assets/word_art/' + wordCat + '/' + wordName + '.png';
     }
+    this.audioSrc = '../../assets/word_assets/word_audio/' + wordName + '.mp3';
     let wordImage = document.createElement('img');
     wordImage.src = this.imageSrc;
     wordImage.id = this.word;
@@ -249,9 +248,11 @@ CanvasState.prototype.selectWordWithID = function(boxID) {
                 this.selection = this.words[i];
                 this.valid = false;
                 this.clicked = true;
+                
                 makeList(this.words[i].categories, this);
                 return this.words[i];
             } else {
+                console.log("hello?");
                 fullPoemText += (" " + this.words[i].word + " ");
                 txt += (" " + this.words[i].word);
                 typeWriter();
@@ -449,7 +450,6 @@ function makeList(categories, canvasState) {
         }
     }
     // Add the lists div to the body of page
-    console.log("yeet");
     document.getElementById('container').appendChild(listContainer);
 }
 

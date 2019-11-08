@@ -38,6 +38,7 @@ body {
     display: block;
     /*height: 100vh;*/
     padding-left:5vw;
+    width: 10vw;
 }
 
 /* Custom sidebar CSS to make it smaller */
