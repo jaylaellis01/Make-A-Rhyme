@@ -1,13 +1,16 @@
 body {
     margin-left: 10vw;
-    background-color: #fed49e;
+    background-color: #70C7D1;
 }
 
 h1 {
     text-align: center;
     font-family: "Comic Sans MS", cursive, sans-serif;
     font-size: 3vw;
-    color: #187795;
+    color: #ecf8f9;
+    margin-bottom: 0px;
+    -webkit-text-stroke-width: .15vw;
+    -webkit-text-stroke-color: #717676;
 }
 
 ul {
