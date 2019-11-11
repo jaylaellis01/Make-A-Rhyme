@@ -31,7 +31,7 @@ body {
 /* WORD SELECTION LIST*/
 .wordLists {
     display: inline-block;
-    background-color: #d17a70;
+    background-color: #E58F65;
     width: calc(100% - 960px);
     height: 653px;
     float: right;
