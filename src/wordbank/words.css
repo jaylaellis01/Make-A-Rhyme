@@ -1,10 +1,16 @@
 body {
     margin-left: 10vw;
-    background-color: #fed49e;
+    background-color: #70C7D1;
 }
 
 h1 {
     text-align: center;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 3vw;
+    color: #ecf8f9;
+    margin-bottom: 0px;
+    -webkit-text-stroke-width: .15vw;
+    -webkit-text-stroke-color: #717676;
 }
 
 ul {
@@ -12,8 +18,16 @@ ul {
 }
 
 button {
-    background-color: #7DAF9C;
+    display: inline-block;
+    background-color: antiquewhite;
+    border: none;
+    color: black;
+    padding-inline-start: 0;
+    margin: 4px 2px;
     border-radius: 25px;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    cursor: pointer;
+    
 }
     img {
         width: 10vw;
@@ -38,8 +52,12 @@ button {
     float: left;
     height: 100vh;
     overflow: scroll;
-    border: 0.25em solid;
+    /* border: 0.4em; */
     border-radius: 1em;
+    /* border-color: #258EA6; */
+    background-color: #a6cbce;
+    
+    
 }
 
 
