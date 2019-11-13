@@ -1,5 +1,6 @@
 // Creates category buttons 
 window.onload = function makeButtons() {
+    plzWork();
     let friends = JSON.parse(window.localStorage.getItem('friends'));
     console.log(friends);
 
@@ -33,7 +34,6 @@ window.onload = function makeButtons() {
         listContainer.appendChild(listItem);
     }
 }
-
 
 
 function makeFriendList(clickedPerson) {
@@ -144,4 +144,15 @@ function stopClip(clip_name) {
     var audio = document.getElementById("friend_audio");
     audio.pause();
     audio.currentTime = 0;
+}
+
+var friend_audio_url = '../../assets/friend_audio/' + 'B1' + '.mp3';
+var friend_audio = new Audio(friend_audio_url);
+
+function firstAudio() {
+    setTimeout(function(){ friend_audio.play(); }, 850);
+}
+
+function plzWork() {
+    firstAudio();
 }
