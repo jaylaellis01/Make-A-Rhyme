@@ -5,7 +5,7 @@ html {
 	cursor: url('../../assets/cursor_art/c.png'), default;
 }
 
-/* Costum cursor image when hovering over clicable item */
+/* Costum cursor image when hovering over clickable item */
 .clickable:hover {
     transform: scale(1.1) perspective(1px);
     cursor: url('../../assets/cursor_art/cclick.png'), default;
