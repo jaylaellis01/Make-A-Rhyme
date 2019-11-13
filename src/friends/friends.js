@@ -1,6 +1,6 @@
 // Creates category buttons 
 window.onload = function makeButtons() {
-    plzWork();
+    firstAudio();
     let friends = JSON.parse(window.localStorage.getItem('friends'));
     console.log(friends);
 
@@ -85,6 +85,7 @@ function makeFriendList(clickedPerson) {
                 const clip_name = '../../assets/word_assets/word_audio/' + friendNames[i] + '.mp3';    
                 listItem.onmouseover = function(){playClip(clip_name);};
                 listItem.onmouseout = function(){stopClip(clip_name);};
+                listItem.onclick = function(){}
                 
                 // Log word name when list item is clicked
                 listItem.onclick = function(){console.log(wordName);};
@@ -146,13 +147,23 @@ function stopClip(clip_name) {
     audio.currentTime = 0;
 }
 
-var friend_audio_url = '../../assets/friend_audio/' + 'B1' + '.mp3';
-var friend_audio = new Audio(friend_audio_url);
+var friend_audio_init_url = '../../assets/friend_audio/' + 'B1' + '.mp3';
+var friend_audio_init = new Audio(friend_audio_init_url);
 
-function firstAudio() {
-    setTimeout(function(){ friend_audio.play(); }, 850);
+var 
+
+function randAudio() {
+    x = Math.random();
+    if (x <= 0.5) {
+        return 1;
+    } else {
+        return 2;
+    }
 }
 
-function plzWork() {
-    firstAudio();
+var friend_audio_init_url = '../../assets/friend_audio/' + 'C' + randAudio() + '.mp3';
+var friend_audio_init = new Audio(friend_audio_init_url);
+
+function firstAudio() {
+    setTimeout(function(){ friend_audio_init.play(); }, 850);
 }
