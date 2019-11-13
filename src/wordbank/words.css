@@ -18,7 +18,12 @@ ul {
 }
 
 button {
-    background-color: white;
+    display: inline-block;
+    background-color: antiquewhite;
+    border: none;
+    color: black;
+    padding-inline-start: 0;
+    margin: 4px 2px;
     border-radius: 25px;
     font-family: "Comic Sans MS", cursive, sans-serif;
     cursor: pointer;
