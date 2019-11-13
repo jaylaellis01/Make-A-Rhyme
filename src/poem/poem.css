@@ -8,7 +8,7 @@ body {
 
 #container {
     display: block;
-    height: 100vh;
+    /*height: 100vh;*/
     padding-left:5vw;
 }
 
@@ -16,6 +16,29 @@ body {
     display: inline-block;
     position: relative;
     z-index: 0;
+}
+
+#poem_text {
+    display: block;
+    position: relative;
+    text-align: center;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 1.5em;
+}
+
+#completed_text {
+    display: block;
+    position: relative;
+    text-align: center;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 1.5em;
+}
+
+#read-button {
+    display: block;
+    /*height: 100vh;*/
+    padding-left:5vw;
+    width: 10vw;
 }
 
 /* Custom sidebar CSS to make it smaller */
@@ -73,16 +96,18 @@ body {
     margin-bottom: 0.5em;
 }
 
+
     .WordItem h2 {
         margin-bottom: 0;
         font-family: "Comic Sans MS", cursive, sans-serif;
     }
 
-    .WordItem img {
-        width: 5em;
-        height: auto;
-    }
 
-.images {
+.WordItem img {
+    width: 5em;
+    height: auto;
+}
+
+#images {
     display:none;
 }

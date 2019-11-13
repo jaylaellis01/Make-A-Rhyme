@@ -44,7 +44,8 @@ const categories = {
     15: "Outdoors",
     16: "Doing",
     17: "Describe",
-    18: "Colors"
+    18: "Colors",
+    19: "Friends"
 }
 
 if (window.localStorage.getItem("words") == null) {
@@ -82,9 +83,9 @@ function createWordObjs() {
                 // makes a word object for each word in current category (j == word)
                 for (j = 0; j < (allWords[i]).length; j++) {
                     wordTemp = new wordObj((allWords[i])[j], i+1);
-                    if (j%5 == 0) {
-                        wordTemp.learned = true;
-                    }
+                    // if (j%5 == 0) {
+                    //     wordTemp.learned = true;
+                    // }
                     wordObjsTemp[category].push(wordTemp);
                 }
             }
@@ -98,10 +99,11 @@ function createWordObjs() {
 }
 
 function personObj(aName, aPerson) {
+    // Name given to the friend. Not unique.
     this.name = aName;
+    // The Picture of the friend. This is unique amongst all friends.
     this.person = aPerson;
     this.category = 19;
-    this.word = aName;
 }
 
 function createPersonObjs() {
@@ -113,11 +115,13 @@ function createPersonObjs() {
         download: true,
         complete: function(results) {
             friends = results.data[0];
-            for (i = 0; i < friends.length; i++) {
-                personTemp = new personObj(friends[i], "none");
+            // 31 == # of friend pictures available (not the # of names)
+            for (i = 1; i <= 31; i++) {
+                // personTemp = new personObj("Name me!", "none");
+                personTemp = new personObj(friends[i], "friend" + i);
                 personObjsTemp.push(personTemp);
             }
-            // console.log(personObjsTemp);
+            console.log(personObjsTemp);
             // Must be added to storage within the complete call since parse is asynchronous
             window.localStorage.setItem('friends', JSON.stringify(personObjsTemp));
         }

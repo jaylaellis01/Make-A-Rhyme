@@ -1,5 +1,6 @@
 // Get the quiz word from cookies
 var word = read_cookie('quizWord');
+console.log(word);
 var sight_word = word.word;
 var categoryTemp = word.category;
 
