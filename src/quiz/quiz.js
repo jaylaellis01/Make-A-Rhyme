@@ -152,7 +152,7 @@ function checkAnswer(clicked_id) {
     if (clicked_word == sight_word) {
         // Visual feedback for correct
         result.innerHTML = "Correct!";
-        result.style.color = "green";
+        result.style.color = "#1fb535";
         // Randomly selects a praise from audio.js
         random_praise = praises[Math.floor(Math.random() * 42)];
         correct_audio = new Audio('../../assets/quiz_audio/praise_phrases/' + random_praise + ".mp3");

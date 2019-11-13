@@ -1,5 +1,5 @@
 html {
-    background-color: #fed49e;
+    background-color: #70C7D1;
 }
 
 body {
@@ -54,14 +54,14 @@ body {
 /* WORD SELECTION LIST*/
 .wordLists {
     display: inline-block;
-    background-color: chocolate;
+    background-color: #E58F65;
     width: calc(100% - 960px);
     height: 653px;
     float: right;
     overflow: scroll;
-    border: 0.25em solid;
+    /* border: 0.25em solid; */
     border-radius: 1em;
-    border-color: burlywood;
+    /* border-color: #258EA6; */
     margin-bottom: 1em;
     z-index: 1;
 }
@@ -90,15 +90,18 @@ body {
 .WordItem {
     text-align: center;
     background-color: antiquewhite;
-    border: 0.25em solid;
+    border: 0.25em;
     border-radius: 1em;
-    border-color: burlywood;
+    /* border-color: #258EA6; */
     margin-bottom: 0.5em;
 }
 
-.WordItem h2 {
-    margin-bottom: 0;
-}
+
+    .WordItem h2 {
+        margin-bottom: 0;
+        font-family: "Comic Sans MS", cursive, sans-serif;
+    }
+
 
 .WordItem img {
     width: 5em;

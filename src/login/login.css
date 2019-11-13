@@ -4,16 +4,16 @@ html, body {
     font-family: "Helvetica Neue", Helvetica, sans-serif;
     color: #444;
     -webkit-font-smoothing: antialiased;
-    background: #fed49e;
+    background: #70C7D1;
 }
 
 h1 {
     font-family: "Comic Sans MS", "Comic Sans", cursive;
     font-size: 80px;
-    color: #3384bb;
+    color: #ecf8f9;
     margin-bottom: 0px;
     -webkit-text-stroke-width: .15vw;
-    -webkit-text-stroke-color: white;
+    -webkit-text-stroke-color: #717676;
 }
 
 form {

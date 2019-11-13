@@ -1,5 +1,5 @@
 html {
-    background-color: #FED49E;
+    background-color: #70c7d1;
 }
 
 body {
@@ -13,7 +13,11 @@ ul {
 
 /* BUTTON */
 button {
-    background-color: #00E800;
+    display: inline-block;
+    background-color: antiquewhite;
+    border: none;
+    color: black;
+    padding-inline-start: 0;
     width: 8vw;
     height: 12vw;
     margin: 2%;
@@ -59,7 +63,7 @@ button {
     left: 0;
     right: 0;
     margin-left: 8vw;
-    background-color: #FED49E;
+    background-color: #70c7d1;
 }
 
     .tab:after {
@@ -71,20 +75,24 @@ button {
 /* WORD SELECTION LIST*/
 .wordLists {
     display: block;
-    background-color: chocolate;
+    background-color: #E58F65;
+    border-radius: 25px;
+    padding: 5px;
     width: calc(25%);
     height: 1300px;
     float: right;
     overflow: scroll;
-    border: 0.25em solid;
+    /*border: 0.25em solid;
     border-radius: 1em;
-    border-color: burlywood;
+    border-color: burlywood;*/
     margin-bottom: 1em;
     overflow-x: hidden;
 }
 
 .wordsListElement {
     list-style: none;
+    background-color: #E58F65;
+    border-radius: 25px;
     width: 40%;
     display: inline-block;
     padding-inline-start: 10;
@@ -103,9 +111,11 @@ button {
 .WordItem {
     text-align: center;
     background-color: antiquewhite;
-    border: 0.25em solid;
+    padding: 5px;
+    border-radius: 25px;
+    /*border: 0.25em solid;
     border-radius: 1em;
-    border-color: burlywood;
+    border-color: burlywood;*/
     margin-bottom: 0.5em;
 }
 
