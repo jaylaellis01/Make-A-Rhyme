@@ -1,0 +1,41 @@
+/* Page Setup */
+@page {
+    size: auto;
+    margin: 0;
+    padding: 25mm;
+}
+
+/* Hide UI elements */
+.sidenav {
+    display: none;
+}
+.wordLists {
+    display: none;
+}
+#read-button {
+    display: none;
+}
+#poem_text {
+    display: none;
+}
+
+/* Print layout */
+#poemTextPrint {
+    display: block;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    text-align: center;
+}
+#poemTitlePrint {
+    display: block;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    text-align: center;
+}
+canvas {
+    display: block;
+    width: 100%;
+}
+#container {
+    display: block;
+    width: 100%;
+    padding: 0;
+}

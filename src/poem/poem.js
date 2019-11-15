@@ -577,6 +577,15 @@ function readBackPoem() {
 }
 
 
+var poemName = "";
+function printPoem() {
+    document.getElementById('poemTextPrint').innerText = fullPoemText;
+    document.getElementById('poemTitlePrint').innerText = poemName;
+
+    window.print();
+}
+
+
 // Init function called on page load
 function init() {
     // console.log(getCookie("currentPoem"));
@@ -614,6 +623,9 @@ function init() {
             readPoem();
         });
     }
+    $.getJSON("poem_data.json", function(data) {
+        poemName = data["poems"][currentPoem]["name"];
+    });
 }
 
 

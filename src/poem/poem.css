@@ -111,3 +111,11 @@ body {
 #images {
     display:none;
 }
+
+#poemTextPrint {
+    display: none;
+}
+
+#poemTitlePrint {
+    display: none;
+}
