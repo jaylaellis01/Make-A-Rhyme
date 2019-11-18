@@ -53,30 +53,38 @@ body {
 
 /* WORD SELECTION LIST*/
 .wordLists {
-    display: inline-block;
     background-color: #E58F65;
-    width: calc(100% - 960px);
+
+    display: inline-block;
+    position: fixed;
+
+    margin: 0.5em;
+
+    right: 0;
+    top: 0;
+
+    width: 25%;
     height: 653px;
-    float: right;
+    max-height: 63vw;
+
     overflow: scroll;
-    /* border: 0.25em solid; */
     border-radius: 1em;
-    /* border-color: #258EA6; */
     margin-bottom: 1em;
     z-index: 1;
+
+    text-align: center;
 }
 
 .wordsListElement {
     list-style: none;
-    width: 40%;
+    width: auto;
     display: inline-block;
     padding-inline-start: 0;
-    margin-left: auto;
-    margin-right: auto;
+    /*margin-left: auto;*/
+    /*margin-right: auto;*/
     margin: 5%;
     min-width: 5.1em;
     vertical-align:top;
-
 }
 
 .masteredWordsListElement {
@@ -92,13 +100,13 @@ body {
     background-color: antiquewhite;
     border: 0.25em;
     border-radius: 1em;
-    /* border-color: #258EA6; */
     margin-bottom: 0.5em;
 }
 
 
     .WordItem h2 {
         margin-bottom: 0;
+        padding: 0.2em;
         font-family: "Comic Sans MS", cursive, sans-serif;
     }
 
