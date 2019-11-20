@@ -43,7 +43,7 @@ function showLearnWord() {
         result.innerHTML = "";
         document.getElementById("stars").style.display = 'block';
         shuffle_btns(); 
-    }, 4000);
+    }, 2500);
 }
 
 
