@@ -6,22 +6,30 @@
         <link rel="stylesheet" href="../global/cursor.css">
         <link rel="stylesheet" href="../global/sidenav.css">
         <link rel="stylesheet" href="poem.css">
+        <link rel="stylesheet" media="print" href="print_poem.css">
+
         <!--    JS    -->
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
         <script src="../global/PapaParse-5.0.2/papaparse.min.js"></script>
         <script type="text/javascript" src="../global/words.js"></script>
         <script type="text/javascript" src="poem.js"></script>
+
+        <title>Poem</title>
     </head>
     
     <body onload="init();">
+
         
         <div class ="sidenav">
             <img class="clickable" id="back" src="../../assets/backarrow.png" alt="back" width='100vw' height='100vw' onclick="window.history.back()">
             <img class="clickable" id="home" src="../../assets/homeButton.png" alt="home" width='100vw' height='100vw' onclick="location.href = '../login/login.html';">
             <img class="clickable" id="wordbank" src="../../assets/wordBank.png" alt="wordbank" width='100vw' height='100vw' onclick="location.href='../wordBank/wordBank.html';">
             <img class="clickable" id="friends" src="../../assets/category_assets/friendButton.png" alt="friends" onclick="location.href='../friends/friends.html';">
+            <button onclick="printPoem();">PRINT TEST</button>
         </div>
+
+        <h1 id="poemTitlePrint"></h1>
         
         <div id="container">
             <script id="poem_template" type="x-tmpl-mustache">
@@ -35,6 +43,8 @@
         <p id="poem_text"></p>
         <img class="clickable" src="../../assets/ReadAgainButton.png" id="read-button" onclick="readBackPoem()">
         <p id="completed_text"></p>
+        <p id="poemTextPrint"></p>
+
         <div id="images"></div>
 
 

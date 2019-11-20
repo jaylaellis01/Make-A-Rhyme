@@ -112,6 +112,13 @@ body {
     display:none;
 }
 
+#poemTextPrint {
+    display: none;
+}
+
+#poemTitlePrint {
+    display: none;
+}
 #poem_text {
     display: block;
     position: fixed;
