@@ -50,21 +50,12 @@ All poem data is located in the src/poem/poem_data.json file. Taking a look at t
 - img_w: width of image
 - img_h: height of image
 - words: array of data for each word
-<<<<<<< HEAD
     - x and y coordinates from the top left (as a proportion) for the location of the box/image
         - x,y between 0 and 1 (in order to scale properly)
         - (0,0) is the top left corner, (1,1) is the bottom right corner
-=======
-    - x and y coordinates for the location of the box/image
-        - x,y between 0 and 1 (in order to scale properly)
->>>>>>> eb8c24cf74c4b19b09ad60df49803c7cfb535cfb
     - categories: array of potential category numbers for that box (e.g [4,5,6] if the box could be an animal, a water animal, or a bird)
     - spot-id: ID of the box corresponding to the picture codes document (A, B, C, etc.)
 - text: array of poem lines - each index of the array should correspond to an audio file
 - cueBox: ID of the box that is cued after a certain poem line is read (e.g. after the index 0 line in Muddy Park ("Once on a pretend time didn’t you tell me how") is read, index 0 (box A) is cued for the child to select it)
 
-<<<<<<< HEAD
 After adding all of this poem data, all you need to do is add another div block in the landing.html file, similar to the div blocks that are there for the other poems.
-=======
-After adding all of this poem data, all you need to do is add another <div> block in the landing.html file, similar to the <div> blocks that are there for the other poems.
->>>>>>> eb8c24cf74c4b19b09ad60df49803c7cfb535cfb
