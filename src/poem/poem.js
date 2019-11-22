@@ -610,6 +610,7 @@ function init() {
     } else { // else, get word info from JSON
         $.getJSON("poem_data.json", function(data) {
             var wordsArr = data["poems"][getCookie("currentPoem")]["words"];
+            document.title = data["poems"][getCookie("currentPoem")]["name"];
             var fillColor = 'rgba(232, 232, 232, 0.5)'
             for (typingIndex = 0; typingIndex < wordsArr.length; typingIndex++) {
                 var word = wordsArr[typingIndex];
@@ -620,6 +621,7 @@ function init() {
         $.getJSON("poem_data.json", function(data) {
             boxArr = data["poems"][getCookie("currentPoem")]["cueBox"];
             poemTextArr = data["poems"][getCookie("currentPoem")]["text"];
+            document.title = data["poems"][getCookie("currentPoem")]["name"];
             readPoem();
         });
     }
