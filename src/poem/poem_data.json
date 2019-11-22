@@ -129,37 +129,37 @@
                 {
                     "x": 0.077142857,
                     "y": 0.25210084,
-                    "categories": [1],
+                    "categories": [19],
                     "spot-id": "F"
                 },
                 {
                     "x": 0.302857143,
                     "y": 0.016806723,
-                    "categories": [1],
+                    "categories": [19],
                     "spot-id": "A"
                 },
                 {
                     "x": 0.502857143,
                     "y": 0.075630252,
-                    "categories": [5],
+                    "categories": [19],
                     "spot-id": "B"
                 },
                 {
                     "x": 0.608571429,
                     "y": 0.31092437,
-                    "categories": [1],
+                    "categories": [19],
                     "spot-id": "D"
                 },
                 {
                     "x": 0.457142857,
                     "y": 0.470588235,
-                    "categories": [5],
+                    "categories": [19],
                     "spot-id": "C"
                 },
                 {
                     "x": 0.137142857,
                     "y": 0.453781513,
-                    "categories": [5],
+                    "categories": [19],
                     "spot-id": "E"
                 }
             ],

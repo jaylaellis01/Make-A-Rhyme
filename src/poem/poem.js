@@ -83,10 +83,14 @@ WordBox.prototype.fillWord = function(wordName, wordCat) {
     this.completed = true;
     if (wordCat == 19) {
         this.imageSrc = '../../assets/friend_art/' + wordName + '.png';
+        var friends = JSON.parse(window.localStorage.getItem('friends'));
+        audioName = friends.find(function(friendObject) { return friendObject.person == wordName;}).name;
+        this.audioSrc = '../../assets/word_assets/word_audio/' + audioName + '.mp3';
+        this.word = audioName;
     } else {
         this.imageSrc = '../../assets/word_assets/word_art/' + wordCat + '/' + wordName + '.png';
+        this.audioSrc = '../../assets/word_assets/word_audio/' + wordName + '.mp3';
     }
-    this.audioSrc = '../../assets/word_assets/word_audio/' + wordName + '.mp3';
     let wordImage = document.createElement('img');
     wordImage.src = this.imageSrc;
     wordImage.id = this.word;
@@ -426,6 +430,8 @@ function makeList(categories, canvasState) {
             } else {
                     listItem.onclick = function() {
                     canvasState.fillWord(wordPerson, wordCat, true);
+                    console.log(wordName);
+                    console.log(wordPerson);
                     fullPoemText += (" " + wordName + " ");
                     txt += (" " + wordName);
                     typeWriter();
