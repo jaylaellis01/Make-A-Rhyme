@@ -28,11 +28,11 @@ Designed for our client, Dr. Walter Evans as part of our Junior Design project f
 There are no prequistites to installing or downloading this code.
 
 ## Download instructions:
-* Clone master branch to computer.
-* Upload codebase to appropriate server
+* Clone or Download master branch.
+* Upload source code to appropriate server
 
 ## Installation of actual application:
-* No further steps are necessary for actual installation beyond dowloading and uploading the code to the client's perferred server.
+* No further steps are necessary for actual installation beyond downloading and uploading the code to the client's perferred server.
 
 ## Run instructions:
 * Upload to server
