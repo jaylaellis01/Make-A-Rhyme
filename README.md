@@ -44,7 +44,9 @@ There are no prequistites to installing or downloading this code.
 * There should be no other issues when installing. 
 
 ## Instructions to add a new poem
-All poem data is located in the src/poem/poem_data.json file. Taking a look at this file, you can set up a new poem similar to how the others are set up. Each poem is required to have:
+Firstly, you need to add the poem image into the assets/poem_art folder, and add all the poem audio into the assets/audio/{poem_name} folder. The audio should be named sequentially (1.mp3, 2.mp3, and so on)
+
+Next, you need to input all the poem information. All poem data is located in the src/poem/poem_data.json file. Taking a look at this file, you can set up a new poem similar to how the others are set up. Each poem is required to have:
 
 - name: Name of poem
 - image: Image location
