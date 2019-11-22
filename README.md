@@ -25,19 +25,19 @@ Designed for our client, Dr. Walter Evans as part of our Junior Design project f
 # Install Guide  
 
 ## Pre-requisites: 
-There are no prequistites to installing or downloading this code.
+* There are no prequistites to installing or downloading this code.
 
 ## Download instructions:
-Clone master branch to computer.\n
-Upload codebase to approiate server
+* Clone master branch to computer.
+* Upload codebase to approiate server
 
 ## Installation of actual application:
-No further steps are necessary for actual installation beyond dowloading and uploading the code to the client's perferred server.
+* No further steps are necessary for actual installation beyond dowloading and uploading the code to the client's perferred server.
 
 ## Run instructions:
-Upload to server
-Open index.html
+* Upload to server
+* Open index.html
 
 ## Troubleshooting:
-If cloning the codebase was not done properly, please delete and try to clone from GitHub again.
-There should be no other issues when installing. 
+* If cloning the codebase was not done properly, please delete and try to clone from GitHub again.
+* There should be no other issues when installing. 
