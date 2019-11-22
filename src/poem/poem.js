@@ -466,6 +466,7 @@ function makeList(categories, canvasState) {
 
 function makeNamesList(categories, canvasState, clickedPerson) {
 
+    pickNameAudio();
     let exisitingLists = document.getElementById('wordLists');
     if (exisitingLists) {
         exisitingLists.parentElement.removeChild(exisitingLists);
@@ -489,7 +490,6 @@ function makeNamesList(categories, canvasState, clickedPerson) {
     
     // Set up a loop that goes through the items in listItems one at a time
 
-    
     Papa.parse('../global/friends.csv', {
         header: false,
         skipEmptyLines: true,
@@ -499,7 +499,6 @@ function makeNamesList(categories, canvasState, clickedPerson) {
             friendNames = results.data[0];
             // Create a list item for each word and place in apropriate list
             for (i = 0; i < listData.length; ++i) {
-
                 // Create the HTML list item and set HTML class tag
                 let listItem = document.createElement('li');
                 listItem.className = "WordItem clickable";
@@ -554,13 +553,30 @@ function read_cookie(name) {
 
 function playClip(clip_name) {
     // If poem audio is playing do not play sight word audio
-    if (!document.getElementById("poem_audio").paused) return;
+    if (!document.getElementById("poem_audio").paused || !document.getElementById("name_audio").paused) return;
     if (navigator.appName == "Microsoft Internet Explorer" && (navigator.appVersion.indexOf("MSIE 7")!=-1) || (navigator.appVersion.indexOf("MSIE 8")!=-1)) {
         if (document.all) {
             document.all.sound.src = "click.mp3";
         }
     } else {
         var audio = document.getElementById("preview_audio");
+        audio.src = clip_name;
+        const playPromise = audio.play();
+        if (playPromise !== null){
+            playPromise.catch(() => { console.log("Caught: playPromise !== null"); })
+        }
+    }
+}
+
+function playNameClip(clip_name) {
+    // If poem audio is playing do not play sight word audio
+    if (!document.getElementById("poem_audio").paused) return;
+    if (navigator.appName == "Microsoft Internet Explorer" && (navigator.appVersion.indexOf("MSIE 7")!=-1) || (navigator.appVersion.indexOf("MSIE 8")!=-1)) {
+        if (document.all) {
+            document.all.sound.src = "click.mp3";
+        }
+    } else {
+        var audio = document.getElementById("name_audio");
         audio.src = clip_name;
         const playPromise = audio.play();
         if (playPromise !== null){
@@ -613,6 +629,17 @@ function stopClip(clip_name) {
 function playNextAudio(index) {
     let audioPath = "../../assets/audio/" + currentPoem + "/" + index + ".mp3";
     playPoemClip(audioPath);
+}
+
+function pickNameAudio() {
+    x = Math.random();
+    if (x <= 0.5) {
+        x = 1;
+    } else {
+        x =  2;
+    }
+    var pick_name_audio_url = '../../assets/friend_audio/' + 'C' + x + '.mp3';
+    playNameClip(pick_name_audio_url);
 }
 
 // Poem Variables

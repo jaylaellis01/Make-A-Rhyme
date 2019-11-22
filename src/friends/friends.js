@@ -16,7 +16,10 @@ window.onload = function makeButtons() {
         let clickedPerson = friends[i].person;
 
         //onclick function used to populate words page
-        listItem.onclick = function(){makeFriendList(clickedPerson)};
+        listItem.onclick = function() {
+            makeFriendList(clickedPerson);
+            pickNameAudio();
+        }
 
         // Add audio mouse-over functionality to listItem
         const clip_name = '../../assets/word_assets/word_audio/' + friends[i].name + '.mp3';   
