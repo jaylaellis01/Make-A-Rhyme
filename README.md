@@ -8,7 +8,7 @@ Designed for our client, Dr. Walter Evans as part of our Junior Design project f
 ### What's New
 * Ability to save rhymes as PDF or print them
 * Friends and Word Bank links have been moved to side bar
-* New Color Scheme and unified design elements
+* New color scheme and unified design elements
 * Friends are only named by the user and can be named when completeing a rhyme
 * Endstate for the rhyme has been added
 ### Bug Fixes 
@@ -20,7 +20,7 @@ Designed for our client, Dr. Walter Evans as part of our Junior Design project f
 * Unable to mess up order of rhyme boxes on first read through
 
 ### Known bugs and defects
-* Coming back to rhyme page with previously filled boxes from the quiz, cause the illustration to disappear and the reappear after a few seconds.
+* Occasionally, coming back to rhyme page with previously filled boxes from the quiz, causes the illustration to disappear and the reappear after a few seconds.
 
 # Install Guide  
 
@@ -28,7 +28,7 @@ Designed for our client, Dr. Walter Evans as part of our Junior Design project f
 There are no prequistites to installing or downloading this code.
 
 ## Download instructions:
-Clone master branch to computer
+Clone master branch to computer.\n
 Upload codebase to approiate server
 
 ## Installation of actual application:
