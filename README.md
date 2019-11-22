@@ -25,11 +25,11 @@ Designed for our client, Dr. Walter Evans as part of our Junior Design project f
 # Install Guide  
 
 ## Pre-requisites: 
-* There are no prequistites to installing or downloading this code.
+There are no prequistites to installing or downloading this code.
 
 ## Download instructions:
 * Clone master branch to computer.
-* Upload codebase to approiate server
+* Upload codebase to appropriate server
 
 ## Installation of actual application:
 * No further steps are necessary for actual installation beyond dowloading and uploading the code to the client's perferred server.
