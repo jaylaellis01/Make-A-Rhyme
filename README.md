@@ -57,6 +57,6 @@ All poem data is located in the src/poem/poem_data.json file. Taking a look at t
     - categories: array of potential category numbers for that box (e.g [4,5,6] if the box could be an animal, a water animal, or a bird)
     - spot-id: ID of the box corresponding to the picture codes document (A, B, C, etc.)
 - text: array of poem lines - each index of the array should correspond to an audio file
-- cueBox: ID of the box that is cued after a certain poem line is read (e.g. after the index 0 line in Muddy Park ("Once on a pretend time didn’t you tell me how") is read, index 0 in cueBox (box A) is cued for the child to select it)
+- cueBox: ID of the box that is cued after a certain poem line is read (e.g. after the index 0 line in Pet Party Picnic ("Once on a pretend time didn’t you tell me how") is read, index 0 in cueBox (box A) is cued for the child to select it)
 
 After adding all of this poem data, all you need to do is add another div block in the landing.html file, similar to the div blocks that are there for the other poems.
