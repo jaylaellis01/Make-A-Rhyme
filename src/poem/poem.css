@@ -6,6 +6,10 @@ body {
     overflow: hidden
 }
 
+ul {
+    list-style-type: none;
+}
+
 #container {
     display: block;
     /*height: 100vh;*/
