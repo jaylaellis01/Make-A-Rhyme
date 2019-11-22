@@ -67,6 +67,6 @@ After adding all of this poem data, all you need to do is add another div block 
 ## Instructions to add a new word
 - Add the word to the /src/global/words.csv file on the line matchinging its category
 - Add the word artwork in <word>.png format to /assets/word_assets/word_art/<cateogry>
--- e.g. for 'Ant' category = 1 add Ant.png to /assets/word_assets/word_art/1
+    - e.g. for 'Ant' category = 1 add Ant.png to /assets/word_assets/word_art/1
 - Add the word audio file in <word>.mp3 format to /assets/word_assets/word_audio
--- e.g. for 'Ant' add Ant.mp3 to /assets/word_assets/word_audio
+    - e.g. for 'Ant' add Ant.mp3 to /assets/word_assets/word_audio
