@@ -21,7 +21,7 @@ Designed for our client, Dr. Walter Evans as part of our Junior Design project f
 
 ### Known bugs and defects
 * Occasionally after coming back from the quiz page to the poem page, some of the previously filled boxes will be blank for a few seconds before reappearing
-* The words list is only built from the words.csv file if the wordlist is not saved in browser localstorage. If a word is added to words.csv and there is a wordlist saved in browser localstorage then the wordlist will not be rebilt and the new word will not appear in the game until the localstorage is cleared and wordlist is rebuilt from words.csv.
+* The words list is only built from the words.csv file if the words list is not saved in the browser's local storage. If a word is added to words.csv and there is a words list saved in browser's local storage then the words list will not be rebilt and the new word will not appear in the game until the local storage is cleared and words list is rebuilt from words.csv.
 
 # Install Guide  
 
