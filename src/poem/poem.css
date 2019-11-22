@@ -64,6 +64,7 @@ body {
     top: 0;
 
     width: 25%;
+    max-width: 18em;
     height: 653px;
     max-height: 63vw;
 
