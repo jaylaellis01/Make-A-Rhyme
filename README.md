@@ -3,15 +3,15 @@
 An iteractive web app to teach children sight words by using fun fillable rhymes and illustrations.
 Designed for our client, Dr. Walter Evans as part of our Junior Design project for Georgia Tech.
 
-#Release Notes
+# Release Notes
 ## Version 1.0.48
-###What's New
+### What's New
 * Ability to save rhymes as PDF or print them
 * Friends and Word Bank links have been moved to side bar
 * New Color Scheme and unified design elements
 * Friends are only named by the user and can be named when completeing a rhyme
 * Endstate for the rhyme has been added
-###Bug Fixes 
+### Bug Fixes 
 * Amount of time word is displayed on the Quiz page has been shortened
 * Format and Scaling of Rhyme Page has been fixed
 * Title Tags have been added to all Pages
@@ -19,25 +19,25 @@ Designed for our client, Dr. Walter Evans as part of our Junior Design project f
 * Clicking on word multiple times no longer adds the word to the poem multiple times
 * Unable to mess up order of rhyme boxes on first read through
 
-###Known bugs and defects
+### Known bugs and defects
 * Coming back to rhyme page with previously filled boxes from the quiz, cause the illustration to disappear and the reappear after a few seconds.
 
-#Install Guide  
+# Install Guide  
 
-##Pre-requisites: 
+## Pre-requisites: 
 There are no prequistites to installing or downloading this code.
 
-##Download instructions:
+## Download instructions:
 Clone master branch to computer
 Upload codebase to approiate server
 
-##Installation of actual application:
+## Installation of actual application:
 No further steps are necessary for actual installation beyond dowloading and uploading the code to the client's perferred server.
 
-##Run instructions:
+## Run instructions:
 Upload to server
 Open index.html
 
-##Troubleshooting:
+## Troubleshooting:
 If cloning the codebase was not done properly, please delete and try to clone from GitHub again.
 There should be no other issues when installing. 
