@@ -21,6 +21,7 @@ Designed for our client, Dr. Walter Evans as part of our Junior Design project f
 
 ### Known bugs and defects
 * Occasionally, coming back to rhyme page with previously filled boxes from the quiz, causes the illustration to disappear and the reappear after a few seconds.
+* The words list is only built from the words.csv file if the wordlist is not saved in browser localstorage. If a word is added to words.csv and there is a wordlist saved in browser localstorage then the wordlist will not be rebilt and the new word will not appear in the game until the localstorage is cleared and wordlist is rebuilt from words.csv.
 
 # Install Guide  
 
