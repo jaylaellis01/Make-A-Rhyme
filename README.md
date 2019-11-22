@@ -50,9 +50,10 @@ All poem data is located in the src/poem/poem_data.json file. Taking a look at t
 - img_w: width of image
 - img_h: height of image
 - words: array of data for each word
-    - x and y coordinates from the top left (as a proportion) for the location of the box/image
+    - x and y coordinates from the top left (as a proportion) for the location of the box/image on the background image
         - x,y between 0 and 1 (in order to scale properly)
         - (0,0) is the top left corner, (1,1) is the bottom right corner
+        - Find pixel numbers for x,y on original image, then divide by image width and height respectively
     - categories: array of potential category numbers for that box (e.g [4,5,6] if the box could be an animal, a water animal, or a bird)
     - spot-id: ID of the box corresponding to the picture codes document (A, B, C, etc.)
 - text: array of poem lines - each index of the array should correspond to an audio file
