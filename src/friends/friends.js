@@ -1,13 +1,12 @@
 // Creates category buttons 
 window.onload = function makeButtons() {
+    firstAudio();
     let friends = JSON.parse(window.localStorage.getItem('friends'));
     console.log(friends);
 
     // Setup div to hold the buttons
     let listContainer = document.createElement('div');
-
     listContainer.className = "tab";
-    document.getElementsByTagName('body')[0].appendChild(listContainer);
 
     for(i = 0; i < friends.length; i++) {
         // create a button for each category in the list
@@ -17,13 +16,15 @@ window.onload = function makeButtons() {
         let clickedPerson = friends[i].person;
 
         //onclick function used to populate words page
-        listItem.onclick = function(){makeFriendList(clickedPerson)};
+        listItem.onclick = function() {
+            makeFriendList(clickedPerson);
+            pickNameAudio();
+        }
 
         // Add audio mouse-over functionality to listItem
         const clip_name = '../../assets/word_assets/word_audio/' + friends[i].name + '.mp3';   
-        console.log(clip_name);
-        listItem.onmouseover = function(){playClip(clip_name);};
-        listItem.onmouseout = function(){stopClip(clip_name);};
+        listItem.onmouseenter = function(){playClip(clip_name);};
+        listItem.onmouseleave = function(){stopClip(clip_name);};
 
         // Add the word's image and text to the listItem
         imageItem = document.createElement('img');
@@ -32,8 +33,8 @@ window.onload = function makeButtons() {
         listItem.appendChild(imageItem);
         listContainer.appendChild(listItem);
     }
+    document.getElementById('container').appendChild(listContainer);
 }
-
 
 
 function makeFriendList(clickedPerson) {
@@ -83,8 +84,9 @@ function makeFriendList(clickedPerson) {
                 
                 // Set up word audio on mouse over
                 const clip_name = '../../assets/word_assets/word_audio/' + friendNames[i] + '.mp3';    
-                listItem.onmouseover = function(){playClip(clip_name);};
-                listItem.onmouseout = function(){stopClip(clip_name);};
+                listItem.onmouseenter = function(){playClip(clip_name);};
+                listItem.onmouseleave = function(){stopClip(clip_name);};
+                listItem.onclick = function(){}
                 
                 // Log word name when list item is clicked
                 listItem.onclick = function(){console.log(wordName);};
@@ -95,9 +97,8 @@ function makeFriendList(clickedPerson) {
                 // Onclick function for all list items
                 listItem.onclick = function(){console.log(friendName);};
                 
-                // Add listItem to the listElement ******** place function here that changes the name in data and on screen *********
+                // Add listItem to the listElement
                 listItem.onclick = function() {
-
                     // Change the name of the friend in storage
                     var friends = JSON.parse(window.localStorage.getItem('friends'));
                     friends.find(function(friendObject) { return friendObject.person == clickedPerson;}).name = this.id;
@@ -106,6 +107,8 @@ function makeFriendList(clickedPerson) {
                     // Change text of button to match the new given name
                     var div = document.getElementById(clickedPerson),
                         img = div.getElementsByTagName('img')[0];
+                    div.onmouseenter = function(){playClip(clip_name);};
+                    div.onmouseleave = function(){stopClip(clip_name);};
                     div.innerHTML = this.id;
                     div.appendChild(img);
                 }
@@ -144,4 +147,29 @@ function stopClip(clip_name) {
     var audio = document.getElementById("friend_audio");
     audio.pause();
     audio.currentTime = 0;
+}
+
+var friend_audio_init_url = '../../assets/friend_audio/' + 'B1' + '.mp3';
+var friend_audio_init = new Audio(friend_audio_init_url);
+
+function randAudio() {
+    x = Math.random();
+    if (x <= 0.5) {
+        return 1;
+    } else {
+        return 2;
+    }
+}
+
+function firstAudio() {
+    setTimeout(function(){ friend_audio_init.play(); }, 850);
+}
+
+function pickNameAudio() {
+    var pick_name_audio_url = '../../assets/friend_audio/' + 'C' + randAudio() + '.mp3';
+    playClip(pick_name_audio_url)
+}
+
+function firstAudio() {
+    setTimeout(function(){ friend_audio_init.play(); }, 850);
 }
