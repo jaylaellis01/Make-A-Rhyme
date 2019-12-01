@@ -54,6 +54,8 @@ WordBox.prototype.draw = function(ctx, fill) {
         ctx.strokeRect(scaledX + (scaledW * 0.1), scaledY, scaledW*0.8, scaledH);
         ctx.strokeRect(scaledX, scaledY + (scaledH * 0.3), scaledW, scaledH*0.7);
     } else { // Draw image
+        scaledW = scaledW * 1.2;
+        scaledH = scaledH * 1.2;
         if (!document.getElementById(this.word)) { // Create image if it doesn't exist (can happen on page reload)
             let wordImage = document.createElement('img');
             wordImage.src = this.imageSrc;
@@ -150,11 +152,14 @@ function CanvasState(canvas) {
         var mx = mouse.x;
         var my = mouse.y;
         var words = myState.words;
+        console.log(myState.poemComplete);
         // Look through all of the WordBoxes to see if the mouse is inside of it
         for (var i = 0; i < words.length; i++) {
             // If where you clicked is inside of a WordBox, set the "clicked" state to true
             // This way the "selected" element won't be overwritten when you mouse over another object
-            if (this.poemComplete && words[i].contains(mx, my, myState.ctx)) {
+            
+            if (myState.poemComplete && words[i].contains(mx, my, myState.ctx)) {
+                console.log("clicked on one!");
                 makeList(words[i].categories, myState);
                 myState.selection = words[i];
                 myState.clicked = true;
@@ -253,11 +258,12 @@ CanvasState.prototype.selectWordWithID = function(boxID) {
                 this.selection = this.words[i];
                 this.valid = false;
                 this.clicked = true;
-                
                 makeList(this.words[i].categories, this);
                 return this.words[i];
             } else {
-                fullPoemText += (" " + this.words[i].word + " ");
+                if (!this.poemComplete) {
+                    fullPoemText += (" " + this.words[i].word + " ");
+                }
                 txt += (" " + this.words[i].word);
                 typeWriter();
                 playClipAndContinue(this.words[i].audioSrc);
@@ -652,7 +658,7 @@ var boxArr = [];
 var typingIndex = 0;
 var txt = "Poem Text Placeholder"; /* The text */
 var speed = 100; /* The speed/duration of the effect in milliseconds */
-
+var poemCompleted = false;
 var fullPoemText = "";
 // Writes out poem text
 function typeWriter() {
@@ -670,13 +676,16 @@ function readPoem() {
     txt = poemTextArr[poemIndex];
     typingIndex = 0;
     typeWriter();
-    fullPoemText += txt;
+    if (!poemCompleted) {
+        fullPoemText += txt;
+    }
     poemIndex++;
 }
 
 function chooseWord(boxID, canvasState) {
     console.log(fullPoemText);
     if (!boxID) {
+        poemCompleted = true;
         canvasState.poemComplete = true;
         document.getElementById("read-button").style.display = "flex";
         document.getElementById("print-poem").style.display = "flex";
