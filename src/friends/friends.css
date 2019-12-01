@@ -23,11 +23,8 @@ button {
     margin: 2%;
     border-radius: 25px;
     font-family: "Comic Sans MS", cursive, sans-serif;
+    text-align: center;
     font-size: 2.25vw;
-/*    filter: 150;*/
-/*    display: table-cell;
-    vertical-align: middle;*/
-
 }
 
     button img {
@@ -72,19 +69,24 @@ button {
         display: table;
     }
 
+.tablinks img {
+    margin-left: auto;
+    margin-right: auto;
+}
+.tablinks {
+    padding: 0;
+}
+
 /* WORD SELECTION LIST*/
 .wordLists {
     display: block;
     background-color: #E58F65;
     border-radius: 25px;
-    padding: 5px;
+    padding: 1%;
     width: calc(25%);
     height: 1300px;
     float: right;
     overflow: scroll;
-    /*border: 0.25em solid;
-    border-radius: 1em;
-    border-color: burlywood;*/
     margin-bottom: 1em;
     overflow-x: hidden;
 }
@@ -95,27 +97,23 @@ button {
     border-radius: 25px;
     width: 40%;
     display: inline-block;
-    padding-inline-start: 10;
-    margin-left: 20px;
-    margin-right: auto;
-    margin: 5%;
+    padding-inline-start: 10px;
+    margin-left: 10%;
     min-width: 5.1em;
     vertical-align:top;
 
 }
 
 .friendListElement {
+    padding: 0;
 
 }
 
 .WordItem {
     text-align: center;
     background-color: antiquewhite;
-    padding: 5px;
-    border-radius: 25px;
-    /*border: 0.25em solid;
-    border-radius: 1em;
-    border-color: burlywood;*/
+    line-height: 4em;
+    border-radius: 15px;
     margin-bottom: 0.5em;
 }
 
