@@ -142,3 +142,8 @@ ul {
     border-radius: 0.4em;
     padding: 0.5em;
 }
+
+.friendListElement {
+    margin: 1em;
+    padding: 0;
+}
