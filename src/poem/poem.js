@@ -54,8 +54,8 @@ WordBox.prototype.draw = function(ctx, fill) {
         ctx.strokeRect(scaledX + (scaledW * 0.1), scaledY, scaledW*0.8, scaledH);
         ctx.strokeRect(scaledX, scaledY + (scaledH * 0.3), scaledW, scaledH*0.7);
     } else { // Draw image
-        scaledW = scaledW * 1.2;
-        scaledH = scaledH * 1.2;
+        scaledW = scaledW * 1.3;
+        scaledH = scaledH * 1.3;
         if (!document.getElementById(this.word)) { // Create image if it doesn't exist (can happen on page reload)
             let wordImage = document.createElement('img');
             wordImage.src = this.imageSrc;
@@ -287,7 +287,9 @@ CanvasState.prototype.loadState = function() {
                 this.addWord(new WordBox(w.x, w.y, w.w, w.h, w.fill, w.categories, w.boxID));
             } else {
                 this.addWord(new WordBox(w.x, w.y, w.w, w.h, w.fill, w.categories, w.boxID, w.word, w.completed, w.imageSrc, w.audioSrc));
-                fullPoemText += " " + w.word + " ";
+                if (w.word == read_cookie('quizWord').word) {
+                    fullPoemText += " " + w.word + " ";
+                } 
             }
         }
         this.valid = false;
