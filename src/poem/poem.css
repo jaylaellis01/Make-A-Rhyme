@@ -38,13 +38,6 @@ ul {
     font-size: 1.5em;
 }
 
-#read-button {
-    display: block;
-    /*height: 100vh;*/
-    padding-left:5vw;
-    width: 10vw;
-}
-
 /* Custom sidebar CSS to make it smaller */
 .sidenav {
     min-width: 1em;

@@ -130,6 +130,7 @@ function CanvasState(canvas) {
     this.selection = null;
     this.clicked = false;
     this.resize = false;
+    this.poemComplete = false;
 
     // **** Then events! ****
 
@@ -153,7 +154,7 @@ function CanvasState(canvas) {
         for (var i = 0; i < words.length; i++) {
             // If where you clicked is inside of a WordBox, set the "clicked" state to true
             // This way the "selected" element won't be overwritten when you mouse over another object
-            if (words[i].contains(mx, my, myState.ctx)) {
+            if (this.poemComplete && words[i].contains(mx, my, myState.ctx)) {
                 makeList(words[i].categories, myState);
                 myState.selection = words[i];
                 myState.clicked = true;
@@ -256,7 +257,6 @@ CanvasState.prototype.selectWordWithID = function(boxID) {
                 makeList(this.words[i].categories, this);
                 return this.words[i];
             } else {
-                console.log("hello?");
                 fullPoemText += (" " + this.words[i].word + " ");
                 txt += (" " + this.words[i].word);
                 typeWriter();
@@ -373,7 +373,6 @@ function makeList(categories, canvasState) {
         // Create the HTML list item and set HTML class tag
         let listItem = document.createElement('li');
         listItem.className = "WordItem clickable";
-        console.log(listData[i].category);
         if (listData[i].category == 19) {
             // Get the name of the word
             var wordObjectVar = listData[i];
@@ -400,7 +399,6 @@ function makeList(categories, canvasState) {
         listItem.onmouseleave = function(){stopClip(clip_name);};
         
         // Log word name when list item is clicked
-        listItem.onclick = function(){console.log(wordName);};
 
         // Add the word name to the list item
         listItem.innerHTML = '<h2>' + wordName + '</h2>';
@@ -417,7 +415,6 @@ function makeList(categories, canvasState) {
         
         
         // Onclick function for all list items
-        listItem.onclick = function(){console.log(wordName);};
         
         
         // Add listItem to the listElement
@@ -430,24 +427,23 @@ function makeList(categories, canvasState) {
             } else {
                     listItem.onclick = function() {
                     canvasState.fillWord(wordPerson, wordCat, true);
-                    console.log(wordName);
-                    console.log(wordPerson);
                     fullPoemText += (" " + wordName + " ");
                     txt += (" " + wordName);
                     typeWriter();
                     playClipAndContinue(clip_name);
+                    listContainer.parentElement.removeChild(listContainer);
                 }
                 masteredWordsListElement.append(listItem);
             }
         } else if (listData[i].learned) {
             // Mastered words
             listItem.onclick = function() {
-                console.log("onclick", poemIndex);
                 canvasState.fillWord(wordName, wordCat, true);
                 fullPoemText += (" " + wordName + " ");
                 txt += (" " + wordName);
                 typeWriter();
                 playClipAndContinue(clip_name);
+                listContainer.parentElement.removeChild(listContainer);
                 // readPoem();
             }
             masteredWordsListElement.append(listItem);
@@ -480,7 +476,6 @@ function makeNamesList(categories, canvasState, clickedPerson) {
 
     // Establish the array which acts as a data source for the list
     var listData = JSON.parse(window.localStorage.getItem('friends'));
-    console.log(listData);
     
     // Make a container element for the lists and set HTML class tag
     let listContainer = document.createElement('div');
@@ -517,15 +512,12 @@ function makeNamesList(categories, canvasState, clickedPerson) {
                 const clip_name = '../../assets/word_assets/word_audio/' + friendNames[i] + '.mp3';    
                 listItem.onmouseenter = function(){playClip(clip_name);};
                 listItem.onmouseleave = function(){stopClip(clip_name);};
-                listItem.onclick = function(){}
                 
                 // Log word name when list item is clicked
-                listItem.onclick = function(){console.log(wordName);};
 
                 // Add the word name to the list item
                 listItem.innerHTML = '<h2>' + friendNames[i] + '</h2>';  
                 
-                listItem.onclick = function(){console.log(friendName);};
                 
                 // Onclick function for all list items
                 listItem.onclick = function() {
@@ -662,7 +654,6 @@ var txt = "Poem Text Placeholder"; /* The text */
 var speed = 100; /* The speed/duration of the effect in milliseconds */
 
 var fullPoemText = "";
-
 // Writes out poem text
 function typeWriter() {
     if (typingIndex < txt.length) {
@@ -684,6 +675,13 @@ function readPoem() {
 }
 
 function chooseWord(boxID, canvasState) {
+    console.log(fullPoemText);
+    if (!boxID) {
+        canvasState.poemComplete = true;
+        document.getElementById("read-button").style.display = "flex";
+        document.getElementById("print-poem").style.display = "flex";
+        return;
+    }
     if (boxID == "N/A") {
         readPoem();
     } else {
@@ -711,6 +709,8 @@ function printPoem() {
 // Init function called on page load
 function init() {
     // console.log(getCookie("currentPoem"));
+    document.getElementById("print-poem").style.display = "none";
+    document.getElementById("read-button").style.display = "none";
     var canvas = document.getElementById('canvas');
     var s = new CanvasState(canvas);
     var width = canvas.width;
