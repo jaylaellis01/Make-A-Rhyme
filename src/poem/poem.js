@@ -54,8 +54,8 @@ WordBox.prototype.draw = function(ctx, fill) {
         ctx.strokeRect(scaledX + (scaledW * 0.1), scaledY, scaledW*0.8, scaledH);
         ctx.strokeRect(scaledX, scaledY + (scaledH * 0.3), scaledW, scaledH*0.7);
     } else { // Draw image
-        scaledW = scaledW * 1.3;
-        scaledH = scaledH * 1.3;
+        scaledW = scaledW * 1.2;
+        scaledH = scaledH * 1.2;
         if (!document.getElementById(this.word)) { // Create image if it doesn't exist (can happen on page reload)
             let wordImage = document.createElement('img');
             wordImage.src = this.imageSrc;
