@@ -249,6 +249,8 @@ CanvasState.prototype.saveState = function() {
     localStorage.setItem("canvasWords", JSON.stringify(this.words));
     localStorage.setItem("poemIndex", JSON.stringify(poemIndex));
     localStorage.setItem("boxIndex", JSON.stringify(boxIndex));
+    localStorage.setItem("fullPoemText", JSON.stringify(fullPoemText));
+    localStorage.setItem("poemCompleted", JSON.stringify(poemCompleted));
 }
 
 CanvasState.prototype.selectWordWithID = function(boxID) {
@@ -290,6 +292,9 @@ CanvasState.prototype.loadState = function() {
     }
     poemIndex = JSON.parse(localStorage.getItem("poemIndex"));
     boxIndex = JSON.parse(localStorage.getItem("boxIndex"));
+    fullPoemText = JSON.parse(localStorage.getItem("fullPoemText"));
+    poemCompleted = JSON.parse(localStorage.getItem(poemCompleted));
+    this.poemComplete = poemCompleted;
 }
 
 // Function that actually draws the stuff on the canvas
@@ -431,12 +436,14 @@ function makeList(categories, canvasState) {
                 }
                 unmasteredWordsListElement.append(listItem);
             } else {
-                    listItem.onclick = function() {
+                listItem.onclick = function() {
                     canvasState.fillWord(wordPerson, wordCat, true);
-                    fullPoemText += (" " + wordName + " ");
-                    txt += (" " + wordName);
-                    typeWriter();
-                    playClipAndContinue(clip_name);
+                    if (!poemCompleted) {
+                        fullPoemText += (" " + wordName + " ");
+                        txt += (" " + wordName);
+                        typeWriter();
+                        playClipAndContinue(clip_name);
+                    }
                     listContainer.parentElement.removeChild(listContainer);
                 }
                 masteredWordsListElement.append(listItem);
@@ -445,10 +452,12 @@ function makeList(categories, canvasState) {
             // Mastered words
             listItem.onclick = function() {
                 canvasState.fillWord(wordName, wordCat, true);
-                fullPoemText += (" " + wordName + " ");
-                txt += (" " + wordName);
-                typeWriter();
-                playClipAndContinue(clip_name);
+                if (!poemCompleted) {
+                    fullPoemText += (" " + wordName + " ");
+                    txt += (" " + wordName);
+                    typeWriter();
+                    playClipAndContinue(clip_name);
+                }
                 listContainer.parentElement.removeChild(listContainer);
                 // readPoem();
             }
