@@ -279,6 +279,7 @@ CanvasState.prototype.selectWordWithID = function(boxID) {
 // Load the state of the words for when you come back from the quiz page
 CanvasState.prototype.loadState = function() {
     var load = JSON.parse(localStorage.getItem("canvasWords"));
+    fullPoemText = JSON.parse(localStorage.getItem("fullPoemText"));
     if (load != null) {
         for (var i = 0; i < load.length; i++) {
             var w = load[i];
@@ -286,13 +287,13 @@ CanvasState.prototype.loadState = function() {
                 this.addWord(new WordBox(w.x, w.y, w.w, w.h, w.fill, w.categories, w.boxID));
             } else {
                 this.addWord(new WordBox(w.x, w.y, w.w, w.h, w.fill, w.categories, w.boxID, w.word, w.completed, w.imageSrc, w.audioSrc));
+                fullPoemText += " " + w.word + " ";
             }
         }
         this.valid = false;
     }
     poemIndex = JSON.parse(localStorage.getItem("poemIndex"));
     boxIndex = JSON.parse(localStorage.getItem("boxIndex"));
-    fullPoemText = JSON.parse(localStorage.getItem("fullPoemText"));
     poemCompleted = JSON.parse(localStorage.getItem(poemCompleted));
     this.poemComplete = poemCompleted;
 }
