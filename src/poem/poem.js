@@ -54,6 +54,8 @@ WordBox.prototype.draw = function(ctx, fill) {
         ctx.strokeRect(scaledX + (scaledW * 0.1), scaledY, scaledW*0.8, scaledH);
         ctx.strokeRect(scaledX, scaledY + (scaledH * 0.3), scaledW, scaledH*0.7);
     } else { // Draw image
+        scaledW = scaledW * 1.3;
+        scaledH = scaledH * 1.3;
         if (!document.getElementById(this.word)) { // Create image if it doesn't exist (can happen on page reload)
             let wordImage = document.createElement('img');
             wordImage.src = this.imageSrc;
@@ -130,6 +132,7 @@ function CanvasState(canvas) {
     this.selection = null;
     this.clicked = false;
     this.resize = false;
+    this.poemComplete = false;
 
     // **** Then events! ****
 
@@ -149,11 +152,14 @@ function CanvasState(canvas) {
         var mx = mouse.x;
         var my = mouse.y;
         var words = myState.words;
+        console.log(myState.poemComplete);
         // Look through all of the WordBoxes to see if the mouse is inside of it
         for (var i = 0; i < words.length; i++) {
             // If where you clicked is inside of a WordBox, set the "clicked" state to true
             // This way the "selected" element won't be overwritten when you mouse over another object
-            if (words[i].contains(mx, my, myState.ctx)) {
+            
+            if (myState.poemComplete && words[i].contains(mx, my, myState.ctx)) {
+                console.log("clicked on one!");
                 makeList(words[i].categories, myState);
                 myState.selection = words[i];
                 myState.clicked = true;
@@ -243,6 +249,8 @@ CanvasState.prototype.saveState = function() {
     localStorage.setItem("canvasWords", JSON.stringify(this.words));
     localStorage.setItem("poemIndex", JSON.stringify(poemIndex));
     localStorage.setItem("boxIndex", JSON.stringify(boxIndex));
+    localStorage.setItem("fullPoemText", JSON.stringify(fullPoemText));
+    localStorage.setItem("poemCompleted", JSON.stringify(poemCompleted));
 }
 
 CanvasState.prototype.selectWordWithID = function(boxID) {
@@ -252,12 +260,12 @@ CanvasState.prototype.selectWordWithID = function(boxID) {
                 this.selection = this.words[i];
                 this.valid = false;
                 this.clicked = true;
-                
                 makeList(this.words[i].categories, this);
                 return this.words[i];
             } else {
-                console.log("hello?");
-                fullPoemText += (" " + this.words[i].word + " ");
+                if (!this.poemComplete) {
+                    fullPoemText += (" " + this.words[i].word + " ");
+                }
                 txt += (" " + this.words[i].word);
                 typeWriter();
                 playClipAndContinue(this.words[i].audioSrc);
@@ -271,6 +279,7 @@ CanvasState.prototype.selectWordWithID = function(boxID) {
 // Load the state of the words for when you come back from the quiz page
 CanvasState.prototype.loadState = function() {
     var load = JSON.parse(localStorage.getItem("canvasWords"));
+    fullPoemText = JSON.parse(localStorage.getItem("fullPoemText"));
     if (load != null) {
         for (var i = 0; i < load.length; i++) {
             var w = load[i];
@@ -278,12 +287,17 @@ CanvasState.prototype.loadState = function() {
                 this.addWord(new WordBox(w.x, w.y, w.w, w.h, w.fill, w.categories, w.boxID));
             } else {
                 this.addWord(new WordBox(w.x, w.y, w.w, w.h, w.fill, w.categories, w.boxID, w.word, w.completed, w.imageSrc, w.audioSrc));
+                if (w.word == read_cookie('quizWord').word) {
+                    fullPoemText += " " + w.word + " ";
+                } 
             }
         }
         this.valid = false;
     }
     poemIndex = JSON.parse(localStorage.getItem("poemIndex"));
     boxIndex = JSON.parse(localStorage.getItem("boxIndex"));
+    poemCompleted = JSON.parse(localStorage.getItem(poemCompleted));
+    this.poemComplete = poemCompleted;
 }
 
 // Function that actually draws the stuff on the canvas
@@ -373,7 +387,6 @@ function makeList(categories, canvasState) {
         // Create the HTML list item and set HTML class tag
         let listItem = document.createElement('li');
         listItem.className = "WordItem clickable";
-        console.log(listData[i].category);
         if (listData[i].category == 19) {
             // Get the name of the word
             var wordObjectVar = listData[i];
@@ -400,7 +413,6 @@ function makeList(categories, canvasState) {
         listItem.onmouseleave = function(){stopClip(clip_name);};
         
         // Log word name when list item is clicked
-        listItem.onclick = function(){console.log(wordName);};
 
         // Add the word name to the list item
         listItem.innerHTML = '<h2>' + wordName + '</h2>';
@@ -417,7 +429,6 @@ function makeList(categories, canvasState) {
         
         
         // Onclick function for all list items
-        listItem.onclick = function(){console.log(wordName);};
         
         
         // Add listItem to the listElement
@@ -428,26 +439,29 @@ function makeList(categories, canvasState) {
                 }
                 unmasteredWordsListElement.append(listItem);
             } else {
-                    listItem.onclick = function() {
+                listItem.onclick = function() {
                     canvasState.fillWord(wordPerson, wordCat, true);
-                    console.log(wordName);
-                    console.log(wordPerson);
-                    fullPoemText += (" " + wordName + " ");
-                    txt += (" " + wordName);
-                    typeWriter();
-                    playClipAndContinue(clip_name);
+                    if (!poemCompleted) {
+                        fullPoemText += (" " + wordName + " ");
+                        txt += (" " + wordName);
+                        typeWriter();
+                        playClipAndContinue(clip_name);
+                    }
+                    listContainer.parentElement.removeChild(listContainer);
                 }
                 masteredWordsListElement.append(listItem);
             }
         } else if (listData[i].learned) {
             // Mastered words
             listItem.onclick = function() {
-                console.log("onclick", poemIndex);
                 canvasState.fillWord(wordName, wordCat, true);
-                fullPoemText += (" " + wordName + " ");
-                txt += (" " + wordName);
-                typeWriter();
-                playClipAndContinue(clip_name);
+                if (!poemCompleted) {
+                    fullPoemText += (" " + wordName + " ");
+                    txt += (" " + wordName);
+                    typeWriter();
+                    playClipAndContinue(clip_name);
+                }
+                listContainer.parentElement.removeChild(listContainer);
                 // readPoem();
             }
             masteredWordsListElement.append(listItem);
@@ -480,7 +494,6 @@ function makeNamesList(categories, canvasState, clickedPerson) {
 
     // Establish the array which acts as a data source for the list
     var listData = JSON.parse(window.localStorage.getItem('friends'));
-    console.log(listData);
     
     // Make a container element for the lists and set HTML class tag
     let listContainer = document.createElement('div');
@@ -517,15 +530,12 @@ function makeNamesList(categories, canvasState, clickedPerson) {
                 const clip_name = '../../assets/word_assets/word_audio/' + friendNames[i] + '.mp3';    
                 listItem.onmouseenter = function(){playClip(clip_name);};
                 listItem.onmouseleave = function(){stopClip(clip_name);};
-                listItem.onclick = function(){}
                 
                 // Log word name when list item is clicked
-                listItem.onclick = function(){console.log(wordName);};
 
                 // Add the word name to the list item
                 listItem.innerHTML = '<h2>' + friendNames[i] + '</h2>';  
                 
-                listItem.onclick = function(){console.log(friendName);};
                 
                 // Onclick function for all list items
                 listItem.onclick = function() {
@@ -660,9 +670,8 @@ var boxArr = [];
 var typingIndex = 0;
 var txt = "Poem Text Placeholder"; /* The text */
 var speed = 100; /* The speed/duration of the effect in milliseconds */
-
+var poemCompleted = false;
 var fullPoemText = "";
-
 // Writes out poem text
 function typeWriter() {
     if (typingIndex < txt.length) {
@@ -679,11 +688,21 @@ function readPoem() {
     txt = poemTextArr[poemIndex];
     typingIndex = 0;
     typeWriter();
-    fullPoemText += txt;
+    if (!poemCompleted) {
+        fullPoemText += txt;
+    }
     poemIndex++;
 }
 
 function chooseWord(boxID, canvasState) {
+    console.log(fullPoemText);
+    if (!boxID) {
+        poemCompleted = true;
+        canvasState.poemComplete = true;
+        document.getElementById("read-button").style.display = "flex";
+        document.getElementById("print-poem").style.display = "flex";
+        return;
+    }
     if (boxID == "N/A") {
         readPoem();
     } else {
@@ -711,6 +730,8 @@ function printPoem() {
 // Init function called on page load
 function init() {
     // console.log(getCookie("currentPoem"));
+    document.getElementById("print-poem").style.display = "none";
+    document.getElementById("read-button").style.display = "none";
     var canvas = document.getElementById('canvas');
     var s = new CanvasState(canvas);
     var width = canvas.width;
