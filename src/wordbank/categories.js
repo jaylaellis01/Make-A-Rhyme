@@ -7,9 +7,9 @@ window.onload = function makeButtons() {
     
     //Setup div to hold the buttons
     listContainer = document.createElement('div');
-
     listContainer.className = "tab";
     document.getElementsByTagName('body')[0].appendChild(listContainer);
+    document.title = "Categories";
 
     for(i = 1; i <= 18; i++) {
         // create a button for each category in the list

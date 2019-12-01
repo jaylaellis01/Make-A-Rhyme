@@ -83,10 +83,14 @@ WordBox.prototype.fillWord = function(wordName, wordCat) {
     this.completed = true;
     if (wordCat == 19) {
         this.imageSrc = '../../assets/friend_art/' + wordName + '.png';
+        var friends = JSON.parse(window.localStorage.getItem('friends'));
+        audioName = friends.find(function(friendObject) { return friendObject.person == wordName;}).name;
+        this.audioSrc = '../../assets/word_assets/word_audio/' + audioName + '.mp3';
+        this.word = audioName;
     } else {
         this.imageSrc = '../../assets/word_assets/word_art/' + wordCat + '/' + wordName + '.png';
+        this.audioSrc = '../../assets/word_assets/word_audio/' + wordName + '.mp3';
     }
-    this.audioSrc = '../../assets/word_assets/word_audio/' + wordName + '.mp3';
     let wordImage = document.createElement('img');
     wordImage.src = this.imageSrc;
     wordImage.id = this.word;
@@ -418,10 +422,23 @@ function makeList(categories, canvasState) {
         
         // Add listItem to the listElement
         if (listData[i].category == 19) {
-            listItem.onclick = function() {
-                canvasState.fillWord(wordPerson, wordCat, true);
+            if (wordName == "?") {
+                listItem.onclick = function() {
+                    makeNamesList(categories, canvasState, wordPerson);
+                }
+                unmasteredWordsListElement.append(listItem);
+            } else {
+                    listItem.onclick = function() {
+                    canvasState.fillWord(wordPerson, wordCat, true);
+                    console.log(wordName);
+                    console.log(wordPerson);
+                    fullPoemText += (" " + wordName + " ");
+                    txt += (" " + wordName);
+                    typeWriter();
+                    playClipAndContinue(clip_name);
+                }
+                masteredWordsListElement.append(listItem);
             }
-            masteredWordsListElement.append(listItem);
         } else if (listData[i].learned) {
             // Mastered words
             listItem.onclick = function() {
@@ -453,6 +470,83 @@ function makeList(categories, canvasState) {
     document.getElementById('container').appendChild(listContainer);
 }
 
+function makeNamesList(categories, canvasState, clickedPerson) {
+
+    pickNameAudio();
+    let exisitingLists = document.getElementById('wordLists');
+    if (exisitingLists) {
+        exisitingLists.parentElement.removeChild(exisitingLists);
+    }
+
+    // Establish the array which acts as a data source for the list
+    var listData = JSON.parse(window.localStorage.getItem('friends'));
+    console.log(listData);
+    
+    // Make a container element for the lists and set HTML class tag
+    let listContainer = document.createElement('div');
+    listContainer.className = "wordLists";
+    listContainer.id = "wordLists";
+    
+    // Create HTML list elements for mastered and unmastered words and set HTML class tag
+    let friendListElement = document.createElement('ul');
+    friendListElement.className = "friendListElement";
+
+    // Add lists to the list container
+    listContainer.append(friendListElement)
+    
+    // Set up a loop that goes through the items in listItems one at a time
+
+    Papa.parse('../global/friends.csv', {
+        header: false,
+        skipEmptyLines: true,
+        download: true,
+        skipEmptyLines: true,
+        complete: function(results) {
+            friendNames = results.data[0];
+            // Create a list item for each word and place in apropriate list
+            for (i = 0; i < listData.length; ++i) {
+                // Create the HTML list item and set HTML class tag
+                let listItem = document.createElement('li');
+                listItem.className = "WordItem clickable";
+                listItem.id = friendNames[i];
+                
+                // Get the name of the word
+                let friendObject = listData[i];
+                
+                // Set up word audio on mouse over
+                const clip_name = '../../assets/word_assets/word_audio/' + friendNames[i] + '.mp3';    
+                listItem.onmouseenter = function(){playClip(clip_name);};
+                listItem.onmouseleave = function(){stopClip(clip_name);};
+                listItem.onclick = function(){}
+                
+                // Log word name when list item is clicked
+                listItem.onclick = function(){console.log(wordName);};
+
+                // Add the word name to the list item
+                listItem.innerHTML = '<h2>' + friendNames[i] + '</h2>';  
+                
+                listItem.onclick = function(){console.log(friendName);};
+                
+                // Onclick function for all list items
+                listItem.onclick = function() {
+                    // Change the name of the friend in storage
+                    var friends = JSON.parse(window.localStorage.getItem('friends'));
+                    friends.find(function(friendObject) { return friendObject.person == clickedPerson;}).name = this.id;
+                    window.localStorage.setItem('friends', JSON.stringify(friends));
+
+                    // Remake the word list with the newly named friend added
+                    makeList(categories, canvasState);
+                }
+                // Add listItem to the listElement
+                friendListElement.append(listItem);
+            }
+        }
+    });
+
+    // Add the lists div to the body of page
+    document.getElementById('container').appendChild(listContainer);
+}
+
 function bake_cookie(name, value) {
     var cookie = [name, '=', JSON.stringify(value), '; path=/;'].join('');
     document.cookie = cookie;
@@ -465,13 +559,30 @@ function read_cookie(name) {
 
 function playClip(clip_name) {
     // If poem audio is playing do not play sight word audio
-    if (!document.getElementById("poem_audio").paused) return;
+    if (!document.getElementById("poem_audio").paused || !document.getElementById("name_audio").paused) return;
     if (navigator.appName == "Microsoft Internet Explorer" && (navigator.appVersion.indexOf("MSIE 7")!=-1) || (navigator.appVersion.indexOf("MSIE 8")!=-1)) {
         if (document.all) {
             document.all.sound.src = "click.mp3";
         }
     } else {
         var audio = document.getElementById("preview_audio");
+        audio.src = clip_name;
+        const playPromise = audio.play();
+        if (playPromise !== null){
+            playPromise.catch(() => { console.log("Caught: playPromise !== null"); })
+        }
+    }
+}
+
+function playNameClip(clip_name) {
+    // If poem audio is playing do not play sight word audio
+    if (!document.getElementById("poem_audio").paused) return;
+    if (navigator.appName == "Microsoft Internet Explorer" && (navigator.appVersion.indexOf("MSIE 7")!=-1) || (navigator.appVersion.indexOf("MSIE 8")!=-1)) {
+        if (document.all) {
+            document.all.sound.src = "click.mp3";
+        }
+    } else {
+        var audio = document.getElementById("name_audio");
         audio.src = clip_name;
         const playPromise = audio.play();
         if (playPromise !== null){
@@ -526,6 +637,17 @@ function playNextAudio(index) {
     playPoemClip(audioPath);
 }
 
+function pickNameAudio() {
+    x = Math.random();
+    if (x <= 0.5) {
+        x = 1;
+    } else {
+        x =  2;
+    }
+    var pick_name_audio_url = '../../assets/friend_audio/' + 'C' + x + '.mp3';
+    playNameClip(pick_name_audio_url);
+}
+
 // Poem Variables
 var currentPoem = "";
 var poemIndex = 0;
@@ -577,6 +699,15 @@ function readBackPoem() {
 }
 
 
+var poemName = "";
+function printPoem() {
+    document.getElementById('poemTextPrint').innerText = fullPoemText;
+    document.getElementById('poemTitlePrint').innerText = poemName;
+
+    window.print();
+}
+
+
 // Init function called on page load
 function init() {
     // console.log(getCookie("currentPoem"));
@@ -601,6 +732,7 @@ function init() {
     } else { // else, get word info from JSON
         $.getJSON("poem_data.json", function(data) {
             var wordsArr = data["poems"][getCookie("currentPoem")]["words"];
+            document.title = data["poems"][getCookie("currentPoem")]["name"];
             var fillColor = 'rgba(232, 232, 232, 0.5)'
             for (typingIndex = 0; typingIndex < wordsArr.length; typingIndex++) {
                 var word = wordsArr[typingIndex];
@@ -611,9 +743,13 @@ function init() {
         $.getJSON("poem_data.json", function(data) {
             boxArr = data["poems"][getCookie("currentPoem")]["cueBox"];
             poemTextArr = data["poems"][getCookie("currentPoem")]["text"];
+            document.title = data["poems"][getCookie("currentPoem")]["name"];
             readPoem();
         });
     }
+    $.getJSON("poem_data.json", function(data) {
+        poemName = data["poems"][currentPoem]["name"];
+    });
 }
 
 
