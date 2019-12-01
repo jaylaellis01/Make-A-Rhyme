@@ -111,6 +111,10 @@ function makeFriendList(clickedPerson) {
                     div.onmouseleave = function(){stopClip(clip_name);};
                     div.innerHTML = this.id;
                     div.appendChild(img);
+
+                    //close name window
+                    var popup = document.getElementById("wordLists");
+                    popup.style.display = "none";
                 }
                 friendListElement.append(listItem);
             }
