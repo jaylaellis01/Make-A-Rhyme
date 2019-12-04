@@ -152,7 +152,6 @@ function CanvasState(canvas) {
         var mx = mouse.x;
         var my = mouse.y;
         var words = myState.words;
-        console.log(myState.poemComplete);
         // Look through all of the WordBoxes to see if the mouse is inside of it
         for (var i = 0; i < words.length; i++) {
             // If where you clicked is inside of a WordBox, set the "clicked" state to true
@@ -296,7 +295,7 @@ CanvasState.prototype.loadState = function() {
     }
     poemIndex = JSON.parse(localStorage.getItem("poemIndex"));
     boxIndex = JSON.parse(localStorage.getItem("boxIndex"));
-    poemCompleted = JSON.parse(localStorage.getItem(poemCompleted));
+    poemCompleted = (JSON.parse(localStorage.getItem(poemCompleted)) == "true");
     this.poemComplete = poemCompleted;
 }
 
@@ -683,6 +682,7 @@ function typeWriter() {
 
 // Reads the next line of the poem, plays audio and writes text
 function readPoem() {
+    console.log("ReadPoem", poemIndex, boxIndex);
     playNextAudio(poemIndex + 1);
     document.getElementById("poem_text").innerHTML = "";
     txt = poemTextArr[poemIndex];
@@ -733,6 +733,9 @@ function init() {
     document.getElementById("print-poem").style.display = "none";
     document.getElementById("read-button").style.display = "none";
     var canvas = document.getElementById('canvas');
+    if (!canvas) {
+        window.location.reload(false);
+    }
     var s = new CanvasState(canvas);
     var width = canvas.width;
     var height = canvas.height;
