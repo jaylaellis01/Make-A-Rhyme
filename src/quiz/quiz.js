@@ -218,7 +218,7 @@ function checkAnswer(clicked_id) {
 function onClickBack() {
     bake_cookie("mastered", false);
     bake_cookie("reload", true);
-    window.history.back();
+    window.location.replace(read_cookie("quizReturn"));
 }
 
 // Read JSON from cookies

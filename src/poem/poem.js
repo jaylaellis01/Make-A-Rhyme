@@ -747,6 +747,10 @@ function init() {
     if (read_cookie('reload')) {
         s.loadState();
         s.draw();
+        if (!read_cookie('mastered')) {
+            poemIndex--;
+            boxIndex--;
+        }
         bake_cookie('reload', false);
         myState = s;
         $.getJSON("poem_data.json", function(data) {
