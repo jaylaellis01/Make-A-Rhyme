@@ -204,7 +204,7 @@ function checkAnswer(clicked_id) {
         setTimeout(function(){
             bake_cookie("mastered", true);
             bake_cookie("reload", true);
-            window.history.back();
+            window.location.replace(read_cookie("quizReturn"));
         }, 2000);
     } else if (consecutive_incorrect >= 3) {
         showLearnWord();

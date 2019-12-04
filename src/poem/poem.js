@@ -471,10 +471,11 @@ function makeList(categories, canvasState) {
                 canvasState.fillWord(wordName, wordCat, false);
                 quizWord = wordObject;
                  // Store quizWord in the cookies
-                bake_cookie('quizWord', quizWord);                
+                bake_cookie('quizWord', quizWord);
+                bake_cookie('quizReturn', window.location.href);
                 // Go to quiz
                 canvasState.saveState();
-                window.location.href = '../quiz/quiz.html';
+                window.location.replace('../quiz/quiz.html');
             };
             unmasteredWordsListElement.append(listItem);
         }
@@ -771,6 +772,7 @@ function init() {
             readPoem();
         });
     }
+
     $.getJSON("poem_data.json", function(data) {
         poemName = data["poems"][currentPoem]["name"];
     });

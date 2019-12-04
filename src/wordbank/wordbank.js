@@ -70,9 +70,10 @@ window.onload = function makeList() {
             listItem.onclick = function() {
                 quizWord = wordObject;
                  // Store quizWord in the cookies
-                bake_cookie('quizWord', quizWord);                
+                bake_cookie('quizWord', quizWord);
+                bake_cookie('quizReturn', window.location.href);
                 // Go to quiz
-                window.location.href = '../quiz/quiz.html';
+                window.location.replace('../quiz/quiz.html');
             };
             listElementUnmastered.appendChild(listItem);
             
