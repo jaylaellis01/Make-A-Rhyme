@@ -18,6 +18,7 @@ Designed for our client, Dr. Walter Evans as part of our Junior Design project f
 * Word Pop-up box closes after the user chooses a word
 * Clicking on word multiple times no longer adds the word to the poem multiple times
 * Unable to mess up order of rhyme boxes on first read through
+* Fixed an issue in which returning from the quiz did not trigger the rhyme audio
 
 ### Known bugs and defects
 * Occasionally after coming back from the quiz page to the poem page, some of the previously filled boxes will be blank for a few seconds before reappearing
